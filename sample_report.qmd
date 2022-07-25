@@ -1,0 +1,84 @@
+---
+title: "Sample report: school survey data 2021"
+format: 
+  html:
+    toc: true
+    toc-depth: 2
+---
+
+```{r message=FALSE, echo=FALSE, warning=FALSE}
+library(tidyverse)
+#theme_set(theme_minimal())
+data<-read_csv("data/survey.csv")
+
+
+```
+
+## Contents
+
+## Contents
+
+## List of Tables
+
+## Acknowledgements
+
+## Executive Summary
+
+## Background
+
+## Aim
+
+## Methodology
+
+## Demographics of schools participating in the self-assessment tool: 2021 & 2022
+
+```{r echo=FALSE}
+
+data%>%
+  ggplot(aes(Sector, fill=Type))+
+  geom_bar()+
+  labs(x = "Types of schools", y = "Number of schools",
+    title="Survey 2021",
+       subtitle="Schools by sector and type")+
+  theme(legend.position="right")+
+  scale_fill_brewer(palette="GnBu")+
+  theme_minimal()
+
+data%>%
+  ggplot(aes(Sector, fill=SES))+
+  geom_bar()+
+  labs(x = "Types of schools", y = "Number of schools",
+    title="Survey 2021",
+       subtitle="Schools by sector and SES")+
+  theme(legend.position="right")+
+  scale_fill_brewer(palette="GnBu")+
+  theme_minimal()
+
+
+```
+
+## Results
+
+```{r}
+#| fig-column: margin
+data%>%
+  group_by(Sector)%>%
+  summarise(average_n=mean(total5),
+            average_npc=mean(total_pc))%>%
+  knitr::kable(caption="Effective school organisation")
+```
+
+
+## Part A Results
+
+## Part B Results
+
+## Summary -- quantitative results
+
+## Discussion
+
+## Conclusion
+
+## References
+
+## Appendices
