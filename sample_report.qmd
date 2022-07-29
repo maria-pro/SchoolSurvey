@@ -1,17 +1,52 @@
 ---
 title: "Sample report: school survey data 2021"
+execute: 
+  echo: false
+  warning: false
 format: 
   html:
     toc: true
     toc-depth: 2
+    
 ---
 
-```{r message=FALSE, echo=FALSE, warning=FALSE}
+```{r setup}
 library(tidyverse)
-#theme_set(theme_minimal())
-data<-read_csv("data/survey.csv")
+library(psych)
+library(gt)
+library(plotly)
+
+theme_set(theme_minimal())
+
+scale_colour_brewer_d <- function(...) {
+  scale_colour_brewer(palette = "Paired", ...)
+}
+
+scale_fill_brewer_d <- function(...) {
+  scale_fill_brewer(palette = "Paired", ...)
+}
+
+scale_colour_brewer_c <- function(...) {
+  scale_colour_distiller(palette = "Paired", ...)
+}
+
+scale_fill_brewer_c <- function(...) {
+  scale_fill_distiller(palette = "Paired")
+}
+
+options(
+  ggplot2.discrete.colour = scale_colour_brewer_d,
+  ggplot2.discrete.fill = scale_fill_brewer_d,
+  ggplot2.continuous.colour = scale_colour_brewer_c,
+  ggplot2.continuous.fill = scale_fill_brewer_c
+)
+```
 
 
+
+```{r data}
+data<-read_csv("data/survey1.csv")
+data<-data[rowSums(is.na(data)) != ncol(data), ] 
 ```
 
 ## Contents
@@ -32,32 +67,200 @@ data<-read_csv("data/survey.csv")
 
 ## Demographics of schools participating in the self-assessment tool: 2021 & 2022
 
-```{r echo=FALSE}
 
+### Chart demographics
+
+
+By Sector
+
+```{r}
 data%>%
+  count(Sector, sort=TRUE)%>%
+  gt()
+
+plot_ly(data=count(data, Sector), 
+        labels = ~Sector, values = ~n, 
+        type = 'pie',
+        name="Sector data")
+```
+
+By Type
+
+```{r}
+data%>%
+  count(Type, sort=TRUE)%>%
+  gt()
+
+plot_ly(data=count(data, Type), 
+        labels = ~Type, values = ~n, 
+        type = 'pie',
+        name="Type data")
+```
+
+By Sector
+
+```{r}
+data%>%
+  count(Region, sort=TRUE)%>%
+  gt()
+plot_ly(data=count(data, Region), 
+        labels = ~Region, values = ~n, 
+        type = 'pie',
+        name="Region data")
+```
+By SES
+
+```{r}
+data%>%
+  count(SES, sort=TRUE)%>%
+  gt()
+
+plot_ly(data=count(data, SES), 
+        labels = ~SES, values = ~n, 
+        type = 'pie',
+        name="SES data")
+```
+By ADII
+
+```{r}
+data%>%
+  count(ADII, sort=TRUE)%>%
+  gt()
+
+plot_ly(data=count(data, ADII), 
+        labels = ~ADII, values = ~n, 
+        type = 'pie',
+        name="ADII data")
+```
+
+By Metro/non-metro
+
+```{r}
+data%>%
+  count(data[,9], sort=TRUE)%>%
+  gt()
+
+
+plot_ly(data=count(data, data[,9]), 
+        labels = ~data[,9], values = ~n, 
+        type = 'pie',
+        name="Metro/non-metro data")
+```
+#### Part A - stats
+
+
+```{r}
+data%>%describe()%>%
+  knitr::kable()
+```
+
+Part A - Total5 
+
+Mean all schools 
+
+```{r}
+mean(data$total5, na.rm=TRUE)
+```
+
+Mean by Sector
+
+```{r}
+data%>%
+#  group_by(Sector)%>%
+  summarize(
+    mean=mean(total5), 
+    n=n()
+  )%>%
+  gt()
+```
+
+Mean by Type
+
+```{r}
+data%>%
+  group_by(Type)%>%
+  summarize(
+    mean=mean(total5), 
+    n=n()
+  )%>%
+  gt()
+```
+
+Mean by Region
+
+```{r}
+data%>%
+  group_by(Region)%>%
+  summarize(
+    mean=mean(total5), 
+    n=n()
+  )%>%
+  gt()
+```
+
+Mean by Region
+
+```{r}
+data%>%
+  group_by()%>%
+  summarize(
+    mean=mean(total5), 
+    n=n()
+  )%>%
+  gt()
+```
+
+Mean by Region
+
+```{r}
+data%>%
+  group_by()%>%
+  summarize(
+    mean=mean(total5), 
+    n=n()
+  )%>%
+  gt()
+```
+
+```{r}
+
+graph<-data%>%
   ggplot(aes(Sector, fill=Type))+
   geom_bar()+
   labs(x = "Types of schools", y = "Number of schools",
     title="Survey 2021",
        subtitle="Schools by sector and type")+
-  theme(legend.position="right")+
-  scale_fill_brewer(palette="GnBu")+
-  theme_minimal()
+  theme(legend.position="right")
+  ggplotly (graph)
 
-data%>%
+graph<-data%>%
   ggplot(aes(Sector, fill=SES))+
   geom_bar()+
   labs(x = "Types of schools", y = "Number of schools",
     title="Survey 2021",
        subtitle="Schools by sector and SES")+
-  theme(legend.position="right")+
-  scale_fill_brewer(palette="GnBu")+
-  theme_minimal()
+  theme(legend.position="right")
+  ggplotly (graph)
 
+gr1<-plot_ly()
+gr1<-gr1%>%add_pie(data=count(data, Sector),
+  labels=~Sector,
+  values=~n,
+  name="Sector data"
+)
 
+gr1<-gr1%>%add_pie(data=count(data, SES),
+                   labels=~SES,
+                   values=~n,
+                   name="SES data"
+                   )
+
+gr1 <- gr1 %>% layout(title = "Pie Charts with Subplots", showlegend = F,
+         xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+         yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+
+gr1
 ```
-
-## Results
 
 ```{r}
 #| fig-column: margin
@@ -68,10 +271,6 @@ data%>%
   knitr::kable(caption="Effective school organisation")
 ```
 
-
-## Part A Results
-
-## Part B Results
 
 ## Summary -- quantitative results
 
