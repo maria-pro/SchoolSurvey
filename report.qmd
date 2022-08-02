@@ -1,0 +1,104 @@
+---
+title: "Report 2021/2022"
+execute: 
+  echo: false
+  warning: false
+format: 
+  html:
+    toc: true
+    toc-depth: 2
+---
+
+
+```{r setup}
+library(tidyverse)
+#library(psych)
+library(gt)
+library(plotly)
+
+theme_set(theme_minimal())
+
+scale_colour_brewer_d <- function(...) {
+  scale_colour_brewer(palette = "Paired", ...)
+}
+
+scale_fill_brewer_d <- function(...) {
+  scale_fill_brewer(palette = "Paired", ...)
+}
+
+scale_colour_brewer_c <- function(...) {
+  scale_colour_distiller(palette = "Paired", ...)
+}
+
+scale_fill_brewer_c <- function(...) {
+  scale_fill_distiller(palette = "Paired")
+}
+
+options(
+  ggplot2.discrete.colour = scale_colour_brewer_d,
+  ggplot2.discrete.fill = scale_fill_brewer_d,
+  ggplot2.continuous.colour = scale_colour_brewer_c,
+  ggplot2.continuous.fill = scale_fill_brewer_c
+)
+```
+
+## Acknowledgements
+
+## Executive Summary
+
+##  Background
+
+## Aim
+
+## Methodology
+
+
+```{r f1}
+
+```
+
+Quant: Compare results from all schools – 2021 and 2022
+
+Demographics of schools participating in the self-assessment tool (SAT): 2021 & 2022
+
+[Pie charts side-by-side: 2021 and 2022.  Sector, Type, SES, ADII, Metro/non-metro; 2022 only: Engagement A (Low, High) and Engagement B (Low, Medium, High)
+
+## Results
+
+[Repeat charts from 2021 report, but with comparison to 2022 data.  So, for example, bar charts would show both 2021 data (striped) next to 2022 data (solid).  If charts get too crowded/too hard to read, can present side-by-side or vertically. Test for any statistically significant differences and indicate in chart.]
+
+
+```{r f2}
+
+```
+### Part A Results
+
+```{r f3}
+#barcharts by school type - p5
+# effect
+
+
+```
+
+
+```{r }
+
+```
+
+
+
+### Part B Results
+
+
+
+## Summary – quantitative results
+
+ 
+## Discussion
+[Integration of quant and qual results]
+## Conclusion
+## References
+## Appendices
+
+
+
