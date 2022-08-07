@@ -1,0 +1,87 @@
+﻿var,class,subclass,item
+School,ID,ID,ID
+Sector,DEMOGRAPHICS,DEMOGRAPHICS,Sector
+Type,DEMOGRAPHICS,DEMOGRAPHICS,Type
+SES,DEMOGRAPHICS,DEMOGRAPHICS,SES
+ADII,DEMOGRAPHICS,DEMOGRAPHICS,ADII
+Metro,DEMOGRAPHICS,DEMOGRAPHICS,Metro/non-metro
+total_engA1, Engagement A, Engagement A,Engagement A_1
+total_engA2, Engagement A, Engagement A,Engagement A_2
+total_engA3, Engagement A, Engagement A,Engagement A_3
+total_engA4, Engagement A, Engagement A,Engagement A_4
+total_engA5, Engagement A, Engagement A,Engagement A_5
+total_engA, Engagement A, Engagement A,TOTAL Engagement A
+total_engA_type, Engagement A, Engagement A,TOTAL Engagement A
+total_engB1,Engagement B,Engagement B,Engagement B_1
+total_engB2,Engagement B,Engagement B,Engagement B_2
+total_engB3,Engagement B,Engagement B,Engagement B_3
+total_engB4,Engagement B,Engagement B,Engagement B_4
+total_engB5,Engagement B,Engagement B,Engagement B_5
+total_engB6,Engagement B,Engagement B,Engagement B_6
+total_engB,Engagement B,Engagement B,TOTAL Engagement B
+total_engB_type,Engagement B,Engagement B,TOTAL Engagement B
+d1,PART A,Effective school organisation,"7.1 a committee that meets regularly to guide students, teachers and parents in creating and maintaining a supportive and connected social environment"
+d2,PART A,Effective school organisation,"7.2 guidelines that provide a consistent approach to the supervision of student behaviour on school grounds, including when students are online"
+d3,PART A,Effective school organisation,7.3 a system to manage ethical collection and analysis of data (eg: incident data) so we can prepare for and respond to antisocial behaviour
+d4,PART A,Effective school organisation,"7.4 confidential reporting systems for students to safely disclose incidents - including bullying, cyberbullying and other forms of antisocial behaviour"
+d5,PART A,Effective school organisation,"7.5 an induction process for new students, teachers and parents that outlines their respective roles in creating and maintaining a socially supportive and connected environment"
+parta1_1,PART A,"School plans, policies, and procedures","8.1 has a policy and related procedures that guide students, teachers and parents in creating and maintaining a supportive and connected social environment"
+parta1_2,PART A,"School plans, policies, and procedures","8.2 takes a whole school approach to behaviour management, explicitly outlining expected student behaviours and guiding staff to appropriately respond to offline and online antisocial behaviours"
+parta1_3,PART A,"School plans, policies, and procedures","8.3 employs ‘Acceptable Use Agreements’ for technology use that are signed by the students, teachers and parents"
+parta2_1,PART A,Respectful and caring school,"9,1 has a strong set of prosocial values in place to guide behaviour both on and offline"
+parta2_2,PART A,Respectful and caring school,"9.2 applies an agreed set of protocols to guide staff in modelling respectful behaviour in their everyday interactions with students, parents and other staff members, including in their online interactions"
+parta2_3,PART A,Respectful and caring school,"9.3 provides ways for students to formally and informally interact, in both same-age and cross-age groups, in order to foster supportive relationships across the school community"
+parta3_1,PART A,Effective teacher practices,10.1 formally foster positive student to student relationships through their teaching practice
+parta3_2,PART A,Effective teacher practices,"10.2 role model smart, safe and responsible use of digital technologies for students, in accordance with explicitly stated expectations about teacher behaviour"
+parta3_3,PART A,Effective teacher practices,10.3 adhere to an agreed set of approaches for positive classroom management and are skilled at responding appropriately to both online and offline antisocial behaviour in the student population
+parta3_4,PART A,Effective teacher practices,10.4 regularly participate in professional learning that enables them to integrate new information about technology into their practice
+parta4_1,PART A,eSmart curriculum,11.1 includes explicit teaching of rights and responsibilities as well as social and emotional skills in the curriculum
+parta4_2,PART A,eSmart curriculum,"11.2 includes the teaching of digital intelligence in the curriculum, and maintains related teacher knowledge and skills through professional learning"
+parta4_3,PART A,eSmart curriculum,11.3 uses curriculum planning to identify where and how digital intelligence is to be taught
+parta4_4,PART A,eSmart curriculum,"11.4 students are regularly involved in developing and delivering information about antisocial behaviours, such as bullying and cyberbullying, to a range of audiences"
+parta4_5,PART A,eSmart curriculum,"11.5 students develop, share and are involved in teaching about the smart, safe and responsible use of digital technologies to a range of audiences including peers and parents"
+parta5_1,PART A,Community partnerships,12.1 actively involves parents/carers in a wide range of activities and events within the life of the school community
+parta5_2,PART A,Community partnerships,"12.2 regularly communicates with parents/carers about both offline and online behavioural expectations, including antisocial behaviours such as bullying and cyberbullying"
+parta5_3,PART A,Community partnerships,12.3 has links with local community organisations to promote a consistent message about offline and online behaviour in order to build and maintain supportive and connected social environments
+parta_total,PART A,PART A,TOTAL (out of 23)
+ds_data1,PART B,DOMAIN: DATA,14.1
+ds_data2,PART B,DOMAIN: DATA,14.2
+ds_data3,PART B,DOMAIN: DATA,14.3
+ds_data4,PART B,DOMAIN: DATA,14.4
+ds_data5,PART B,DOMAIN: DATA,14.5
+ds_data6,PART B,DOMAIN: DATA,14.6
+ds_data7,PART B,DOMAIN: DATA,14.7
+ds_data8,PART B,DOMAIN: DATA,14.8
+ds_data9,PART B,DOMAIN: DATA,14.9
+ds_data_t36,PART B,DOMAIN: DATA,Total (out of 36)
+ds_data,PART B,DOMAIN: DATA,Total (out of 80)
+ds_gateway1,PART B,DOMAIN: GATEWAY BEHAVIOURS,15.1
+ds_gateway2,PART B,DOMAIN: GATEWAY BEHAVIOURS,15.2
+ds_gateway3,PART B,DOMAIN: GATEWAY BEHAVIOURS,15.3
+ds_gateway4,PART B,DOMAIN: GATEWAY BEHAVIOURS,15.4
+ds_gateway_t16,PART B,DOMAIN: GATEWAY BEHAVIOURS,Total (out of 16)
+ds_gateway,PART B,DOMAIN: GATEWAY BEHAVIOURS,Total (out of 80)
+ds_reporting1,PART B,DOMAIN: REPORTING,16.1
+ds_reporting2,PART B,DOMAIN: REPORTING,16.2
+ds_reporting3,PART B,DOMAIN: REPORTING,16.3
+ds_reporting4,PART B,DOMAIN: REPORTING,16.4
+ds_reporting_е16,PART B,DOMAIN: REPORTING,Total (out of 16)
+ds_reporting,PART B,DOMAIN: REPORTING,Total (out of 80)
+ds_response1,PART B,DOMAIN: RESPONSE,17.1
+ds_response2,PART B,DOMAIN: RESPONSE,17.2
+ds_response3,PART B,DOMAIN: RESPONSE,17.3
+ds_response4,PART B,DOMAIN: RESPONSE,17.4
+ds_response_t16,PART B,DOMAIN: RESPONSE,Total (out of 16)
+ds_response,PART B,DOMAIN: RESPONSE,Total out of 80)
+ds_climate1,PART B,DOMAIN: SCHOOL CLIMATE,18.1
+ds_climate2,PART B,DOMAIN: SCHOOL CLIMATE,18.2
+ds_climate3,PART B,DOMAIN: SCHOOL CLIMATE,18.3
+ds_climate_t12,PART B,DOMAIN: SCHOOL CLIMATE,Total (out of 12)
+ds_climate,PART B,DOMAIN: SCHOOL CLIMATE,Total (out of 80)
+pre_1,PART B,PRE-SURVEY1,13.1
+pre_2,PART B,PRE-SURVEY2,13.2
+post_8_1,PART B,POST-SURVEY1,19.1
+post_8_2,PART B,POST-SURVEY2,19.2
+ds_total,PART B,TOTAL: Domains,TOTAL (Domains) (out of 400)
+quadrant_results,PART B,Quadrant,Quadrant
+descriptor,PART B,Descriptor,Descriptor
