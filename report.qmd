@@ -9,12 +9,16 @@ format:
     toc-depth: 2
 ---
 
+```{r}
 
-```{r setup}
+#| label: libraries
+
 library(tidyverse)
-#library(psych)
+library(ggpattern)
+library(psych)
 library(gt)
 library(plotly)
+library(janitor)
 
 theme_set(theme_minimal())
 
@@ -40,65 +44,1018 @@ options(
   ggplot2.continuous.colour = scale_colour_brewer_c,
   ggplot2.continuous.fill = scale_fill_brewer_c
 )
+
+
+addvar<-function(data){
+  data<-data%>%mutate(total5=d1+d2+d3+d4+d5,
+         total_pc=total5/5,
+         parta1_total=parta1_1+parta1_2+parta1_3,
+         parta1_total_pc=parta1_total/3,
+         parta2_total=parta2_1+parta2_2+parta2_3,
+         parta2_total_pc=parta2_total/3, 
+         parta3_total=parta3_1+parta3_2+parta3_3+parta3_4,
+         parta3_total_pc=parta3_total/4,
+         parta4_total=parta4_1+parta4_2+parta4_3+parta4_4+parta4_5,
+         parta4_total_pc=parta4_total/ 5,
+         parta5_total=parta5_1+parta5_2+parta5_3,
+         parta5_total_pc=parta5_total/ 3
+         )
+}
+
+
+
+```
+
+```{r}
+#| label: loading_files
+#| message: false
+
+data2021<-read_csv("data/AMF2021.csv")
+data2021<-data2021[rowSums(is.na(data2021)) != ncol(data2021), ] 
+
+data2022<-read_csv("data/AMF2022.csv")
+data2022<-data2022[rowSums(is.na(data2022)) != ncol(data2022), ] 
+
+#stats2021<-data2021
+#total_cat<-as_vector(data_dic%>%distinct(subclass))
+
+#names(stats2021) <- total_cat
+
+  
+ # data2022
+
+
+#skimr::skim(data2022)
+#describe(data2021)
+
+#data2022 adjustment
+
+data2021<-addvar(data2021)
+
+data2022<-addvar(data2022)
+
+data_dic<-read_csv("data/data_dic.csv")
+
+#data_dic[7:21,1]
+
 ```
 
 ## Acknowledgements
 
+Friends, Romans, countrymen, lend me your ears;
+I come to bury Caesar, not to praise him.
+The evil that men do lives after them;
+The good is oft interred with their bones;
+So let it be with Caesar. The noble Brutus
+Hath told you Caesar was ambitious:
+If it were so, it was a grievous fault,
+And grievously hath Caesar answer’d it.
+Here, under leave of Brutus and the rest–
+For Brutus is an honourable man;
+So are they all, all honourable men–
+Come I to speak in Caesar’s funeral.
+He was my friend, faithful and just to me:
+But Brutus says he was ambitious;
+And Brutus is an honourable man.
+He hath brought many captives home to Rome
+Whose ransoms did the general coffers fill:
+Did this in Caesar seem ambitious?
+
+
 ## Executive Summary
 
-##  Background
+Friends, Romans, countrymen, lend me your ears;
+I come to bury Caesar, not to praise him.
+The evil that men do lives after them;
+The good is oft interred with their bones;
+So let it be with Caesar. The noble Brutus
+Hath told you Caesar was ambitious:
+If it were so, it was a grievous fault,
+And grievously hath Caesar answer’d it.
+Here, under leave of Brutus and the rest–
+For Brutus is an honourable man;
+So are they all, all honourable men–
+Come I to speak in Caesar’s funeral.
+He was my friend, faithful and just to me:
+But Brutus says he was ambitious;
+And Brutus is an honourable man.
+He hath brought many captives home to Rome
+Whose ransoms did the general coffers fill:
+Did this in Caesar seem ambitious?
 
-## Aim
+## Background
+
+Friends, Romans, countrymen, lend me your ears;
+I come to bury Caesar, not to praise him.
+The evil that men do lives after them;
+The good is oft interred with their bones;
+So let it be with Caesar. The noble Brutus
+Hath told you Caesar was ambitious:
+If it were so, it was a grievous fault,
+And grievously hath Caesar answer’d it.
+Here, under leave of Brutus and the rest–
+For Brutus is an honourable man;
+So are they all, all honourable men–
+Come I to speak in Caesar’s funeral.
+He was my friend, faithful and just to me:
+But Brutus says he was ambitious;
+And Brutus is an honourable man.
+He hath brought many captives home to Rome
+Whose ransoms did the general coffers fill:
+Did this in Caesar seem ambitious?## Aim
+
 
 ## Methodology
 
-
-```{r f1}
-
-```
-
-Quant: Compare results from all schools – 2021 and 2022
+Quant: Compare results from all schools -- 2021 and 2022
 
 Demographics of schools participating in the self-assessment tool (SAT): 2021 & 2022
 
-[Pie charts side-by-side: 2021 and 2022.  Sector, Type, SES, ADII, Metro/non-metro; 2022 only: Engagement A (Low, High) and Engagement B (Low, Medium, High)
+Pie charts side-by-side: 2021 and 2022. Sector, Type, SES, ADII, Metro/non-metro; 2022 only: Engagement A (Low, High) and Engagement B (Low, Medium, High)
 
+
+
+```{r}
+#| label: fig2-sector
+#| fig-cap: "Participants by sector"
+#| fig-subcap: ["Plot 1", "Plot 2"]
+#| layout-ncol: 2
+
+plot_ly(data=count(data2021, Sector), 
+        labels = ~Sector, values = ~n, 
+        type = 'pie',
+        name="Sector data 2021")%>%
+  layout(legend = list(orientation = 'h'),
+         title="2021: Participants by sector")
+
+
+plot_ly(data=count(data2022, Sector), 
+        labels = ~Sector, values = ~n, 
+        type = 'pie',
+        name="Sector data 2022")%>%
+  layout(legend = list(orientation = 'h'),
+         title="2022: Participants by sector")
+
+```
+
+
+
+```{r}
+
+#| label: fig2-type
+#| fig-cap: Participants by school type.
+#| warning: false
+
+
+plot_ly(data=count(data2021, Type), 
+        labels = ~Type, values = ~n, 
+        type = 'pie',
+        name="School Type data 2021",
+        colors = c("orange", "cyan", "purple"))%>%
+  layout(legend = list(orientation = 'h'),
+         title="2021: Participants by school type")
+
+plot_ly(data=count(data2022, Type), 
+        labels = ~Type, values = ~n, 
+        type = 'pie',
+        name="School Type data 2022")%>%
+  layout(legend = list(orientation = 'h'),
+         title="2022: Participants by school type")
+
+```
+
+
+Figure 3. Participants by SES
+```{r}
+#| label: fig3
+#| fig-cap: "Participants by SES"
+
+plot_ly(data=count(data2021, SES), 
+        labels = ~SES, values = ~n, 
+        type = 'pie',
+        name="School SES data 2021")%>%
+  layout(legend = list(orientation = 'h'),
+         title="2021: Participants by SES")
+
+plot_ly(data=count(data2022, SES), 
+        labels = ~SES, values = ~n, 
+        type = 'pie',
+        name="School SES data 2022")%>%
+  layout(legend = list(orientation = 'h'),
+         title="2022: Participants by SES")
+
+```
+
+
+Figure 4. Participants by ADII
+
+```{r}
+#| label: fig4
+#| fig-cap: "Participants by ADII"
+
+plot_ly(data=count(data2021, ADII), 
+        labels = ~ADII, values = ~n, 
+        type = 'pie',
+        name="School ADII data 2021")%>%
+  layout(legend = list(orientation = 'h'),
+         title="2021: Participants by ADII")
+
+plot_ly(data=count(data2022, ADII), 
+        labels = ~ADII, values = ~n, 
+        type = 'pie',
+        name="School ADII data 2022")%>%
+  layout(legend = list(orientation = 'h'),
+         title="2022: Participants by ADII")
+
+```
+
+Figure 5. Participants by location: metro / non-metro
+
+```{r}
+#| label: fig5
+#| fig-cap: "Participants by location: metro / non-metro"
+
+plot_ly(data=count(data2021, Metro), 
+        labels = ~Metro, values = ~n, 
+        type = 'pie',
+        name="School Metro data 2021")%>%
+  layout(legend = list(orientation = 'h'),
+         title="2021: Participants by Metro/non-metro")
+
+plot_ly(data=count(data2022, Metro), 
+        labels = ~Metro, values = ~n, 
+        type = 'pie',
+        name="School Metro data 2022")%>%
+  layout(legend = list(orientation = 'h'),
+         title="2022: Participants by Metro/non-metro")
+
+```
+
+Figure 6. Participants by DET region N/A
+Figure 7. Participants by eSmart status
+N/A
+
+Figure 8. Part A: average (median) number of eSmart action items completed by sector (out of 23)
+
+
+```{r}
+
+data2021%>%
+  select(Sector, parta_total)%>%
+  add_row(Sector='All', parta_total=median(data2021$parta_total))%>%
+  group_by(Sector)%>%
+  summarise(n=median(parta_total))%>%
+  ggplot(aes(x=Sector, y=n, fill=Sector))+
+  geom_col(width = 0.5)+
+  labs(title="2021:average (median) number of eSmart action items completed by sector (out of 23)",
+        x ="Sector", y = " ")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))
+
+
+
+data2022%>%
+  select(Sector, parta_total)%>%
+  add_row(Sector='All', parta_total=median(data2021$parta_total))%>%
+  group_by(Sector)%>%
+  summarise(n=median(parta_total))%>%
+  ggplot(aes(x=Sector, y=n, fill=Sector))+
+  geom_col(width = 0.5)+
+  labs(title="2022:average (median) number of eSmart action items completed by sector (out of 23)",
+        x ="Sector", y = " ")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))
+
+```
+
+Figure 9. Part A: number of eSmart action items achieved (out of 23) by sector
+
+
+```{r}
+data2021%>%
+  select(Sector, parta_total)%>%
+  ggplot(aes(parta_total, fill=Sector))+
+  geom_histogram()+
+    labs(title="2021: Part A: number of eSmart action items achieved (out of 23) by sector)",
+        x =" ", y = " Number of schools")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))
+  
+data2022%>%
+  select(Sector, parta_total)%>%
+  ggplot(aes(parta_total, fill=Sector))+
+  geom_bar()+
+    labs(title="2022: Part A: number of eSmart action items achieved (out of 23) by sector)",
+        x =" ", y = " Number of schools")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))
+```
+Figure 10. Part A: average (mean) completion of eSmart action items - all schools by Domain
+
+```{r}
+
+#----- Part A and Part B setup
+
+part_a_categories<-as_vector(data_dic%>%
+  filter(class=="PART A")%>%
+  distinct(subclass)
+  )
+  
+figa_categories<-append(c(
+  "School",
+  "Sector",
+  "Type",
+  "SES",
+  "ADII",
+  "Metro"
+),part_a_categories)
+
+#-----2021 - Part A
+
+temp2021_a<-data2021%>% select(
+  School,
+  Sector,
+  Type,
+  SES,
+  ADII,
+  Metro,
+total_pc,
+parta1_total_pc,
+parta2_total_pc,
+parta3_total_pc,
+parta4_total_pc,
+parta5_total_pc,
+parta_total)
+
+names(temp2021_a) <- figa_categories
+
+temp2021_f10<-temp2021_a%>%mutate(
+  across(
+    c(7:12),
+    ~ mean(.x, na.rm = TRUE)
+))%>%
+  select(c(7:12))%>%
+  distinct()%>%
+  pivot_longer(names_to="Categories",
+               values_to="Mean",
+               cols=everything())%>%
+  mutate(year="2021")
+
+#-----2022 - Part A
+
+temp2022_a<-data2022%>% select(
+  School,
+  Sector,
+  Type,
+  SES,
+  ADII,
+  Metro,
+total_pc,
+parta1_total_pc,
+parta2_total_pc,
+parta3_total_pc,
+parta4_total_pc,
+parta5_total_pc,
+parta_total)
+
+names(temp2022_a) <- figa_categories
+
+temp2022_f10<-temp2022_a%>%mutate(
+  across(
+    c(7:12),
+    ~ mean(.x, na.rm = TRUE)
+))%>%
+  select(c(7:12))%>%
+  distinct()%>%
+  pivot_longer(names_to="Categories",
+               values_to="Mean",
+               cols=everything())%>%
+  mutate(year="2022")
+
+temp_f10<-rbind(temp2021_f10, temp2022_f10)
+
+
+#
+```
+
+
+
+```{r}
+#part B
+part_b_categories<-as_vector(data_dic%>%
+  filter(class=="PART B")%>%
+  distinct(subclass)
+  )
+
+figb_categories<-append(c(
+  "School",
+  "Sector",
+  "Type",
+  "SES",
+  "ADII",
+  "Metro"
+),part_b_categories)
+
+#-----2021 - Part B
+
+temp2021_b<-data2021%>% select(
+  School,
+  Sector,
+  Type,
+  SES,
+  ADII,
+  Metro,
+  ds_data,
+  ds_gateway,
+  ds_reporting,
+  ds_response,
+  ds_climate,
+  pre_1,
+  pre_2,	
+  post_8_1,
+  post_8_2,
+  ds_total,
+  quadrant_results,	
+  descriptor)
+
+names(temp2021_b) <- figb_categories
+
+temp2021_b<-temp2021_b[rowSums(is.na(temp2021_b[7:18])) != ncol(temp2021_b[7:18]), ] 
+
+
+temp2021_b[1:2, 7:16]
+
+temp2021_f13n<-temp2021_b%>%mutate(
+  across(
+    c(7:16),
+    ~ mean(.x, na.rm = TRUE)
+))%>%
+  select(c(7:11))%>%
+  distinct()%>%
+  pivot_longer(names_to="Categories",
+               values_to="Mean",
+               cols=everything())%>%
+  mutate(year="2021")
+
+#-----2022 - Part B
+
+temp2022_b<-data2022%>% select(
+  School,
+  Sector,
+  Type,
+  SES,
+  ADII,
+  Metro,
+  ds_data,
+  ds_gateway,
+  ds_reporting,
+  ds_response,
+  ds_climate,
+  pre_1,
+  pre_2,	
+  post_8_1,
+  post_8_2,
+  ds_total,
+  quadrant_results,	
+  descriptor)
+
+names(temp2022_b) <- figb_categories
+
+temp2022_b<-temp2022_b[rowSums(is.na(temp2022_b[7:18])) != ncol(temp2022_b[7:18]), ] 
+
+temp2022_f13n<-temp2022_b%>%mutate(
+  across(
+    c(7:16),
+    ~ mean(.x, na.rm = TRUE)
+))%>%
+  select(c(7:11))%>%
+  distinct()%>%
+  pivot_longer(names_to="Categories",
+               values_to="Mean",
+               cols=everything())%>%
+  mutate(year="2022")
+
+
+temp_f13n<-rbind(temp2021_f13n, temp2022_f13n)
+#
+```
+
+
+```{r}
+#----- plot - part A
+
+temp_f10%>%
+  ggplot(aes(x=Categories, y= Mean))+
+  geom_col(width = 0.5)+
+  facet_wrap(vars(year))+
+    labs(title="2021-2022: Part A: average (mean) completion of eSmart action items - all schools by Domain)",
+        x =" ", y = " % assessed as completed")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+
+temp_f10%>%
+  ggplot(aes(x=Categories, y= Mean, fill=year))+
+  geom_col(stat="identity", position=position_dodge(), width = 0.5)+
+    labs(title="2021: Part A: average (mean) completion of eSmart action items - all schools by Domain)",
+        x =" ", y = " % assessed as completed")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+```
+
+
+Figure 11. Part A: average (mean) completion of eSmart action items by Domain by sector
+```{r}
+
+temp2021_a$year<-"2021"
+temp2022_a$year<-"2022"
+
+temp<-rbind(temp2021_a, temp2022_a)
+
+fig11<-temp%>%
+  group_by(Sector, year)%>%
+  summarise(
+    across(
+      c(6:11),
+      ~ mean(.x, na.rm = TRUE))
+    )%>%
+  pivot_longer(names_to="Categories",
+               values_to="Mean",
+               cols=!c(1:2))
+
+#----PLOT
+
+fig11%>%
+  ggplot(aes(x=Categories, y= Mean, fill=Sector))+
+  geom_col(stat="identity", position=position_dodge(), width = 0.5)+
+  coord_flip()+
+  facet_wrap(vars(year))+
+    labs(title="Part A: average (mean) completion of eSmart action items by Domain by sector",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+
+fig11%>%
+  ggplot(aes(x=Categories, y= Mean, fill=Sector))+
+  geom_col(stat="identity", position=position_dodge(), width = 0.5)+
+  coord_flip()+
+    labs(title="Part A: average (mean) completion of eSmart action items by Domain by sector",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+
+```
+
+
+Figure 12. Part A: Average (mean) completion by Domain by SES.
+
+```{r}
+fig12<-temp%>%
+  group_by(SES, year)%>%
+  summarise(
+    across(
+      c(6:11),
+      ~ mean(.x, na.rm = TRUE)
+      )
+    )%>%
+  pivot_longer(names_to="Categories",
+               values_to="Mean",
+               cols=!c(1:2))
+
+#----PLOT
+
+fig12%>%
+  ggplot(aes(x=Categories, y= Mean, fill=SES))+
+  geom_col(stat="identity", position=position_dodge(), width=0.5)+
+  coord_flip()+
+  facet_wrap(vars(year))+
+      labs(title="Part A: Average (mean) completion by Domain by SES",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+
+
+fig12%>%
+  ggplot(aes(x=Categories, y= Mean, fill=SES, linetype=year))+
+  geom_col(stat="identity", position=position_dodge(), width=0.5)+
+  coord_flip()+
+      labs(title="Part A: Average (mean) completion by Domain by SES",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+
+```
+
+
+Figure 13. Part B: results by Focus Area - all schools
+
+```{r}
+#----- plot - part B
+
+temp_f13n%>%
+  ggplot(aes(x=Categories, y= Mean))+
+  geom_col(width=0.5)+
+  facet_wrap(vars(year))+
+      labs(title="Part B: results by Focus Area - all schools",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+
+temp_f13n%>%
+  ggplot(aes(x=Categories, y= Mean, fill=year))+
+  geom_col(stat="identity", position=position_dodge(), width=0.5)+
+      labs(title="Part B: results by Focus Area - all schools",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+```
+
+```{r}
+
+temp2021_b$year<-"2021"
+temp2022_b$year<-"2022"
+
+temp_b<-rbind(temp2021_b, temp2022_b)
+
+fig14<-temp_b%>%
+  group_by(Sector, year)%>%
+  summarise(
+    across(
+      c(6:10),
+      ~ mean(.x, na.rm = TRUE)
+      )
+    )%>%
+  pivot_longer(names_to="Categories",
+               values_to="Mean",
+               cols=!c(1:2))
+
+#----PLOT
+
+fig14%>%
+  ggplot(aes(x=Categories, y= Mean, fill=Sector))+
+  geom_col(stat="identity", position=position_dodge(), width=0.5)+
+  coord_flip()+
+  facet_wrap(vars(year))+
+      labs(title="Part B: results by Focus Area by sector",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+
+fig14%>%
+  ggplot(aes(x=Categories, y= Mean, fill=Sector, linetype=year))+
+  geom_col(stat="identity", position=position_dodge(), width=0.5)+
+  coord_flip()+
+      labs(title="Part B: results by Focus Area by sector",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+```
+```{r}
+fig15<-temp_b%>%
+  group_by(SES, year)%>%
+  summarise(
+    across(
+      c(6:10),
+      mean)
+    )%>%
+  pivot_longer(names_to="Categories",
+               values_to="Mean",
+               cols=!c(1:2))
+
+#----PLOT
+
+fig15%>%
+  ggplot(aes(x=Categories, y= Mean, fill=SES))+
+  geom_col(stat="identity", position=position_dodge(), width=0.5)+
+  coord_flip()+
+  facet_wrap(vars(year))+
+      labs(title="Part B: results by Focus Area by SE$",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+
+fig15%>%
+  ggplot(aes(x=Categories, y= Mean, fill=SES, linetype=year))+
+  geom_col(stat="identity", position=position_dodge(), width=0.5)+
+  coord_flip()+
+      labs(title="Part B: results by Focus Area by SE$",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+
+```
+Figure 16. Part B: results by Focus Area by school type
+
+```{r}
+fig16<-temp_b%>%
+  group_by(Type, year)%>%
+  summarise(
+    across(
+      c(6:10),
+      mean)
+    )%>%
+  pivot_longer(names_to="Categories",
+               values_to="Mean",
+               cols=!c(1:2))
+
+#----PLOT
+
+fig16%>%
+  ggplot(aes(x=Categories, y= Mean, fill=Type))+
+  geom_col(stat="identity", position=position_dodge(), width=0.5)+
+  coord_flip()+
+  facet_wrap(vars(year))+
+      labs(title="Part B: results by Focus Area by school type",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+
+fig16%>%
+  ggplot(aes(x=Categories, y= Mean, fill=Type, linetype=year))+
+  geom_col(stat="identity", position=position_dodge(), width=0.5)+
+  coord_flip()+
+  facet_wrap(vars(year))+
+      labs(title="Part B: results by Focus Area by school type",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+
+```
+Figure 17. Part B: progress in eSmart journey - all schools - no data 
+
+
+Engagement - 2022 data only
+
+```{r}
+
+part_eng_categories<-as_vector(data_dic%>%
+  filter(grepl("Engagement", class, ignore.case = TRUE))%>%
+  distinct(subclass)
+  )
+
+fig_eng_categories<-append(c(
+  "School",
+  "Sector",
+  "Type",
+  "SES",
+  "ADII",
+  "Metro"
+), part_eng_categories)
+
+#-----2022 - engagement
+
+temp2022_eng<-data2022%>% select(
+  School,
+  Sector,
+  Type,
+  SES,
+  ADII,
+  Metro,
+total_engA_type,
+total_engB_type)
+
+
+#-----------Engagement A
+temp2022_eng%>%ggplot(aes(x=total_engA_type, fill=total_engA_type))+
+  geom_bar(width=0.5)+
+      labs(title="Part Engagement A",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+
+temp2022_eng%>%ggplot(aes(x=total_engA_type, fill=Sector))+
+  geom_bar(width=0.5)+
+      labs(title="Part Engagement A by Sector",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+temp2022_eng%>%ggplot(aes(x=total_engA_type, fill=Type))+
+  geom_bar(width=0.5)+
+      labs(title="Part Engagement A by Type",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+temp2022_eng%>%ggplot(aes(x=total_engA_type, fill=SES))+
+   geom_bar(width=0.5)+
+      labs(title="Part Engagement A by SES",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+temp2022_eng%>%ggplot(aes(x=total_engA_type, fill=ADII))+
+  geom_bar()
+
+temp2022_eng%>%ggplot(aes(x=total_engA_type, fill=Metro))+
+  geom_bar(width=0.5)+
+      labs(title="Part Engagement A by Metro/non-metro",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+
+#-----------Engagement B
+temp2022_eng%>%ggplot(aes(x=total_engB_type, fill=total_engB_type))+
+  geom_bar(width=0.5)+
+      labs(title="Part Engagement B",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+
+temp2022_eng%>%ggplot(aes(x=total_engB_type, fill=Sector))+
+  geom_bar(width=0.5)+
+      labs(title="Part Engagement B by Sector",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+temp2022_eng%>%ggplot(aes(x=total_engB_type, fill=Type))+
+  geom_bar(width=0.5)+
+      labs(title="Part Engagement B by Type",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+temp2022_eng%>%ggplot(aes(x=total_engB_type, fill=SES))+
+  geom_bar(width=0.5)+
+      labs(title="Part Engagement B by SES",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+temp2022_eng%>%ggplot(aes(x=total_engB_type, fill=ADII))+
+  geom_bar(width=0.5)+
+      labs(title="Part Engagement B by ADII",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+temp2022_eng%>%ggplot(aes(x=total_engB_type, fill=Metro))+
+  geom_bar(width=0.5)+
+      labs(title="Part Engagement B by Metro",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+# Comparative engagement
+
+names(temp2022_eng) <- fig_eng_categories
+
+temp2022_eng %>%
+  pivot_longer(names_to="Engagement",
+               values_to="value",
+               cols=c(7:8))%>%
+  ggplot(aes(x=value, fill=Engagement))+
+  geom_bar(position="dodge", width=0.5)+
+    geom_bar(width=0.5)+
+      labs(title="Part Engagement ",
+        x =" ", y = "")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+  
+```
+Figure 18.How well-placed schools believe they are to prevent a situation: pre- vs. post-Part B: self-assessment
+
+
+Pre-post 1
+```{r}
+
+#-------data 2021
+
+data2021%>%
+  ggplot(aes(x=pre_1, y=post_8_1))+
+  geom_point(na.rm = TRUE, color="deepskyblue4")+
+    geom_smooth(method=lm, se=FALSE, col='orange', size=1, na.rm = TRUE )+
+  labs(title="2021: How well-placed schools believe they are to prevent a situation: pre- vs. post-Part B: self-assessment",
+        x ="Pre", y = "Post")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))
+
+data2021%>%
+  ggplot(aes(x=pre_2, y=post_8_2))+
+  geom_point(na.rm = TRUE, color="deepskyblue4")+
+    geom_smooth(method=lm, se=FALSE, col='orange', size=1, na.rm = TRUE )+
+  labs(title="2021: How well-placed schools believe they are to respond to a situation: pre- vs. post-Part B: self-assessment",
+        x ="Pre", y = "Post")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))
+
+#-------data 2022
+
+data2022%>%
+  ggplot(aes(x=pre_1, y=post_8_1))+
+  geom_point(na.rm = TRUE, color="deepskyblue4")+
+    geom_smooth(method=lm, se=FALSE, col='orange', size=1, na.rm = TRUE )+
+  labs(title="2022: How well-placed schools believe they are to prevent a situation: pre- vs. post-Part B: self-assessment",
+        x ="Pre", y = "Post")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))
+
+data2022%>%
+  ggplot(aes(x=pre_2, y=post_8_2))+
+  geom_point(na.rm = TRUE, color="deepskyblue4")+
+    geom_smooth(method=lm, se=FALSE, col='orange', size=1, na.rm = TRUE )+
+  labs(title="2022: How well-placed schools believe they are to respond to a situation: pre- vs. post-Part B: self-assessment",
+        x ="Pre", y = "Post")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))
+```
+
+
+Figure 19. How well-placed schools believe they are to respond to a situation: pre- vs. post-Part B: self-assessment/
+
+Figure 20. Comparison of Part A and Part B scores - all schools
+
+
+Figure 21. two bar charts that include the 2021 vs. 2022 results for the six schools that completed the instrument both years -- by Domain and total for Part A, and by Focus Area and total for Part B.
 ## Results
 
-[Repeat charts from 2021 report, but with comparison to 2022 data.  So, for example, bar charts would show both 2021 data (striped) next to 2022 data (solid).  If charts get too crowded/too hard to read, can present side-by-side or vertically. Test for any statistically significant differences and indicate in chart.]
-
+\[Repeat charts from 2021 report, but with comparison to 2022 data. So, for example, bar charts would show both 2021 data (striped) next to 2022 data (solid). If charts get too crowded/too hard to read, can present side-by-side or vertically. Test for any statistically significant differences and indicate in chart.\]
 
 ```{r f2}
 
 ```
+
 ### Part A Results
-
-```{r f3}
-#barcharts by school type - p5
-# effect
-
-
-```
-
-
-```{r }
-
-```
 
 
 
 ### Part B Results
 
+## Summary -- quantitative results
 
-
-## Summary – quantitative results
-
- 
-## Discussion
-[Integration of quant and qual results]
-## Conclusion
-## References
-## Appendices
-
-
-
+  \## Discussion \[Integration of quant and qual results\] \## Conclusion \## References \## Appendices
