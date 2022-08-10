@@ -44,40 +44,40 @@ parta5_1,PART A,Community partnerships,12.1 actively involves parents/carers in 
 parta5_2,PART A,Community partnerships,"12.2 regularly communicates with parents/carers about both offline and online behavioural expectations, including antisocial behaviours such as bullying and cyberbullying"
 parta5_3,PART A,Community partnerships,12.3 has links with local community organisations to promote a consistent message about offline and online behaviour in order to build and maintain supportive and connected social environments
 parta_total,PART A,PART A,TOTAL (out of 23)
-ds_data1,PART B,DOMAIN: DATA,14.1
-ds_data2,PART B,DOMAIN: DATA,14.2
-ds_data3,PART B,DOMAIN: DATA,14.3
-ds_data4,PART B,DOMAIN: DATA,14.4
-ds_data5,PART B,DOMAIN: DATA,14.5
-ds_data6,PART B,DOMAIN: DATA,14.6
-ds_data7,PART B,DOMAIN: DATA,14.7
-ds_data8,PART B,DOMAIN: DATA,14.8
-ds_data9,PART B,DOMAIN: DATA,14.9
-ds_data_t36,PART B,DOMAIN: DATA,Total (out of 36)
-ds_data,PART B,DOMAIN: DATA,Total (out of 80)
-ds_gateway1,PART B,DOMAIN: GATEWAY BEHAVIOURS,15.1
-ds_gateway2,PART B,DOMAIN: GATEWAY BEHAVIOURS,15.2
-ds_gateway3,PART B,DOMAIN: GATEWAY BEHAVIOURS,15.3
-ds_gateway4,PART B,DOMAIN: GATEWAY BEHAVIOURS,15.4
-ds_gateway_t16,PART B,DOMAIN: GATEWAY BEHAVIOURS,Total (out of 16)
-ds_gateway,PART B,DOMAIN: GATEWAY BEHAVIOURS,Total (out of 80)
-ds_reporting1,PART B,DOMAIN: REPORTING,16.1
-ds_reporting2,PART B,DOMAIN: REPORTING,16.2
-ds_reporting3,PART B,DOMAIN: REPORTING,16.3
-ds_reporting4,PART B,DOMAIN: REPORTING,16.4
-ds_reporting_е16,PART B,DOMAIN: REPORTING,Total (out of 16)
-ds_reporting,PART B,DOMAIN: REPORTING,Total (out of 80)
-ds_response1,PART B,DOMAIN: RESPONSE,17.1
-ds_response2,PART B,DOMAIN: RESPONSE,17.2
-ds_response3,PART B,DOMAIN: RESPONSE,17.3
-ds_response4,PART B,DOMAIN: RESPONSE,17.4
-ds_response_t16,PART B,DOMAIN: RESPONSE,Total (out of 16)
-ds_response,PART B,DOMAIN: RESPONSE,Total out of 80)
-ds_climate1,PART B,DOMAIN: SCHOOL CLIMATE,18.1
-ds_climate2,PART B,DOMAIN: SCHOOL CLIMATE,18.2
-ds_climate3,PART B,DOMAIN: SCHOOL CLIMATE,18.3
-ds_climate_t12,PART B,DOMAIN: SCHOOL CLIMATE,Total (out of 12)
-ds_climate,PART B,DOMAIN: SCHOOL CLIMATE,Total (out of 80)
+ds_data1,PART B,DATA,14.1
+ds_data2,PART B,DATA,14.2
+ds_data3,PART B,DATA,14.3
+ds_data4,PART B,DATA,14.4
+ds_data5,PART B,DATA,14.5
+ds_data6,PART B,DATA,14.6
+ds_data7,PART B,DATA,14.7
+ds_data8,PART B,DATA,14.8
+ds_data9,PART B,DATA,14.9
+ds_data_t36,PART B,DATA,Total (out of 36)
+ds_data,PART B,DATA,Total (out of 80)
+ds_gateway1,PART B,GATEWAY BEHAVIOURS,15.1
+ds_gateway2,PART B,GATEWAY BEHAVIOURS,15.2
+ds_gateway3,PART B,GATEWAY BEHAVIOURS,15.3
+ds_gateway4,PART B,GATEWAY BEHAVIOURS,15.4
+ds_gateway_t16,PART B,GATEWAY BEHAVIOURS,Total (out of 16)
+ds_gateway,PART B,GATEWAY BEHAVIOURS,Total (out of 80)
+ds_reporting1,PART B,REPORTING,16.1
+ds_reporting2,PART B,REPORTING,16.2
+ds_reporting3,PART B,REPORTING,16.3
+ds_reporting4,PART B,REPORTING,16.4
+ds_reporting_е16,PART B,REPORTING,Total (out of 16)
+ds_reporting,PART B,REPORTING,Total (out of 80)
+ds_response1,PART B,RESPONSE,17.1
+ds_response2,PART B,RESPONSE,17.2
+ds_response3,PART B,RESPONSE,17.3
+ds_response4,PART B,RESPONSE,17.4
+ds_response_t16,PART B,RESPONSE,Total (out of 16)
+ds_response,PART B,RESPONSE,Total out of 80)
+ds_climate1,PART B,SCHOOL CLIMATE,18.1
+ds_climate2,PART B,SCHOOL CLIMATE,18.2
+ds_climate3,PART B,SCHOOL CLIMATE,18.3
+ds_climate_t12,PART B,SCHOOL CLIMATE,Total (out of 12)
+ds_climate,PART B,SCHOOL CLIMATE,Total (out of 80)
 pre_1,PART B,PRE-SURVEY1,13.1
 pre_2,PART B,PRE-SURVEY2,13.2
 post_8_1,PART B,POST-SURVEY1,19.1
