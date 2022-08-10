@@ -88,7 +88,7 @@ data2021<-data2021%>%
   mutate(
      Sector=factor(Sector,levels=c("Government","Catholic", "Independent")),
      Type=factor(Type,levels=c("Primary","Secondary", "Combined")),
-     SES=factor(SES,levels=c("Low","Med", "High")),
+     SES=factor(SES,levels=c("Low","Medium", "High")),
      ADII=factor(ADII,levels=c("Below Average","Above Average")),
     Metro=factor(Metro,levels=c("Non-metro","Metro"))
   )
@@ -97,7 +97,7 @@ data2022<-data2022%>%
   mutate(
      Sector=factor(Sector,levels=c("Government","Catholic", "Independent")),
      Type=factor(Type,levels=c("Primary","Secondary", "Combined")),
-     SES=factor(SES,levels=c("Low","Med", "High")),
+     SES=factor(SES,levels=c("Low","Medium", "High")),
      ADII=factor(ADII,levels=c("Below Average","Above Average")),
     Metro=factor(Metro,levels=c("Non-metro","Metro"))
   )
@@ -108,6 +108,7 @@ colors_list_sector <- list(
   "Catholic" = "#cf4648",
   "Independent" = "#93bc48"
 )
+
 
 colors_list_type <- list(
   "Primary" = "#ff902c",
@@ -128,8 +129,8 @@ colors_list_ADII <- list(
 
 colors_list_SES <- list(
   "Low" = "#e2a8a8",
-  "Med" = "#cf4648",
-  "High" = "#ab393a"
+  "Medium" = "#cf4648",
+  "High" = "#683333"
 )
 
 
@@ -369,6 +370,8 @@ geom_text(aes(label = n), vjust = -0)
 
 Figure 9. Part A: number of eSmart action items achieved (out of 23) by sector
 
+**NOTE** combining two years makes this chart really messy, especially with 6 different colour/patterns combinations and scales in the original report
+
 ### 2021 Part A: number of eSmart action items achieved (out of 23) by sector
 ```{r}
 
@@ -397,29 +400,34 @@ axis.line.x = element_line(colour = "black"))+
   scale_x_continuous(limits = c(0, 23), breaks = seq(0, 23, 1))+
     stat_count(aes(y=..count..,label=..count..), geom="text",vjust=2)
 
-  
-#  scale_y_continuous(limits = c(1, 9), breaks = seq(1, 9, 1))
- scale_x_discrete(breaks=seq(0, 23, 1))
-
-
-
-geom_text(aes(label = n), vjust = -0)
-
 ```
 ### 2022 Part A: number of eSmart action items achieved (out of 23) by sector
-
 ```{r}
 
 data2022%>%
   select(Sector, parta_total)%>%
   ggplot(aes(parta_total, fill=Sector))+
-  geom_bar()+
+  geom_histogram(binwidth = 0.5)+
     labs(title="2022: Part A: number of eSmart action items achieved (out of 23) by sector)",
         x =" ", y = " Number of schools")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+  theme(
+
+    legend.position="top",
+    legend.title=element_blank(),
+        
+panel.grid.major = element_blank(), 
+panel.grid.minor = element_blank(),
 panel.background = element_blank(),
-axis.line = element_line(colour = "black"))+
-  scale_fill_manual(values=colors_list_sector)
+
+#axis.title.y=element_blank(),
+#axis.text.y=element_blank(), 
+#axis.ticks.y=element_blank(),
+
+axis.ticks.x=element_blank(),
+axis.line.x = element_line(colour = "black"))+
+  scale_fill_manual(values=colors_list_sector)+
+  scale_x_continuous(limits = c(0, 23), breaks = seq(0, 23, 1))+
+    stat_count(aes(y=..count..,label=..count..), geom="text",vjust=2)
 
 ```
 
@@ -618,29 +626,31 @@ temp_f13n<-rbind(temp2021_f13n, temp2022_f13n)
 #----- plot - part A
 
 temp_f10%>%
-  ggplot(aes(x=Categories, y= Mean))+
-  geom_col(width = 0.5)+
-  facet_wrap(vars(year))+
-    labs(title="2021-2022: Part A: average (mean) completion of eSmart action items - all schools by Domain)",
-        x =" ", y = " % assessed as completed")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-panel.background = element_blank(),
-axis.line = element_line(colour = "black"))+
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
-  scale_fill_manual(values=colors_list_sector)
-
-
-temp_f10%>%
-  ggplot(aes(x=Categories, y= Mean, fill=year))+
+  ggplot(aes(x=Categories, y= Mean*100, fill=year))+
   geom_col(stat="identity", position=position_dodge(), width = 0.5)+
-    labs(title="2021: Part A: average (mean) completion of eSmart action items - all schools by Domain)",
+labs(title="2021/2022: Part A: average (mean) completion of eSmart action items - all schools by Domain)",
         x =" ", y = " % assessed as completed")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+    scale_fill_grey()+
+  theme(
+
+    legend.position="bottom",
+    legend.title=element_blank(),
+        
+panel.grid.major = element_blank(), 
+panel.grid.minor = element_blank(),
 panel.background = element_blank(),
-axis.line = element_line(colour = "black"))+
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+          
-   
-    scale_fill_grey()
+
+#axis.title.y=element_blank(),
+#axis.text.y=element_blank(), 
+#axis.ticks.y=element_blank(),
+
+axis.ticks.x=element_blank(),
+axis.line.x = element_line(colour = "black"))+
+    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, 20))+
+geom_text(aes(label = paste0(round(Mean*100),"%")), 
+          position=position_dodge(width=0.7), vjust=-0.5)
+
 
 ```
 
@@ -660,40 +670,60 @@ fig11<-temp%>%
       c(6:11),
       ~ mean(.x, na.rm = TRUE))
     )%>%
+  ungroup%>%
   pivot_longer(names_to="Categories",
                values_to="Mean",
                cols=!c(1:2))
 
 #----PLOT
+fig11%>%count(Categories)
 
 fig11%>%
+  ungroup%>%
+#  mutate(
+#    Categories=as_factor(Categories,levels=c(
+#      "Effective school organisation",
+#      "School plans, policies, and procedures",
+#      "Respectful and caring school",
+#      "Effective school organisation",
+#      "eSmart curriculum",
+#      "Community partnerships"))
+#         )%>%
   ggplot(aes(x=Categories, y= Mean, fill=Sector))+
-  geom_col(stat="identity", position=position_dodge(), width = 0.5)+
+  geom_col(stat="identity", position=position_dodge(), width = 0.7)+
   coord_flip()+
   facet_wrap(vars(year))+
-    labs(title="Part A: average (mean) completion of eSmart action items by Domain by sector",
+labs(title="2021/2022: Part A: average (mean) completion of eSmart action items by Domain by sector",
         x =" ", y = "")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+  theme(
+
+    legend.position="bottom",
+    legend.title=element_blank(),
+        
+panel.grid.major = element_blank(), 
+panel.grid.minor = element_blank(),
 panel.background = element_blank(),
-axis.line = element_line(colour = "black"))+
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
 
+#axis.title.y=element_blank(),
+#axis.text.y=element_blank(), 
+#axis.ticks.y=element_blank(),
 
-fig11%>%
-  ggplot(aes(x=Categories, y= Mean, fill=Sector))+
-  geom_col(stat="identity", position=position_dodge(), width = 0.5)+
-  coord_flip()+
-    labs(title="Part A: average (mean) completion of eSmart action items by Domain by sector",
-        x =" ", y = "")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-panel.background = element_blank(),
-axis.line = element_line(colour = "black"))+
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+axis.ticks.x=element_blank(),
+axis.line.x = element_line(colour = "black"))+
+#    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
 
+  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.20), labels = scales::percent)+
+  
+    geom_text(aes(label = round(Mean*100), group = Sector), 
+            position = position_dodge(width = 1), 
+            hjust = -0.2, vjust = 0.5, size = 3)+
+  scale_fill_manual(values=colors_list_sector)
 
 ```
 
-Figure 12. Part A: Average (mean) completion by Domain by SES.
+### Figure 12. Part A: Average (mean) completion by Domain by SES.
+
+**NOTE** I have to turn it as otherwise the text is too small or the chart is too messy
 
 ```{r}
 fig12<-temp%>%
@@ -712,29 +742,34 @@ fig12<-temp%>%
 
 fig12%>%
   ggplot(aes(x=Categories, y= Mean, fill=SES))+
-  geom_col(stat="identity", position=position_dodge(), width=0.5)+
+  geom_col(stat="identity", position=position_dodge(), width=0.7)+
   coord_flip()+
   facet_wrap(vars(year))+
-      labs(title="Part A: Average (mean) completion by Domain by SES",
+labs(title="2021/2022: Part A: Average (mean) completion by Domain by SES",
         x =" ", y = "")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+  theme(
+
+    legend.position="bottom",
+    legend.title=element_blank(),
+        
+panel.grid.major = element_blank(), 
+panel.grid.minor = element_blank(),
 panel.background = element_blank(),
-axis.line = element_line(colour = "black"))+
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
 
+#axis.title.y=element_blank(),
+#axis.text.y=element_blank(), 
+#axis.ticks.y=element_blank(),
 
+axis.ticks.x=element_blank(),
+axis.line.x = element_line(colour = "black"))+
+#    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
 
-fig12%>%
-  ggplot(aes(x=Categories, y= Mean, fill=SES, linetype=year))+
-  geom_col(stat="identity", position=position_dodge(), width=0.5)+
-  coord_flip()+
-      labs(title="Part A: Average (mean) completion by Domain by SES",
-        x =" ", y = "")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-panel.background = element_blank(),
-axis.line = element_line(colour = "black"))+
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
-
+  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.20), labels = scales::percent)+
+  
+    geom_text(aes(label = round(Mean*100), group = SES), 
+            position = position_dodge(width = 1), 
+            hjust = -0.2, vjust = 0.5, size = 3)+
+  scale_fill_manual(values=colors_list_SES)
 
 ```
 
@@ -747,23 +782,46 @@ temp_f13n%>%
   ggplot(aes(x=Categories, y= Mean))+
   geom_col(width=0.5)+
   facet_wrap(vars(year))+
-      labs(title="Part B: results by Focus Area - all schools",
-        x =" ", y = "")+
+  facet_wrap(vars(year))+
+    labs(title="2Part B: results by Focus Area - all schools",
+        x =" ", y = " Score 0-80")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
 panel.background = element_blank(),
 axis.line = element_line(colour = "black"))+
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, 20))+
+geom_text(aes(label = round(Mean)), 
+          position=position_dodge(width=0.7), vjust=-0.5)
+
 
 
 temp_f13n%>%
   ggplot(aes(x=Categories, y= Mean, fill=year))+
   geom_col(stat="identity", position=position_dodge(), width=0.5)+
-      labs(title="Part B: results by Focus Area - all schools",
-        x =" ", y = "")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+    labs(title="2Part B: results by Focus Area - all schools",
+        x =" ", y = " Score 0-80")+
+    scale_fill_grey()+
+  theme(
+
+    legend.position="bottom",
+    legend.title=element_blank(),
+        
+panel.grid.major = element_blank(), 
+panel.grid.minor = element_blank(),
 panel.background = element_blank(),
-axis.line = element_line(colour = "black"))+
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+#axis.title.y=element_blank(),
+#axis.text.y=element_blank(), 
+#axis.ticks.y=element_blank(),
+
+axis.ticks.x=element_blank(),
+axis.line.x = element_line(colour = "black"))+
+    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, 20))+
+geom_text(aes(label = round(Mean)), 
+          position=position_dodge(width=0.7), vjust=-0.5)
+
+
 ```
 
 ```{r}
@@ -794,22 +852,30 @@ fig14%>%
   facet_wrap(vars(year))+
       labs(title="Part B: results by Focus Area by sector",
         x =" ", y = "")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-panel.background = element_blank(),
-axis.line = element_line(colour = "black"))+
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+  theme(
 
-
-fig14%>%
-  ggplot(aes(x=Categories, y= Mean, fill=Sector, linetype=year))+
-  geom_col(stat="identity", position=position_dodge(), width=0.5)+
-  coord_flip()+
-      labs(title="Part B: results by Focus Area by sector",
-        x =" ", y = "")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+    legend.position="bottom",
+    legend.title=element_blank(),
+        
+panel.grid.major = element_blank(), 
+panel.grid.minor = element_blank(),
 panel.background = element_blank(),
-axis.line = element_line(colour = "black"))+
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+#axis.title.y=element_blank(),
+#axis.text.y=element_blank(), 
+#axis.ticks.y=element_blank(),
+
+axis.ticks.x=element_blank(),
+axis.line.x = element_line(colour = "black"))+
+#    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
+
+  scale_y_continuous(limits = c(0, 80), breaks = seq(0, 80, 10))+
+  
+    geom_text(aes(label = round(Mean), group = Sector), 
+            position = position_dodge(width = 1), 
+            hjust = -0.2, vjust = 0.5, size = 3)+
+  scale_fill_manual(values=colors_list_sector)
+
 
 ```
 
@@ -819,7 +885,7 @@ fig15<-temp_b%>%
   summarise(
     across(
       c(6:10),
-      mean)
+      ~ mean(.x, na.rm = TRUE))
     )%>%
   pivot_longer(names_to="Categories",
                values_to="Mean",
@@ -829,28 +895,33 @@ fig15<-temp_b%>%
 
 fig15%>%
   ggplot(aes(x=Categories, y= Mean, fill=SES))+
-  geom_col(stat="identity", position=position_dodge(), width=0.5)+
-  coord_flip()+
+  geom_col(stat="identity", position=position_dodge(), width=0.7)+
+    coord_flip()+
   facet_wrap(vars(year))+
-      labs(title="Part B: results by Focus Area by SE$",
+labs(title="2021/2022: Part B: results by Focus Area by SES",
         x =" ", y = "")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+  theme(
+
+    legend.position="bottom",
+    legend.title=element_blank(),
+        
+panel.grid.major = element_blank(), 
+panel.grid.minor = element_blank(),
 panel.background = element_blank(),
-axis.line = element_line(colour = "black"))+
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
 
+#axis.title.y=element_blank(),
+#axis.text.y=element_blank(), 
+#axis.ticks.y=element_blank(),
 
-fig15%>%
-  ggplot(aes(x=Categories, y= Mean, fill=SES, linetype=year))+
-  geom_col(stat="identity", position=position_dodge(), width=0.5)+
-  coord_flip()+
-      labs(title="Part B: results by Focus Area by SE$",
-        x =" ", y = "")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-panel.background = element_blank(),
-axis.line = element_line(colour = "black"))+
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+axis.ticks.x=element_blank(),
+axis.line.x = element_line(colour = "black"))+
+#    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
 
+  scale_y_continuous(limits = c(0, 80), breaks = seq(0, 80, 10))+  
+    geom_text(aes(label = round(Mean), group = SES), 
+            position = position_dodge(width = 1), 
+            hjust = -0.2, vjust = 0.5, size = 3)+
+  scale_fill_manual(values=colors_list_SES)
 
 ```
 
@@ -862,7 +933,7 @@ fig16<-temp_b%>%
   summarise(
     across(
       c(6:10),
-      mean)
+      ~ mean(.x, na.rm = TRUE))
     )%>%
   pivot_longer(names_to="Categories",
                values_to="Mean",
@@ -872,29 +943,33 @@ fig16<-temp_b%>%
 
 fig16%>%
   ggplot(aes(x=Categories, y= Mean, fill=Type))+
-  geom_col(stat="identity", position=position_dodge(), width=0.5)+
+  geom_col(stat="identity", position=position_dodge(), width=0.7)+
   coord_flip()+
   facet_wrap(vars(year))+
       labs(title="Part B: results by Focus Area by school type",
         x =" ", y = "")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+  theme(
+
+    legend.position="bottom",
+    legend.title=element_blank(),
+        
+panel.grid.major = element_blank(), 
+panel.grid.minor = element_blank(),
 panel.background = element_blank(),
-axis.line = element_line(colour = "black"))+
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
 
+#axis.title.y=element_blank(),
+#axis.text.y=element_blank(), 
+#axis.ticks.y=element_blank(),
 
-fig16%>%
-  ggplot(aes(x=Categories, y= Mean, fill=Type, linetype=year))+
-  geom_col(stat="identity", position=position_dodge(), width=0.5)+
-  coord_flip()+
-  facet_wrap(vars(year))+
-      labs(title="Part B: results by Focus Area by school type",
-        x =" ", y = "")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-panel.background = element_blank(),
-axis.line = element_line(colour = "black"))+
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+axis.ticks.x=element_blank(),
+axis.line.x = element_line(colour = "black"))+
+#    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
 
+  scale_y_continuous(limits = c(0, 80), breaks = seq(0, 80, 10))+  
+    geom_text(aes(label = round(Mean), group = Type), 
+            position = position_dodge(width = 1), 
+            hjust = -0.2, vjust = 0.5, size = 3)+
+  scale_fill_manual(values=colors_list_type)
 
 ```
 
@@ -911,9 +986,23 @@ temp_b%>%
   facet_wrap(vars(year))+
     labs(title=" ",
         x =" ", y = " Number of schools")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+  theme(
+
+    legend.position="bottom",
+    legend.title=element_blank(),
+        
+panel.grid.major = element_blank(), 
+panel.grid.minor = element_blank(),
 panel.background = element_blank(),
-axis.line = element_line(colour = "black"))+
+
+#axis.title.y=element_blank(),
+#axis.text.y=element_blank(), 
+#axis.ticks.y=element_blank(),
+
+axis.ticks.x=element_blank(),
+axis.line.x = element_line(colour = "black"))+
+#    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
+
   stat_count(aes(y=..count..,label=..count..), geom="text",vjust=-0.5)
 
 ```
