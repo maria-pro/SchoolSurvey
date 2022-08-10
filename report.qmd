@@ -103,17 +103,16 @@ data2022<-data2022%>%
   )
 
 
-
 colors_list_sector <- list(
-  "Government" = "#1B9E77",
-  "Catholic" = "#D95F02",
-  "Independent" = "#7570B3"
+  "Government" = "#3d83c2",
+  "Catholic" = "#cf4648",
+  "Independent" = "#93bc48"
 )
 
 colors_list_type <- list(
-  "Primary" = "#1B9E77",
-  "Secondary" = "#D95F02",
-  "Combined" = "#7570B3"
+  "Primary" = "#ff902c",
+  "Secondary" = "#00aec9",
+  "Combined" = "#8663a7"
 )
 
 
@@ -123,9 +122,17 @@ colors_list_ADII <- list(
 )
 
 colors_list_ADII <- list(
-  "Below Average" = "#1B9E77",
-  "Above Average" = "#D95F02"
+  "Below Average" = "#cbcbcb",
+  "Above Average" = "#565656"
 )
+
+colors_list_SES <- list(
+  "Low" = "#e2a8a8",
+  "Med" = "#cf4648",
+  "High" = "#ab393a"
+)
+
+
 
 ```
 
@@ -156,13 +163,13 @@ Pie charts side-by-side: 2021 and 2022. Sector, Type, SES, ADII, Metro/non-metro
 #| fig-subcap: ["Plot 1", "Plot 2"]
 #| layout-ncol: 2
 
-data2021_colour<-data2021
-data2021_colour$color <- dplyr::recode(data2021_colour$Sector, !!!colors_list_sector)
+#data2021_colour<-data2021
+#data2021_colour$color <- dplyr::recode(data2021_colour$Sector, !!!colors_list_sector)
 
-plot_ly(data=count(data2021_colour, Sector), 
+plot_ly(data=count(data2021, Sector), 
         labels = ~Sector, values = ~n, 
         type = 'pie',
-        marker = list( colors = ~data2021_colour$color),
+    #    marker = list( colors = ~dplyr::recode(data2021$Sector, !!!colors_list_sector)),
         name="Sector data 2021")%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
@@ -172,10 +179,9 @@ plot_ly(data=count(data2021_colour, Sector),
 
 ```
 
+by Sector 2022
 
 ```{r}
-
-
 
 plot_ly(data=count(data2022, Sector), 
         labels = ~Sector, values = ~n, 
@@ -299,9 +305,7 @@ fig8<-data2021%>%
 
 fig8$Sector = factor(fig8$Sector,levels=c("Government","Catholic", "Independent", "All schools"))
 
-
-
-graph<-fig8%>%
+fig8%>%
   group_by(Sector)%>%
   summarise(n=median(parta_total))%>%
   ggplot(aes(x=Sector, y=n, fill=Sector))+
@@ -312,13 +316,11 @@ graph<-fig8%>%
     panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
 panel.background = element_blank(),
 axis.line = element_line(colour = "black"))+
-  scale_fill_manual(
-                         breaks = c("A", "B", "C", "D"),
-                         values = c("A" = "blue", "B" = "red", "C" = "black", "D"="yellow") )
-  
+  scale_fill_manual(values=c('#3d83c2', '#cf4648', '#93bc48', '8b8b8b'))
+```
 
 
-
+```{r}
 
 fig8%>%
   group_by(Sector)%>%
