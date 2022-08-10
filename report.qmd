@@ -295,7 +295,7 @@ Figure 6. Participants by DET region N/A Figure 7. Participants by eSmart status
 
 Figure 8. Part A: average (median) number of eSmart action items completed by sector (out of 23)
 
-2021: average (median) number of eSmart action items completed by sector (out of 23)
+#### 2021: average (median) number of eSmart action items completed by sector (out of 23)
 
 ```{r}
 
@@ -318,9 +318,16 @@ panel.background = element_blank(),
 axis.line = element_line(colour = "black"))+
   scale_fill_manual(values=c('#3d83c2', '#cf4648', '#93bc48', '8b8b8b'))
 ```
+### 2022: average (median) number of eSmart action items completed by sector (out of 23)
 
 
 ```{r}
+
+fig8<-data2022%>%
+  select(Sector, parta_total)%>%
+  add_row(Sector='All schools', parta_total=median(data2021$parta_total))
+
+fig8$Sector = factor(fig8$Sector,levels=c("Government","Catholic", "Independent", "All schools"))
 
 fig8%>%
   group_by(Sector)%>%
@@ -328,34 +335,19 @@ fig8%>%
   ggplot(aes(x=Sector, y=n, fill=Sector))+
   geom_col(width = 0.5)+
   labs(title=" ",
-        x =" ", y = " ")
-
-
-
-
-themes_list<-ggthemes_data$excel$themes
-
-data2022%>%
-  select(Sector, parta_total)%>%
-  add_row(Sector='All', parta_total=median(data2021$parta_total))%>%
-  group_by(Sector)%>%
-  summarise(n=median(parta_total))%>%
-  ggplot(aes(x=Sector, y=n, fill=Sector))+
-  geom_col(width = 0.5)+
-  labs(title="",
-        x ="Sector", y = " ")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        x =" ", y = " ")+
+  theme(legend.position="none",
+    panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
 panel.background = element_blank(),
-axis.line = element_line(colour = "black"))
+axis.line = element_line(colour = "black"))+
+  scale_fill_manual(values=c('#3d83c2', '#cf4648', '#93bc48', '8b8b8b'))
 
 ```
 
 Figure 9. Part A: number of eSmart action items achieved (out of 23) by sector
 
+### 2021 Part A: number of eSmart action items achieved (out of 23) by sector
 ```{r}
-
-
-
 
 data2021%>%
   select(Sector, parta_total)%>%
@@ -365,8 +357,14 @@ data2021%>%
         x =" ", y = " Number of schools")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
 panel.background = element_blank(),
-axis.line = element_line(colour = "black"))
-  
+axis.line = element_line(colour = "black"))+
+  scale_fill_manual(values=colors_list_sector)
+
+```
+### 2022 Part A: number of eSmart action items achieved (out of 23) by sector
+
+```{r}
+
 data2022%>%
   select(Sector, parta_total)%>%
   ggplot(aes(parta_total, fill=Sector))+
@@ -375,10 +373,14 @@ data2022%>%
         x =" ", y = " Number of schools")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
 panel.background = element_blank(),
-axis.line = element_line(colour = "black"))
+axis.line = element_line(colour = "black"))+
+  scale_fill_manual(values=colors_list_sector)
+
 ```
 
 Figure 10. Part A: average (mean) completion of eSmart action items - all schools by Domain
+
+
 
 ```{r}
 
@@ -578,7 +580,8 @@ temp_f10%>%
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
 panel.background = element_blank(),
 axis.line = element_line(colour = "black"))+
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
+  scale_fill_manual(values=colors_list_sector)
 
 
 temp_f10%>%
