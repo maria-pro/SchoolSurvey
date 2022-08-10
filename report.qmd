@@ -4,13 +4,10 @@ execute:
   echo: false
   warning: false
 always_allow_html: true
-format:
-    docx:
-        toc: true
-        toc-depth: 2
-        toc-title: Table of contents
-        number-sections: true
-        highlight-style: github
+format: 
+  html:
+    toc: true
+    toc-depth: 2
 ---
 
 ```{r}
@@ -86,11 +83,10 @@ data_dic<-read_csv("data/data_dic.csv")
 
 ```{r}
 #factor levels
-data2021%>%distinct(Sector)
 
 data2021<-data2021%>%
   mutate(
-     Sector=factor(School,levels=c("Government","Catholic", "Independent")),
+     Sector=factor(Sector,levels=c("Government","Catholic", "Independent")),
      Type=factor(Type,levels=c("Primary","Secondary", "Combined")),
      SES=factor(SES,levels=c("Low","Med", "High")),
      ADII=factor(ADII,levels=c("Below Average","Above Average")),
@@ -99,12 +95,37 @@ data2021<-data2021%>%
 
 data2022<-data2022%>%
   mutate(
-     Sector=factor(School,levels=c("Government","Catholic", "Independent")),
+     Sector=factor(Sector,levels=c("Government","Catholic", "Independent")),
      Type=factor(Type,levels=c("Primary","Secondary", "Combined")),
      SES=factor(SES,levels=c("Low","Med", "High")),
      ADII=factor(ADII,levels=c("Below Average","Above Average")),
     Metro=factor(Metro,levels=c("Non-metro","Metro"))
   )
+
+
+
+colors_list_sector <- list(
+  "Government" = "#1B9E77",
+  "Catholic" = "#D95F02",
+  "Independent" = "#7570B3"
+)
+
+colors_list_type <- list(
+  "Primary" = "#1B9E77",
+  "Secondary" = "#D95F02",
+  "Combined" = "#7570B3"
+)
+
+
+colors_list_ADII <- list(
+  "Below Average" = "#1B9E77",
+  "Above Average" = "#D95F02"
+)
+
+colors_list_ADII <- list(
+  "Below Average" = "#1B9E77",
+  "Above Average" = "#D95F02"
+)
 
 ```
 
@@ -135,13 +156,24 @@ Pie charts side-by-side: 2021 and 2022. Sector, Type, SES, ADII, Metro/non-metro
 #| fig-subcap: ["Plot 1", "Plot 2"]
 #| layout-ncol: 2
 
-plot_ly(data=count(data2021, Sector), 
+data2021_colour<-data2021
+data2021_colour$color <- dplyr::recode(data2021_colour$Sector, !!!colors_list_sector)
+
+plot_ly(data=count(data2021_colour, Sector), 
         labels = ~Sector, values = ~n, 
         type = 'pie',
+        marker = list( colors = ~data2021_colour$color),
         name="Sector data 2021")%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
+
+
+
+```
+
+
+```{r}
 
 
 
