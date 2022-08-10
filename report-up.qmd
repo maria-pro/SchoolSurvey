@@ -142,6 +142,7 @@ colors_list_SES <- list(
 )
 cols_SES <- c("#e2a8a8", "#cf4648", "#683333")
 
+cols_metro <- c("#755693","#ac9ac0")
 
 
 ```
@@ -306,59 +307,100 @@ plot_ly(data=count(data2022, SES),
 
 ```
 
-Figure 4. Participants by ADII
+### Figure 4. 2021 Participants by ADII
 
 ```{r}
-#| label: fig4
-#| fig-cap: "Participants by ADII"
+### 2021 Participants by ADII
+
+vals= count(data2021, ADII)
 
 plot_ly(data=count(data2021, ADII), 
         labels = ~ADII, values = ~n, 
         type = 'pie',
-        name="School ADII data 2021")%>%
+  marker = list(colors = cols_ADII),
+    texttext = "label",
+  textposition = 'outside',
+  text = vals$n,
+        name="ADII data 2021")%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
-         title=" ")
+         title=" ",
+         uniformtext=list(minsize=12, mode='hide'))
+
+```
+## Figure 4. 2022 Participants by ADII
+
+```{r}
+### 2022 Participants by ADII
+
+vals= count(data2022, ADII)
 
 plot_ly(data=count(data2022, ADII), 
         labels = ~ADII, values = ~n, 
         type = 'pie',
-        name="School ADII data 2022")%>%
+  marker = list(colors = cols_ADII),
+    texttext = "label",
+  textposition = 'outside',
+  text = vals$n,
+        name="ADII data 2022")%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
-         title=" ")
+         title=" ",
+         uniformtext=list(minsize=12, mode='hide'))
 
 ```
 
-Figure 5. Participants by location: metro / non-metro
+
+### Figure 5. 2021 Participants by location: metro / non-metro
 
 ```{r}
-#| label: fig5
-#| fig-cap: "Participants by location: metro / non-metro"
+### 2021 Participants by metro / non-metro
+
+vals= count(data2021, Metro)
 
 plot_ly(data=count(data2021, Metro), 
         labels = ~Metro, values = ~n, 
         type = 'pie',
-        name="School Metro data 2021")%>%
+  marker = list(colors = cols_metro),
+    texttext = "label",
+  textposition = 'outside',
+  text = vals$n,
+        name="Metro/non-metro data 2021")%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
-         title=" ")
+         title=" ",
+         uniformtext=list(minsize=12, mode='hide'))
+
+```
+
+### Figure 5. 2022 Participants by location: metro / non-metro
+
+```{r}
+### 2022 Participants by metro / non-metro
+
+vals= count(data2022, Metro)
 
 plot_ly(data=count(data2022, Metro), 
         labels = ~Metro, values = ~n, 
         type = 'pie',
-        name="School Metro data 2022")%>%
+  marker = list(colors = cols_metro),
+    texttext = "label",
+  textposition = 'outside',
+  text = vals$n,
+        name="Metro/non-metro data 2022")%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
-         title=" ")
+         title=" ",
+         uniformtext=list(minsize=12, mode='hide'))
 
 ```
+
 
 Figure 6. Participants by DET region N/A Figure 7. Participants by eSmart status N/A
 
 Figure 8. Part A: average (median) number of eSmart action items completed by sector (out of 23)
 
-#### 2021: average (median) number of eSmart action items completed by sector (out of 23)
+#### Figure 8. 2021: average (median) number of eSmart action items completed by sector (out of 23)
 
 ```{r}
 fig8<-data2021%>%
@@ -393,7 +435,7 @@ axis.line.x = element_line(colour = "black"))+
 geom_text(aes(label = n), vjust = -0)
 
 ```
-#### 2022: average (median) number of eSmart action items completed by sector (out of 23)
+#### Figure 8.  2022: average (median) number of eSmart action items completed by sector (out of 23)
 
 ```{r}
 
@@ -434,7 +476,7 @@ Figure 9. Part A: number of eSmart action items achieved (out of 23) by sector
 
 **NOTE** combining two years makes this chart really messy, especially with 6 different colour/patterns combinations and scales in the original report
 
-### 2021 Part A: number of eSmart action items achieved (out of 23) by sector
+### Figure 9. 2021 Part A: number of eSmart action items achieved (out of 23) by sector
 ```{r}
 
 data2021%>%
@@ -463,7 +505,7 @@ axis.line.x = element_line(colour = "black"))+
     stat_count(aes(y=..count..,label=..count..), geom="text",vjust=2)
 
 ```
-### 2022 Part A: number of eSmart action items achieved (out of 23) by sector
+### Figure 9. 2022 Part A: number of eSmart action items achieved (out of 23) by sector
 ```{r}
 
 data2022%>%
