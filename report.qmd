@@ -3,10 +3,14 @@ title: "Report 2021/2022"
 execute: 
   echo: false
   warning: false
-format: 
-  html:
-    toc: true
-    toc-depth: 2
+always_allow_html: true
+format:
+    docx:
+        toc: true
+        toc-depth: 2
+        toc-title: Table of contents
+        number-sections: true
+        highlight-style: github
 ---
 
 ```{r}
@@ -19,31 +23,10 @@ library(psych)
 library(gt)
 library(plotly)
 library(janitor)
+library(ggthemes)
+library(rvg)
 
-theme_set(theme_minimal())
 
-scale_colour_brewer_d <- function(...) {
-  scale_colour_brewer(palette = "Paired", ...)
-}
-
-scale_fill_brewer_d <- function(...) {
-  scale_fill_brewer(palette = "Paired", ...)
-}
-
-scale_colour_brewer_c <- function(...) {
-  scale_colour_distiller(palette = "Paired", ...)
-}
-
-scale_fill_brewer_c <- function(...) {
-  scale_fill_distiller(palette = "Paired")
-}
-
-options(
-  ggplot2.discrete.colour = scale_colour_brewer_d,
-  ggplot2.discrete.fill = scale_fill_brewer_d,
-  ggplot2.continuous.colour = scale_colour_brewer_c,
-  ggplot2.continuous.fill = scale_fill_brewer_c
-)
 
 
 addvar<-function(data){
@@ -100,70 +83,43 @@ data_dic<-read_csv("data/data_dic.csv")
 
 ```
 
+
+```{r}
+#factor levels
+data2021%>%distinct(Sector)
+
+data2021<-data2021%>%
+  mutate(
+     Sector=factor(School,levels=c("Government","Catholic", "Independent")),
+     Type=factor(Type,levels=c("Primary","Secondary", "Combined")),
+     SES=factor(SES,levels=c("Low","Med", "High")),
+     ADII=factor(ADII,levels=c("Below Average","Above Average")),
+    Metro=factor(Metro,levels=c("Non-metro","Metro"))
+  )
+
+data2022<-data2022%>%
+  mutate(
+     Sector=factor(School,levels=c("Government","Catholic", "Independent")),
+     Type=factor(Type,levels=c("Primary","Secondary", "Combined")),
+     SES=factor(SES,levels=c("Low","Med", "High")),
+     ADII=factor(ADII,levels=c("Below Average","Above Average")),
+    Metro=factor(Metro,levels=c("Non-metro","Metro"))
+  )
+
+```
+
+
 ## Acknowledgements
 
-Friends, Romans, countrymen, lend me your ears;
-I come to bury Caesar, not to praise him.
-The evil that men do lives after them;
-The good is oft interred with their bones;
-So let it be with Caesar. The noble Brutus
-Hath told you Caesar was ambitious:
-If it were so, it was a grievous fault,
-And grievously hath Caesar answer’d it.
-Here, under leave of Brutus and the rest–
-For Brutus is an honourable man;
-So are they all, all honourable men–
-Come I to speak in Caesar’s funeral.
-He was my friend, faithful and just to me:
-But Brutus says he was ambitious;
-And Brutus is an honourable man.
-He hath brought many captives home to Rome
-Whose ransoms did the general coffers fill:
-Did this in Caesar seem ambitious?
-
+Friends, Romans, countrymen, lend me your ears; I come to bury Caesar, not to praise him. The evil that men do lives after them; The good is oft interred with their bones; So let it be with Caesar. The noble Brutus Hath told you Caesar was ambitious: If it were so, it was a grievous fault, And grievously hath Caesar answer'd it. Here, under leave of Brutus and the rest-- For Brutus is an honourable man; So are they all, all honourable men-- Come I to speak in Caesar's funeral. He was my friend, faithful and just to me: But Brutus says he was ambitious; And Brutus is an honourable man. He hath brought many captives home to Rome Whose ransoms did the general coffers fill: Did this in Caesar seem ambitious?
 
 ## Executive Summary
 
-Friends, Romans, countrymen, lend me your ears;
-I come to bury Caesar, not to praise him.
-The evil that men do lives after them;
-The good is oft interred with their bones;
-So let it be with Caesar. The noble Brutus
-Hath told you Caesar was ambitious:
-If it were so, it was a grievous fault,
-And grievously hath Caesar answer’d it.
-Here, under leave of Brutus and the rest–
-For Brutus is an honourable man;
-So are they all, all honourable men–
-Come I to speak in Caesar’s funeral.
-He was my friend, faithful and just to me:
-But Brutus says he was ambitious;
-And Brutus is an honourable man.
-He hath brought many captives home to Rome
-Whose ransoms did the general coffers fill:
-Did this in Caesar seem ambitious?
+Friends, Romans, countrymen, lend me your ears; I come to bury Caesar, not to praise him. The evil that men do lives after them; The good is oft interred with their bones; So let it be with Caesar. The noble Brutus Hath told you Caesar was ambitious: If it were so, it was a grievous fault, And grievously hath Caesar answer'd it. Here, under leave of Brutus and the rest-- For Brutus is an honourable man; So are they all, all honourable men-- Come I to speak in Caesar's funeral. He was my friend, faithful and just to me: But Brutus says he was ambitious; And Brutus is an honourable man. He hath brought many captives home to Rome Whose ransoms did the general coffers fill: Did this in Caesar seem ambitious?
 
 ## Background
 
-Friends, Romans, countrymen, lend me your ears;
-I come to bury Caesar, not to praise him.
-The evil that men do lives after them;
-The good is oft interred with their bones;
-So let it be with Caesar. The noble Brutus
-Hath told you Caesar was ambitious:
-If it were so, it was a grievous fault,
-And grievously hath Caesar answer’d it.
-Here, under leave of Brutus and the rest–
-For Brutus is an honourable man;
-So are they all, all honourable men–
-Come I to speak in Caesar’s funeral.
-He was my friend, faithful and just to me:
-But Brutus says he was ambitious;
-And Brutus is an honourable man.
-He hath brought many captives home to Rome
-Whose ransoms did the general coffers fill:
-Did this in Caesar seem ambitious?## Aim
-
+Friends, Romans, countrymen, lend me your ears; I come to bury Caesar, not to praise him. The evil that men do lives after them; The good is oft interred with their bones; So let it be with Caesar. The noble Brutus Hath told you Caesar was ambitious: If it were so, it was a grievous fault, And grievously hath Caesar answer'd it. Here, under leave of Brutus and the rest-- For Brutus is an honourable man; So are they all, all honourable men-- Come I to speak in Caesar's funeral. He was my friend, faithful and just to me: But Brutus says he was ambitious; And Brutus is an honourable man. He hath brought many captives home to Rome Whose ransoms did the general coffers fill: Did this in Caesar seem ambitious?## Aim
 
 ## Methodology
 
@@ -172,8 +128,6 @@ Quant: Compare results from all schools -- 2021 and 2022
 Demographics of schools participating in the self-assessment tool (SAT): 2021 & 2022
 
 Pie charts side-by-side: 2021 and 2022. Sector, Type, SES, ADII, Metro/non-metro; 2022 only: Engagement A (Low, High) and Engagement B (Low, Medium, High)
-
-
 
 ```{r}
 #| label: fig2-sector
@@ -185,20 +139,21 @@ plot_ly(data=count(data2021, Sector),
         labels = ~Sector, values = ~n, 
         type = 'pie',
         name="Sector data 2021")%>%
-  layout(legend = list(orientation = 'h'),
-         title="2021: Participants by sector")
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+
 
 
 plot_ly(data=count(data2022, Sector), 
         labels = ~Sector, values = ~n, 
         type = 'pie',
         name="Sector data 2022")%>%
-  layout(legend = list(orientation = 'h'),
-         title="2022: Participants by sector")
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
 
 ```
-
-
 
 ```{r}
 
@@ -212,20 +167,22 @@ plot_ly(data=count(data2021, Type),
         type = 'pie',
         name="School Type data 2021",
         colors = c("orange", "cyan", "purple"))%>%
-  layout(legend = list(orientation = 'h'),
-         title="2021: Participants by school type")
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
 
 plot_ly(data=count(data2022, Type), 
         labels = ~Type, values = ~n, 
         type = 'pie',
         name="School Type data 2022")%>%
-  layout(legend = list(orientation = 'h'),
-         title="2022: Participants by school type")
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
 
 ```
 
-
 Figure 3. Participants by SES
+
 ```{r}
 #| label: fig3
 #| fig-cap: "Participants by SES"
@@ -234,18 +191,19 @@ plot_ly(data=count(data2021, SES),
         labels = ~SES, values = ~n, 
         type = 'pie',
         name="School SES data 2021")%>%
-  layout(legend = list(orientation = 'h'),
-         title="2021: Participants by SES")
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
 
 plot_ly(data=count(data2022, SES), 
         labels = ~SES, values = ~n, 
         type = 'pie',
         name="School SES data 2022")%>%
-  layout(legend = list(orientation = 'h'),
-         title="2022: Participants by SES")
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
 
 ```
-
 
 Figure 4. Participants by ADII
 
@@ -257,15 +215,17 @@ plot_ly(data=count(data2021, ADII),
         labels = ~ADII, values = ~n, 
         type = 'pie',
         name="School ADII data 2021")%>%
-  layout(legend = list(orientation = 'h'),
-         title="2021: Participants by ADII")
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
 
 plot_ly(data=count(data2022, ADII), 
         labels = ~ADII, values = ~n, 
         type = 'pie',
         name="School ADII data 2022")%>%
-  layout(legend = list(orientation = 'h'),
-         title="2022: Participants by ADII")
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
 
 ```
 
@@ -279,41 +239,67 @@ plot_ly(data=count(data2021, Metro),
         labels = ~Metro, values = ~n, 
         type = 'pie',
         name="School Metro data 2021")%>%
-  layout(legend = list(orientation = 'h'),
-         title="2021: Participants by Metro/non-metro")
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
 
 plot_ly(data=count(data2022, Metro), 
         labels = ~Metro, values = ~n, 
         type = 'pie',
         name="School Metro data 2022")%>%
-  layout(legend = list(orientation = 'h'),
-         title="2022: Participants by Metro/non-metro")
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
 
 ```
 
-Figure 6. Participants by DET region N/A
-Figure 7. Participants by eSmart status
-N/A
+Figure 6. Participants by DET region N/A Figure 7. Participants by eSmart status N/A
 
 Figure 8. Part A: average (median) number of eSmart action items completed by sector (out of 23)
 
+2021: average (median) number of eSmart action items completed by sector (out of 23)
 
 ```{r}
 
-data2021%>%
+fig8<-data2021%>%
   select(Sector, parta_total)%>%
-  add_row(Sector='All', parta_total=median(data2021$parta_total))%>%
+  add_row(Sector='All schools', parta_total=median(data2021$parta_total))
+
+fig8$Sector = factor(fig8$Sector,levels=c("Government","Catholic", "Independent", "All schools"))
+
+
+
+graph<-fig8%>%
   group_by(Sector)%>%
   summarise(n=median(parta_total))%>%
   ggplot(aes(x=Sector, y=n, fill=Sector))+
   geom_col(width = 0.5)+
-  labs(title="2021:average (median) number of eSmart action items completed by sector (out of 23)",
-        x ="Sector", y = " ")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+  labs(title=" ",
+        x =" ", y = " ")+
+  theme(legend.position="none",
+    panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
 panel.background = element_blank(),
-axis.line = element_line(colour = "black"))
+axis.line = element_line(colour = "black"))+
+  scale_fill_manual(
+                         breaks = c("A", "B", "C", "D"),
+                         values = c("A" = "blue", "B" = "red", "C" = "black", "D"="yellow") )
+  
 
 
+
+
+fig8%>%
+  group_by(Sector)%>%
+  summarise(n=median(parta_total))%>%
+  ggplot(aes(x=Sector, y=n, fill=Sector))+
+  geom_col(width = 0.5)+
+  labs(title=" ",
+        x =" ", y = " ")
+
+
+
+
+themes_list<-ggthemes_data$excel$themes
 
 data2022%>%
   select(Sector, parta_total)%>%
@@ -322,7 +308,7 @@ data2022%>%
   summarise(n=median(parta_total))%>%
   ggplot(aes(x=Sector, y=n, fill=Sector))+
   geom_col(width = 0.5)+
-  labs(title="2022:average (median) number of eSmart action items completed by sector (out of 23)",
+  labs(title="",
         x ="Sector", y = " ")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
 panel.background = element_blank(),
@@ -332,8 +318,11 @@ axis.line = element_line(colour = "black"))
 
 Figure 9. Part A: number of eSmart action items achieved (out of 23) by sector
 
-
 ```{r}
+
+
+
+
 data2021%>%
   select(Sector, parta_total)%>%
   ggplot(aes(parta_total, fill=Sector))+
@@ -354,6 +343,7 @@ data2022%>%
 panel.background = element_blank(),
 axis.line = element_line(colour = "black"))
 ```
+
 Figure 10. Part A: average (mean) completion of eSmart action items - all schools by Domain
 
 ```{r}
@@ -441,8 +431,6 @@ temp_f10<-rbind(temp2021_f10, temp2022_f10)
 
 #
 ```
-
-
 
 ```{r}
 #part B
@@ -544,7 +532,6 @@ temp_f13n<-rbind(temp2021_f13n, temp2022_f13n)
 #
 ```
 
-
 ```{r}
 #----- plot - part A
 
@@ -572,8 +559,8 @@ axis.line = element_line(colour = "black"))+
 
 ```
 
-
 Figure 11. Part A: average (mean) completion of eSmart action items by Domain by sector
+
 ```{r}
 
 temp2021_a$year<-"2021"
@@ -621,7 +608,6 @@ axis.line = element_line(colour = "black"))+
 
 ```
 
-
 Figure 12. Part A: Average (mean) completion by Domain by SES.
 
 ```{r}
@@ -666,7 +652,6 @@ axis.line = element_line(colour = "black"))+
 
 
 ```
-
 
 Figure 13. Part B: results by Focus Area - all schools
 
@@ -742,6 +727,7 @@ axis.line = element_line(colour = "black"))+
   scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
 
 ```
+
 ```{r}
 fig15<-temp_b%>%
   group_by(SES, year)%>%
@@ -782,6 +768,7 @@ axis.line = element_line(colour = "black"))+
 
 
 ```
+
 Figure 16. Part B: results by Focus Area by school type
 
 ```{r}
@@ -825,7 +812,26 @@ axis.line = element_line(colour = "black"))+
 
 
 ```
-Figure 17. Part B: progress in eSmart journey - all schools - no data 
+
+Figure 17. Part B: progress in eSmart journey - all schools
+
+2021 and 2022
+
+```{r}
+temp_b%>%
+  drop_na(Descriptor)%>%
+  mutate(Descriptor=factor(Descriptor,levels=c("Emerging","Building", "Flourishing")))%>%
+  ggplot(aes(Descriptor))+
+  geom_bar(width=0.3, fill="darkorchid4")+
+  facet_wrap(vars(year))+
+    labs(title=" ",
+        x =" ", y = " Number of schools")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  stat_count(aes(y=..count..,label=..count..), geom="text",vjust=-0.5)
+
+```
 
 
 Engagement - 2022 data only
@@ -857,6 +863,457 @@ temp2022_eng<-data2022%>% select(
   Metro,
 total_engA_type,
 total_engB_type)
+
+temp2022_eng_low<-temp2022_eng%>%filter(total_engA_type=="Low")
+
+```
+
+Engagement A (Low) - Type: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_low, Type), 
+        labels = ~Type, values = ~n, 
+        type = 'pie',
+        name="Engagement A (Low) - Type: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+Engagement A (Low) - Sector: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_low, Sector), 
+        labels = ~Sector, values = ~n, 
+        type = 'pie',
+        name="Engagement A (Low) - Sector: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+
+Engagement A (Low) - SES: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_low, SES), 
+        labels = ~SES, values = ~n, 
+        type = 'pie',
+        name="Engagement A (Low) - SES: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+Engagement A (Low) - ADII: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_low, ADII), 
+        labels = ~ADII, values = ~n, 
+        type = 'pie',
+        name="Engagement A (Low) - ADII: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+Engagement A (Low) - Metro: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_low, Metro), 
+        labels = ~Metro, values = ~n, 
+        type = 'pie',
+        name="Engagement A (Low) - Metro: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+Engagement A (High) 
+
+```{r}
+temp2022_eng_high<-temp2022_eng%>%filter(total_engA_type=="High")
+
+```
+
+
+
+Engagement A (High) - Type: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_high, Type), 
+        labels = ~Type, values = ~n, 
+        type = 'pie',
+        name="Engagement A (High) - Type: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+Engagement A (High) - Sector: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_high, Sector), 
+        labels = ~Sector, values = ~n, 
+        type = 'pie',
+        name="Engagement A (High) - Sector: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+
+Engagement A (High) - SES: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_high, SES), 
+        labels = ~SES, values = ~n, 
+        type = 'pie',
+        name="Engagement A (High) - SES: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+Engagement A (High) - ADII: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_high, ADII), 
+        labels = ~ADII, values = ~n, 
+        type = 'pie',
+        name="Engagement A (High) - ADII: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+Engagement A (High) - Metro: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_high, Metro), 
+        labels = ~Metro, values = ~n, 
+        type = 'pie',
+        name="Engagement A (High) - Metro: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+
+Engagement B
+```{r}
+temp2022_eng_low<-temp2022_eng%>%filter(total_engB_type=="Low")
+
+```
+
+Engagement B (Low) - Type: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_low, Type), 
+        labels = ~Type, values = ~n, 
+        type = 'pie',
+        name="Engagement B (Low) - Type: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+Engagement B (Low) - Sector: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_low, Sector), 
+        labels = ~Sector, values = ~n, 
+        type = 'pie',
+        name="Engagement B (Low) - Sector: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+
+Engagement B (Low) - SES: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_low, SES), 
+        labels = ~SES, values = ~n, 
+        type = 'pie',
+        name="Engagement B (Low) - SES: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+Engagement B (Low) - ADII: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_low, ADII), 
+        labels = ~ADII, values = ~n, 
+        type = 'pie',
+        name="Engagement B (Low) - ADII: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+Engagement B (Low) - Metro: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_low, Metro), 
+        labels = ~Metro, values = ~n, 
+        type = 'pie',
+        name="Engagement B (Low) - Metro: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+Engagement B (High) 
+
+```{r}
+temp2022_eng_high<-temp2022_eng%>%filter(total_engB_type=="High")
+
+```
+
+
+
+Engagement B (High) - Type: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_high, Type), 
+        labels = ~Type, values = ~n, 
+        type = 'pie',
+        name="Engagement B (High) - Type: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+Engagement B (High) - Sector: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_high, Sector), 
+        labels = ~Sector, values = ~n, 
+        type = 'pie',
+        name="Engagement B (High) - Sector: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+
+Engagement B (High) - SES: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_high, SES), 
+        labels = ~SES, values = ~n, 
+        type = 'pie',
+        name="Engagement B (High) - SES: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+Engagement B (High) - ADII: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_high, ADII), 
+        labels = ~ADII, values = ~n, 
+        type = 'pie',
+        name="Engagement B (High) - ADII: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+Engagement B (High) - Metro: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_high, Metro), 
+        labels = ~Metro, values = ~n, 
+        type = 'pie',
+        name="Engagement B (High) - Metro: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+
+Engagement B (Med) 
+
+```{r}
+temp2022_eng_med<-temp2022_eng%>%filter(total_engB_type=="Med")
+
+```
+
+
+
+Engagement B (Med) - Type: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_med, Type), 
+        labels = ~Type, values = ~n, 
+        type = 'pie',
+        name="Engagement B (Med) - Type: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+Engagement B (Med) - Sector: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_med, Sector), 
+        labels = ~Sector, values = ~n, 
+        type = 'pie',
+        name="Engagement B (Med) - Sector: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+
+Engagement B (Med) - SES: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_med, SES), 
+        labels = ~SES, values = ~n, 
+        type = 'pie',
+        name="Engagement B (Med) - SES: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+Engagement B (Med) - ADII: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_med, ADII), 
+        labels = ~ADII, values = ~n, 
+        type = 'pie',
+        name="Engagement B (Med) - ADII: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+Engagement B (Med) - Metro: 2022"
+
+```{r}
+
+
+#pie chart
+
+plot_ly(data=count(temp2022_eng_med, Metro), 
+        labels = ~Metro, values = ~n, 
+        type = 'pie',
+        name="Engagement B (Med) - Metro: 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+
+end of pie charts for Engagement
+
+
+```{r}
+
 
 
 #-----------Engagement A
@@ -984,10 +1441,13 @@ axis.line = element_line(colour = "black"))+
 
   
 ```
+
 Figure 18.How well-placed schools believe they are to prevent a situation: pre- vs. post-Part B: self-assessment
 
+Figure 19. How well-placed schools believe they are to respond to a situation: pre- vs. post-Part B: self-assessment/
 
 Pre-post 1
+
 ```{r}
 
 #-------data 2021
@@ -1035,14 +1495,94 @@ panel.background = element_blank(),
 axis.line = element_line(colour = "black"))
 ```
 
+2021: How well-placed schools believe they are to prevent a situation: pre- vs. post-Part B: self-assessment
 
-Figure 19. How well-placed schools believe they are to respond to a situation: pre- vs. post-Part B: self-assessment/
+```{r}
+
+#----------
+pre2021<-data2021%>%
+  drop_na(pre_1)%>%
+  mutate(
+    pre1_status=case_when(
+      pre_1<post_8_1 ~"Improved",
+      pre_1==post_8_1 ~"No change",
+      TRUE ~ "Downgrade"),
+    pre2_status=case_when(
+      pre_2<post_8_2 ~"Improved",
+      pre_2==post_8_2 ~"No change",
+      TRUE ~ "Downgrade")
+  )
+
+
+plot_ly(data=count(pre2021, pre1_status), 
+        labels = ~pre1_status, values = ~n, 
+        type = 'pie',
+        name="Pre/Post 2021")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+2021: How well-placed schools believe they are to respond to a situation: pre- vs. post-Part B: self-assessment
+```{r}
+
+plot_ly(data=count(pre2021, pre2_status), 
+        labels = ~pre2_status, values = ~n, 
+        type = 'pie',
+        name="Pre/Post 2021")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+
+```
+
+2022
+
+2022: How well-placed schools believe they are to prevent a situation: pre- vs. post-Part B: self-assessment
+
+```{r}
+
+#----------
+pre2022<-data2022%>%
+  drop_na(pre_1)%>%
+  mutate(
+    pre1_status=case_when(
+      pre_1<post_8_1 ~"Improved",
+      pre_1==post_8_1 ~"No change",
+      TRUE ~ "Downgrade"),
+    pre2_status=case_when(
+      pre_2<post_8_2 ~"Improved",
+      pre_2==post_8_2 ~"No change",
+      TRUE ~ "Downgrade")
+  )
+
+
+plot_ly(data=count(pre2022, pre1_status), 
+        labels = ~pre1_status, values = ~n, 
+        type = 'pie',
+        name="Pre/Post 2021")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+```
+
+2022: How well-placed schools believe they are to respond to a situation: pre- vs. post-Part B: self-assessment
+```{r}
+
+plot_ly(data=count(pre2022, pre2_status), 
+        labels = ~pre2_status, values = ~n, 
+        type = 'pie',
+        name="Pre/Post 2021")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ")
+
+```
+
 
 Figure 20. Comparison of Part A and Part B scores - all schools
 
-
-Figure 21. two bar charts that include the 2021 vs. 2022 results for the six schools that completed the instrument both years -- by Domain and total for Part A, and by Focus Area and total for Part B.
-## Results
+Figure 21. two bar charts that include the 2021 vs. 2022 results for the six schools that completed the instrument both years -- by Domain and total for Part A, and by Focus Area and total for Part B. \## Results
 
 \[Repeat charts from 2021 report, but with comparison to 2022 data. So, for example, bar charts would show both 2021 data (striped) next to 2022 data (solid). If charts get too crowded/too hard to read, can present side-by-side or vertically. Test for any statistically significant differences and indicate in chart.\]
 
@@ -1051,8 +1591,6 @@ Figure 21. two bar charts that include the 2021 vs. 2022 results for the six sch
 ```
 
 ### Part A Results
-
-
 
 ### Part B Results
 
