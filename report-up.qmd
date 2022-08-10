@@ -262,27 +262,47 @@ plot_ly(data=count(data2022, Type),
 
 ```
 
-Figure 3. Participants by SES
+### Figure 3. 2021 Participants by SES
 
 ```{r}
-#| label: fig3
-#| fig-cap: "Participants by SES"
+### 2021 Participants by SES
+
+vals= count(data2021, SES)
 
 plot_ly(data=count(data2021, SES), 
         labels = ~SES, values = ~n, 
         type = 'pie',
-        name="School SES data 2021")%>%
+  marker = list(colors = cols_SES),
+    texttext = "label",
+  textposition = 'outside',
+  text = vals$n,
+        name="SES data 2021")%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
-         title=" ")
+         title=" ",
+         uniformtext=list(minsize=12, mode='hide'))
+
+```
+
+### 2022 Participants by SES
+
+```{r}
+### 2022 Participants by SES
+
+vals= count(data2022, SES)
 
 plot_ly(data=count(data2022, SES), 
         labels = ~SES, values = ~n, 
         type = 'pie',
-        name="School SES data 2022")%>%
+  marker = list(colors = cols_SES),
+    texttext = "label",
+  textposition = 'outside',
+  text = vals$n,
+        name="SES data 2022")%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
-         title=" ")
+         title=" ",
+         uniformtext=list(minsize=12, mode='hide'))
 
 ```
 
