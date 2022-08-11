@@ -371,9 +371,13 @@ plot_ly(data=count(data2022, ADII),
         labels = ~ADII, values = ~n, 
         type = 'pie',
   marker = list(colors = cols_ADII),
-    texttext = "label",
+text = ~paste(
+    "N = ", vals$n, "<br>", 
+                format(
+                  round(n / sum(n)*100), nsmall = 1
+                  ), "%"),
+ textinfo = "text",
   textposition = 'outside',
-  text = vals$n,
         name="ADII data 2022")%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
@@ -394,9 +398,13 @@ plot_ly(data=count(data2021, Metro),
         labels = ~Metro, values = ~n, 
         type = 'pie',
   marker = list(colors = cols_metro),
-    texttext = "label",
+text = ~paste(
+    "N = ", vals$n, "<br>", 
+                format(
+                  round(n / sum(n)*100), nsmall = 1
+                  ), "%"),
+ textinfo = "text",
   textposition = 'outside',
-  text = vals$n,
         name="Metro/non-metro data 2021")%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
@@ -416,9 +424,13 @@ plot_ly(data=count(data2022, Metro),
         labels = ~Metro, values = ~n, 
         type = 'pie',
   marker = list(colors = cols_metro),
-    texttext = "label",
+text = ~paste(
+    "N = ", vals$n, "<br>", 
+                format(
+                  round(n / sum(n)*100), nsmall = 1
+                  ), "%"),
+ textinfo = "text",
   textposition = 'outside',
-  text = vals$n,
         name="Metro/non-metro data 2022")%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
@@ -1878,9 +1890,13 @@ plot_ly(data=count(pre2021, pre1_status),
         type = 'pie',
         name="Pre/Post 2021",
           marker = list(colors = c("#1f4e78", "#3c84c2", "#b7d1ea")),
-    texttext = "label",
-  textposition = 'outside',
-  text = vals$n
+text = ~paste(
+    "N = ", vals$n, "<br>", 
+                format(
+                  round(n / sum(n)*100), nsmall = 1
+                  ), "%"),
+ textinfo = "text",
+  textposition = 'outside'
         )%>%
 layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
@@ -1898,9 +1914,13 @@ plot_ly(data=count(pre2021, pre2_status),
         type = 'pie',
         name="Pre/Post 2021",
           marker = list(colors = c("#1f4e78", "#3c84c2", "#b7d1ea")),
-    texttext = "label",
-  textposition = 'outside',
-  text = vals$n
+text = ~paste(
+    "N = ", vals$n, "<br>", 
+                format(
+                  round(n / sum(n)*100), nsmall = 1
+                  ), "%"),
+ textinfo = "text",
+  textposition = 'outside'
         )%>%
 layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
@@ -1936,9 +1956,13 @@ plot_ly(data=count(pre2022, pre1_status),
         type = 'pie',
         name="Pre/Post 2022",
           marker = list(colors = c("#1f4e78", "#3c84c2", "#b7d1ea")),
-    texttext = "label",
-  textposition = 'outside',
-  text = vals$n
+text = ~paste(
+    "N = ", vals$n, "<br>", 
+                format(
+                  round(n / sum(n)*100), nsmall = 1
+                  ), "%"),
+ textinfo = "text",
+  textposition = 'outside'
         )%>%
 layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
@@ -1956,9 +1980,13 @@ plot_ly(data=count(pre2022, pre2_status),
         type = 'pie',
         name="Pre/Post 2022",
           marker = list(colors = c("#1f4e78", "#3c84c2", "#b7d1ea")),
-    texttext = "label",
-  textposition = 'outside',
-  text = vals$n
+text = ~paste(
+    "N = ", vals$n, "<br>", 
+                format(
+                  round(n / sum(n)*100), nsmall = 1
+                  ), "%"),
+ textinfo = "text",
+  textposition = 'outside'
         )%>%
 layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
@@ -1996,9 +2024,13 @@ plot_ly(data=count(pre2021, pre2_status),
         type = 'pie',
         name="Pre/Post 2021",
           marker = list(colors = c("#1f4e78", "#3c84c2", "#b7d1ea")),
-    texttext = "label",
-  textposition = 'outside',
-  text = vals$n
+text = ~paste(
+    "N = ", vals$n, "<br>", 
+                format(
+                  round(n / sum(n)*100), nsmall = 1
+                  ), "%"),
+ textinfo = "text",
+  textposition = 'outside'
         )%>%
 layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
@@ -2017,9 +2049,13 @@ plot_ly(data=count(pre2022, pre2_status),
         type = 'pie',
         name="Pre/Post 2022",
           marker = list(colors = c("#1f4e78", "#3c84c2", "#b7d1ea")),
-    texttext = "label",
-  textposition = 'outside',
-  text = vals$n
+text = ~paste(
+    "N = ", vals$n, "<br>", 
+                format(
+                  round(n / sum(n)*100), nsmall = 1
+                  ), "%"),
+ textinfo = "text",
+  textposition = 'outside'
         )%>%
 layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
