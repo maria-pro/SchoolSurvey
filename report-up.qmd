@@ -1274,6 +1274,62 @@ axis.line.x = element_line(colour = "black"))+
 
 ## Engagement - 2022 data only
 
+
+### by Sector 2022 - Engagement A data 2022
+
+```{r}
+
+vals= count(data2022, total_engA_type)
+
+plot_ly(data=vals, 
+        labels = ~total_engA_type, values = ~n, 
+        type = 'pie',
+  marker = list(colors = cols_sector),
+  
+text = ~paste(
+    "N = ", vals$n, "<br>", 
+                format(
+                  round(n / sum(n)*100), nsmall = 1
+                  ), "%"),
+ textinfo = "text",
+  textposition = 'outside',
+        name="Engagement A data 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ",
+         uniformtext=list(minsize=12, mode='hide'))
+
+
+```
+
+### by Sector 2022 - Engagement B data 2022
+
+```{r}
+
+vals= count(data2022, total_engB_type)
+
+plot_ly(data=vals, 
+        labels = ~total_engB_type, values = ~n, 
+        type = 'pie',
+  marker = list(colors = cols_sector),
+  
+text = ~paste(
+    "N = ", vals$n, "<br>", 
+                format(
+                  round(n / sum(n)*100), nsmall = 1
+                  ), "%"),
+ textinfo = "text",
+  textposition = 'outside',
+        name="Engagement B data 2022")%>%
+  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ",
+         uniformtext=list(minsize=12, mode='hide'))
+
+
+```
+### old graphs
+
 ```{r}
 
 part_eng_categories<-as_vector(data_dic%>%
