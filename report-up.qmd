@@ -2857,4 +2857,53 @@ geom_text(aes(label = round(Mean)),
           vjust=-0.5)
 ```
 
+The third I was hoping you could produce is identical to Fig 17 (but with 2021 and 2022 results combined into a single chart, as specified in my previous email) - but just for those six schools - 2021 vs. 2022
+
+```{r}
+
+
+temp2021_same_b$year<-"2021"
+temp2022_same_b$year<-"2022"
+
+temp_same_b<-rbind(temp2021_same_b, temp2022_same_b)
+
+
+temp_same_b%>%
+  drop_na(Descriptor)%>%
+  mutate(Descriptor=factor(Descriptor,levels=c("Emerging","Building", "Flourishing")))%>%
+  ggplot(aes(Descriptor, fill=year))+
+  geom_bar(position=position_dodge(), width = 0.5)+
+#  facet_wrap(vars(year))+
+    labs(title=" ",
+        x =" ", y = " Number of schools")+
+  theme(
+
+    legend.position="bottom",
+    legend.title=element_blank(),
+        
+panel.grid.major = element_blank(), 
+panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+
+#axis.title.y=element_blank(),
+#axis.text.y=element_blank(), 
+#axis.ticks.y=element_blank(),
+
+axis.ticks.x=element_blank(),
+axis.line.x = element_line(colour = "black"))+
+#    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
+
+  stat_count(aes(y=..count..,label=..count..), 
+             geom="text", 
+             position=position_dodge(width=0.5), 
+             size = 3,
+             vjust=-0.5)+
+  scale_fill_manual(values=c("#c2b4ce","#943ae8"))
+  
+  
+  
+
+
+```
+
 
