@@ -874,7 +874,7 @@ axis.line.x = element_line(colour = "black"))+
 
 ```
 
-Figure 13. Part B: results by Focus Area - all schools
+### Figure 13. Part B: results by Focus Area - all schools
 
 ```{r}
 #----- plot - part B
@@ -889,7 +889,7 @@ temp_f13n%>%
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
 panel.background = element_blank(),
 axis.line = element_line(colour = "black"))+
-  scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 7))+
   scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, 20))+
 geom_text(aes(label = round(Mean)), 
           position=position_dodge(width=0.7), vjust=-0.5)
@@ -1026,7 +1026,7 @@ axis.line.x = element_line(colour = "black"))+
 
 ```
 
-Figure 16. Part B: results by Focus Area by school type
+### Figure 16. Part B: results by Focus Area by school type
 
 ```{r}
 fig16<-temp_b%>%
@@ -1074,7 +1074,7 @@ axis.line.x = element_line(colour = "black"))+
 
 ```
 
-Figure 17. Part B: progress in eSmart journey - all schools
+### Figure 17. Part B: progress in eSmart journey - all schools
 
 2021 and 2022
 
