@@ -171,10 +171,7 @@ Pie charts side-by-side: 2021 and 2022. Sector, Type, SES, ADII, Metro/non-metro
 
 ### 2021: Participants by sector
 ```{r}
-#| label: fig2-sector
-#| fig-cap: "Participants by sector"
-#| fig-subcap: ["Plot 1", "Plot 2"]
-#| layout-ncol: 2
+
 
 #data2021_colour<-data2021
 #data2021_colour$color <- dplyr::recode(data2021_colour$Sector, !!!colors_list_sector)
@@ -1112,7 +1109,7 @@ axis.line.x = element_line(colour = "black"))+
 ```
 
 
-Engagement - 2022 data only
+## Engagement - 2022 data only
 
 ```{r}
 
@@ -1146,7 +1143,7 @@ temp2022_eng_low<-temp2022_eng%>%filter(total_engA_type=="Low")
 
 ```
 
-Engagement A (Low) - Type: 2022"
+### Engagement A (Low) - Type: 2022"
 
 ```{r}
 
@@ -1156,13 +1153,17 @@ Engagement A (Low) - Type: 2022"
 plot_ly(data=count(temp2022_eng_low, Type), 
         labels = ~Type, values = ~n, 
         type = 'pie',
-        name="Engagement A (Low) - Type: 2022")%>%
+        name="Engagement A (Low) - Type: 2022",
+                
+        marker = list(colors = cols_type),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
-Engagement A (Low) - Sector: 2022"
+### Engagement A (Low) - Sector: 2022"
 
 ```{r}
 
@@ -1172,14 +1173,18 @@ Engagement A (Low) - Sector: 2022"
 plot_ly(data=count(temp2022_eng_low, Sector), 
         labels = ~Sector, values = ~n, 
         type = 'pie',
-        name="Engagement A (Low) - Sector: 2022")%>%
+        name="Engagement A (Low) - Sector: 2022",
+                
+        marker = list(colors = cols_sector),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
 
-Engagement A (Low) - SES: 2022"
+### Engagement A (Low) - SES: 2022"
 
 ```{r}
 
@@ -1189,13 +1194,17 @@ Engagement A (Low) - SES: 2022"
 plot_ly(data=count(temp2022_eng_low, SES), 
         labels = ~SES, values = ~n, 
         type = 'pie',
-        name="Engagement A (Low) - SES: 2022")%>%
+        name="Engagement A (Low) - SES: 2022",
+                
+        marker = list(colors = cols_SES),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
-Engagement A (Low) - ADII: 2022"
+### Engagement A (Low) - ADII: 2022"
 
 ```{r}
 
@@ -1205,13 +1214,17 @@ Engagement A (Low) - ADII: 2022"
 plot_ly(data=count(temp2022_eng_low, ADII), 
         labels = ~ADII, values = ~n, 
         type = 'pie',
-        name="Engagement A (Low) - ADII: 2022")%>%
+        name="Engagement A (Low) - ADII: 2022",
+                
+        marker = list(colors = cols_ADII),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
-Engagement A (Low) - Metro: 2022"
+### Engagement A (Low) - Metro: 2022"
 
 ```{r}
 
@@ -1221,13 +1234,17 @@ Engagement A (Low) - Metro: 2022"
 plot_ly(data=count(temp2022_eng_low, Metro), 
         labels = ~Metro, values = ~n, 
         type = 'pie',
-        name="Engagement A (Low) - Metro: 2022")%>%
+        name="Engagement A (Low) - Metro: 2022",
+                
+        marker = list(colors = cols_metro),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
-Engagement A (High) 
+## Engagement A (High) 
 
 ```{r}
 temp2022_eng_high<-temp2022_eng%>%filter(total_engA_type=="High")
@@ -1235,8 +1252,7 @@ temp2022_eng_high<-temp2022_eng%>%filter(total_engA_type=="High")
 ```
 
 
-
-Engagement A (High) - Type: 2022"
+### Engagement A (High) - Type: 2022"
 
 ```{r}
 
@@ -1246,13 +1262,17 @@ Engagement A (High) - Type: 2022"
 plot_ly(data=count(temp2022_eng_high, Type), 
         labels = ~Type, values = ~n, 
         type = 'pie',
-        name="Engagement A (High) - Type: 2022")%>%
+        name="Engagement A (High) - Type: 2022",
+                
+        marker = list(colors = cols_type),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
-Engagement A (High) - Sector: 2022"
+### Engagement A (High) - Sector: 2022"
 
 ```{r}
 
@@ -1262,14 +1282,18 @@ Engagement A (High) - Sector: 2022"
 plot_ly(data=count(temp2022_eng_high, Sector), 
         labels = ~Sector, values = ~n, 
         type = 'pie',
-        name="Engagement A (High) - Sector: 2022")%>%
+        name="Engagement A (High) - Sector: 2022",
+                
+        marker = list(colors = cols_sector),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
 
-Engagement A (High) - SES: 2022"
+### Engagement A (High) - SES: 2022"
 
 ```{r}
 
@@ -1279,13 +1303,17 @@ Engagement A (High) - SES: 2022"
 plot_ly(data=count(temp2022_eng_high, SES), 
         labels = ~SES, values = ~n, 
         type = 'pie',
-        name="Engagement A (High) - SES: 2022")%>%
+        name="Engagement A (High) - SES: 2022",
+                
+        marker = list(colors = cols_SES),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
-Engagement A (High) - ADII: 2022"
+### Engagement A (High) - ADII: 2022"
 
 ```{r}
 
@@ -1295,13 +1323,17 @@ Engagement A (High) - ADII: 2022"
 plot_ly(data=count(temp2022_eng_high, ADII), 
         labels = ~ADII, values = ~n, 
         type = 'pie',
-        name="Engagement A (High) - ADII: 2022")%>%
+        name="Engagement A (High) - ADII: 2022",
+                
+        marker = list(colors = cols_ADII),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
-Engagement A (High) - Metro: 2022"
+### Engagement A (High) - Metro: 2022"
 
 ```{r}
 
@@ -1311,20 +1343,24 @@ Engagement A (High) - Metro: 2022"
 plot_ly(data=count(temp2022_eng_high, Metro), 
         labels = ~Metro, values = ~n, 
         type = 'pie',
-        name="Engagement A (High) - Metro: 2022")%>%
+        name="Engagement A (High) - Metro: 2022",
+                
+        marker = list(colors = cols_metro),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
 
-Engagement B
+## Engagement B
 ```{r}
 temp2022_eng_low<-temp2022_eng%>%filter(total_engB_type=="Low")
 
 ```
 
-Engagement B (Low) - Type: 2022"
+### Engagement B (Low) - Type: 2022"
 
 ```{r}
 
@@ -1334,13 +1370,17 @@ Engagement B (Low) - Type: 2022"
 plot_ly(data=count(temp2022_eng_low, Type), 
         labels = ~Type, values = ~n, 
         type = 'pie',
-        name="Engagement B (Low) - Type: 2022")%>%
+        name="Engagement B (Low) - Type: 2022",
+                
+        marker = list(colors = cols_type),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
-Engagement B (Low) - Sector: 2022"
+### Engagement B (Low) - Sector: 2022"
 
 ```{r}
 
@@ -1350,14 +1390,18 @@ Engagement B (Low) - Sector: 2022"
 plot_ly(data=count(temp2022_eng_low, Sector), 
         labels = ~Sector, values = ~n, 
         type = 'pie',
-        name="Engagement B (Low) - Sector: 2022")%>%
+        name="Engagement B (Low) - Sector: 2022",
+                
+        marker = list(colors = cols_sector),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
 
-Engagement B (Low) - SES: 2022"
+### Engagement B (Low) - SES: 2022"
 
 ```{r}
 
@@ -1367,13 +1411,17 @@ Engagement B (Low) - SES: 2022"
 plot_ly(data=count(temp2022_eng_low, SES), 
         labels = ~SES, values = ~n, 
         type = 'pie',
-        name="Engagement B (Low) - SES: 2022")%>%
+        name="Engagement B (Low) - SES: 2022",
+                
+        marker = list(colors = cols_SES),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
-Engagement B (Low) - ADII: 2022"
+### Engagement B (Low) - ADII: 2022"
 
 ```{r}
 
@@ -1383,13 +1431,17 @@ Engagement B (Low) - ADII: 2022"
 plot_ly(data=count(temp2022_eng_low, ADII), 
         labels = ~ADII, values = ~n, 
         type = 'pie',
-        name="Engagement B (Low) - ADII: 2022")%>%
+        name="Engagement B (Low) - ADII: 2022",
+                
+        marker = list(colors = cols_ADII),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
-Engagement B (Low) - Metro: 2022"
+## Engagement B (Low) - Metro: 2022"
 
 ```{r}
 
@@ -1399,13 +1451,16 @@ Engagement B (Low) - Metro: 2022"
 plot_ly(data=count(temp2022_eng_low, Metro), 
         labels = ~Metro, values = ~n, 
         type = 'pie',
-        name="Engagement B (Low) - Metro: 2022")%>%
+        name="Engagement B (Low) - Metro: 2022",
+        marker = list(colors = cols_metro),
+    texttext = "label",
+  textposition = 'outside') %>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
-Engagement B (High) 
+## Engagement B (High) 
 
 ```{r}
 temp2022_eng_high<-temp2022_eng%>%filter(total_engB_type=="High")
@@ -1414,7 +1469,7 @@ temp2022_eng_high<-temp2022_eng%>%filter(total_engB_type=="High")
 
 
 
-Engagement B (High) - Type: 2022"
+### Engagement B (High) - Type: 2022"
 
 ```{r}
 
@@ -1424,13 +1479,17 @@ Engagement B (High) - Type: 2022"
 plot_ly(data=count(temp2022_eng_high, Type), 
         labels = ~Type, values = ~n, 
         type = 'pie',
-        name="Engagement B (High) - Type: 2022")%>%
+        name="Engagement B (High) - Type: 2022",
+                
+        marker = list(colors = cols_type),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
-Engagement B (High) - Sector: 2022"
+### Engagement B (High) - Sector: 2022"
 
 ```{r}
 
@@ -1440,14 +1499,18 @@ Engagement B (High) - Sector: 2022"
 plot_ly(data=count(temp2022_eng_high, Sector), 
         labels = ~Sector, values = ~n, 
         type = 'pie',
-        name="Engagement B (High) - Sector: 2022")%>%
+        name="Engagement B (High) - Sector: 2022",
+                
+        marker = list(colors = cols_sector),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
 
-Engagement B (High) - SES: 2022"
+### Engagement B (High) - SES: 2022"
 
 ```{r}
 
@@ -1457,13 +1520,17 @@ Engagement B (High) - SES: 2022"
 plot_ly(data=count(temp2022_eng_high, SES), 
         labels = ~SES, values = ~n, 
         type = 'pie',
-        name="Engagement B (High) - SES: 2022")%>%
+        name="Engagement B (High) - SES: 2022",
+                
+        marker = list(colors = cols_SES),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
-Engagement B (High) - ADII: 2022"
+### Engagement B (High) - ADII: 2022"
 
 ```{r}
 
@@ -1473,13 +1540,17 @@ Engagement B (High) - ADII: 2022"
 plot_ly(data=count(temp2022_eng_high, ADII), 
         labels = ~ADII, values = ~n, 
         type = 'pie',
-        name="Engagement B (High) - ADII: 2022")%>%
+        name="Engagement B (High) - ADII: 2022",
+                
+        marker = list(colors = cols_ADII),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
-Engagement B (High) - Metro: 2022"
+### Engagement B (High) - Metro: 2022"
 
 ```{r}
 
@@ -1489,14 +1560,18 @@ Engagement B (High) - Metro: 2022"
 plot_ly(data=count(temp2022_eng_high, Metro), 
         labels = ~Metro, values = ~n, 
         type = 'pie',
-        name="Engagement B (High) - Metro: 2022")%>%
+        name="Engagement B (High) - Metro: 2022",
+                
+        marker = list(colors = cols_metro),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
 
-Engagement B (Med) 
+## Engagement B (Med) 
 
 ```{r}
 temp2022_eng_med<-temp2022_eng%>%filter(total_engB_type=="Med")
@@ -1505,7 +1580,7 @@ temp2022_eng_med<-temp2022_eng%>%filter(total_engB_type=="Med")
 
 
 
-Engagement B (Med) - Type: 2022"
+### Engagement B (Medium) - Type: 2022"
 
 ```{r}
 
@@ -1515,13 +1590,17 @@ Engagement B (Med) - Type: 2022"
 plot_ly(data=count(temp2022_eng_med, Type), 
         labels = ~Type, values = ~n, 
         type = 'pie',
-        name="Engagement B (Med) - Type: 2022")%>%
+        name="Engagement B (Medium) - Type: 2022",
+                
+        marker = list(colors = cols_type),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
-Engagement B (Med) - Sector: 2022"
+### Engagement B (Medium) - Sector: 2022"
 
 ```{r}
 
@@ -1531,30 +1610,39 @@ Engagement B (Med) - Sector: 2022"
 plot_ly(data=count(temp2022_eng_med, Sector), 
         labels = ~Sector, values = ~n, 
         type = 'pie',
-        name="Engagement B (Med) - Sector: 2022")%>%
+        name="Engagement B (Medium) - Sector: 2022",
+        
+                
+        marker = list(colors = cols_sector),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
 
-Engagement B (Med) - SES: 2022"
+### Engagement B (Medium) - SES: 2022"
 
 ```{r}
-
 
 #pie chart
 
 plot_ly(data=count(temp2022_eng_med, SES), 
         labels = ~SES, values = ~n, 
         type = 'pie',
-        name="Engagement B (Med) - SES: 2022")%>%
+        name="Engagement B (Medium) - SES: 2022",
+        
+                
+        marker = list(colors = cols_SES),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
-Engagement B (Med) - ADII: 2022"
+### Engagement B (Medium) - ADII: 2022"
 
 ```{r}
 
@@ -1564,13 +1652,18 @@ Engagement B (Med) - ADII: 2022"
 plot_ly(data=count(temp2022_eng_med, ADII), 
         labels = ~ADII, values = ~n, 
         type = 'pie',
-        name="Engagement B (Med) - ADII: 2022")%>%
+        name="Engagement B (Medium) - ADII: 2022",
+        
+                
+        marker = list(colors = cols_ADII),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
 ```
 
-Engagement B (Med) - Metro: 2022"
+### Engagement B (Medium) - Metro: 2022"
 
 ```{r}
 
@@ -1580,10 +1673,15 @@ Engagement B (Med) - Metro: 2022"
 plot_ly(data=count(temp2022_eng_med, Metro), 
         labels = ~Metro, values = ~n, 
         type = 'pie',
-        name="Engagement B (Med) - Metro: 2022")%>%
+        name="Engagement B (Medium) - Metro: 2022",
+        
+        marker = list(colors = cols_metro),
+    texttext = "label",
+  textposition = 'outside')%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ")
+
 ```
 
 
@@ -1720,60 +1818,7 @@ axis.line = element_line(colour = "black"))+
   
 ```
 
-Figure 18.How well-placed schools believe they are to prevent a situation: pre- vs. post-Part B: self-assessment
-
-Figure 19. How well-placed schools believe they are to respond to a situation: pre- vs. post-Part B: self-assessment/
-
-Pre-post 1
-
-```{r}
-
-#-------data 2021
-
-data2021%>%
-  ggplot(aes(x=pre_1, y=post_8_1))+
-  geom_point(na.rm = TRUE, color="deepskyblue4")+
-    geom_smooth(method=lm, se=FALSE, col='orange', size=1, na.rm = TRUE )+
-  labs(title="2021: How well-placed schools believe they are to prevent a situation: pre- vs. post-Part B: self-assessment",
-        x ="Pre", y = "Post")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-panel.background = element_blank(),
-axis.line = element_line(colour = "black"))
-
-data2021%>%
-  ggplot(aes(x=pre_2, y=post_8_2))+
-  geom_point(na.rm = TRUE, color="deepskyblue4")+
-    geom_smooth(method=lm, se=FALSE, col='orange', size=1, na.rm = TRUE )+
-  labs(title="2021: How well-placed schools believe they are to respond to a situation: pre- vs. post-Part B: self-assessment",
-        x ="Pre", y = "Post")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-panel.background = element_blank(),
-axis.line = element_line(colour = "black"))
-
-#-------data 2022
-
-data2022%>%
-  ggplot(aes(x=pre_1, y=post_8_1))+
-  geom_point(na.rm = TRUE, color="deepskyblue4")+
-    geom_smooth(method=lm, se=FALSE, col='orange', size=1, na.rm = TRUE )+
-  labs(title="2022: How well-placed schools believe they are to prevent a situation: pre- vs. post-Part B: self-assessment",
-        x ="Pre", y = "Post")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-panel.background = element_blank(),
-axis.line = element_line(colour = "black"))
-
-data2022%>%
-  ggplot(aes(x=pre_2, y=post_8_2))+
-  geom_point(na.rm = TRUE, color="deepskyblue4")+
-    geom_smooth(method=lm, se=FALSE, col='orange', size=1, na.rm = TRUE )+
-  labs(title="2022: How well-placed schools believe they are to respond to a situation: pre- vs. post-Part B: self-assessment",
-        x ="Pre", y = "Post")+
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-panel.background = element_blank(),
-axis.line = element_line(colour = "black"))
-```
-
-2021: How well-placed schools believe they are to prevent a situation: pre- vs. post-Part B: self-assessment
+### Figure 18. 2021: How well-placed schools believe they are to prevent a situation: pre- vs. post-Part B: self-assessment
 
 ```{r}
 
@@ -1792,31 +1837,46 @@ pre2021<-data2021%>%
   )
 
 
+vals= count(pre2021, pre1_status)
+
 plot_ly(data=count(pre2021, pre1_status), 
         labels = ~pre1_status, values = ~n, 
         type = 'pie',
-        name="Pre/Post 2021")%>%
-  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+        name="Pre/Post 2021",
+          marker = list(colors = c("#1f4e78", "#3c84c2", "#b7d1ea")),
+    texttext = "label",
+  textposition = 'outside',
+  text = vals$n
+        )%>%
+layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
-         title=" ")
+         title=" ",
+         uniformtext=list(minsize=12, mode='hide'))
 ```
 
-2021: How well-placed schools believe they are to respond to a situation: pre- vs. post-Part B: self-assessment
+### Figure 19. 2021: How well-placed schools believe they are to respond to a situation: pre- vs. post-Part B: self-assessment
 ```{r}
+
+vals= count(pre2021, pre2_status)
 
 plot_ly(data=count(pre2021, pre2_status), 
         labels = ~pre2_status, values = ~n, 
         type = 'pie',
-        name="Pre/Post 2021")%>%
-  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+        name="Pre/Post 2021",
+          marker = list(colors = c("#1f4e78", "#3c84c2", "#b7d1ea")),
+    texttext = "label",
+  textposition = 'outside',
+  text = vals$n
+        )%>%
+layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
-         title=" ")
-
+         title=" ",
+         uniformtext=list(minsize=12, mode='hide'))
 ```
 
-2022
+---------
 
-2022: How well-placed schools believe they are to prevent a situation: pre- vs. post-Part B: self-assessment
+### Figure 18. 2022: How well-placed schools believe they are to prevent a situation: pre- vs. post-Part B: self-assessment
 
 ```{r}
 
@@ -1835,25 +1895,102 @@ pre2022<-data2022%>%
   )
 
 
+vals= count(pre2022, pre1_status)
+
 plot_ly(data=count(pre2022, pre1_status), 
         labels = ~pre1_status, values = ~n, 
         type = 'pie',
-        name="Pre/Post 2021")%>%
-  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+        name="Pre/Post 2022",
+          marker = list(colors = c("#1f4e78", "#3c84c2", "#b7d1ea")),
+    texttext = "label",
+  textposition = 'outside',
+  text = vals$n
+        )%>%
+layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
-         title=" ")
+         title=" ",
+         uniformtext=list(minsize=12, mode='hide'))
 ```
 
-2022: How well-placed schools believe they are to respond to a situation: pre- vs. post-Part B: self-assessment
+### Figure 19. 2022: How well-placed schools believe they are to respond to a situation: pre- vs. post-Part B: self-assessment
 ```{r}
+
+vals= count(pre2022, pre2_status)
 
 plot_ly(data=count(pre2022, pre2_status), 
         labels = ~pre2_status, values = ~n, 
         type = 'pie',
-        name="Pre/Post 2021")%>%
-  layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+        name="Pre/Post 2022",
+          marker = list(colors = c("#1f4e78", "#3c84c2", "#b7d1ea")),
+    texttext = "label",
+  textposition = 'outside',
+  text = vals$n
+        )%>%
+layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
-         title=" ")
+         title=" ",
+         uniformtext=list(minsize=12, mode='hide'))
+```
+
+--------
+
+
+
+### 2021: How well-placed schools believe they are to prevent a situation: pre- vs. post-Part B: self-assessment
+
+```{r}
+
+#----------
+pre2022<-data2022%>%
+  drop_na(pre_1)%>%
+  mutate(
+    pre1_status=case_when(
+      pre_1<post_8_1 ~"Improved",
+      pre_1==post_8_1 ~"No change",
+      TRUE ~ "Downgrade"),
+    pre2_status=case_when(
+      pre_2<post_8_2 ~"Improved",
+      pre_2==post_8_2 ~"No change",
+      TRUE ~ "Downgrade")
+  )
+
+
+vals= count(pre2021, pre2_status)
+
+plot_ly(data=count(pre2021, pre2_status), 
+        labels = ~pre2_status, values = ~n, 
+        type = 'pie',
+        name="Pre/Post 2021",
+          marker = list(colors = c("#1f4e78", "#3c84c2", "#b7d1ea")),
+    texttext = "label",
+  textposition = 'outside',
+  text = vals$n
+        )%>%
+layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ",
+         uniformtext=list(minsize=12, mode='hide'))
+
+```
+
+### 2022: How well-placed schools believe they are to respond to a situation: pre- vs. post-Part B: self-assessment
+```{r}
+
+vals= count(pre2022, pre2_status)
+
+plot_ly(data=count(pre2022, pre2_status), 
+        labels = ~pre2_status, values = ~n, 
+        type = 'pie',
+        name="Pre/Post 2022",
+          marker = list(colors = c("#1f4e78", "#3c84c2", "#b7d1ea")),
+    texttext = "label",
+  textposition = 'outside',
+  text = vals$n
+        )%>%
+layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
+                     x = 0.5),
+         title=" ",
+         uniformtext=list(minsize=12, mode='hide'))
 
 ```
 
