@@ -2612,10 +2612,249 @@ Figure 21. two bar charts that include the 2021 vs. 2022 results for the six sch
 
 ```
 
-### Part A Results
+The first chart is identical to Fig 10 (Overall Part A results) but just for those six schools -- so compares outcomes in 2021 and 2022
+The second chart is identical to Fig 13 - second version (overall Part B results) but just for those six schools - 2021 vs. 2022
+The third I was hoping you could produce is identical to Fig 17 (but with 2021 and 2022 results combined into a single chart, as specified in my previous email) - but just for those six schools - 2021 vs. 2022
 
-### Part B Results
+```{r}
+temp2021_same<-data2021[data2021$School %in% c(14, 16, 27, 33, 41, 38), ]
+  
+  
+temp2021_same<-temp2021_same%>% select(
+  School,
+  Sector,
+  Type,
+  SES,
+  ADII,
+  Metro,
+total_pc,
+parta1_total_pc,
+parta2_total_pc,
+parta3_total_pc,
+parta4_total_pc,
+parta5_total_pc,
+parta_total)
 
-## Summary -- quantitative results
+names(temp2021_same) <- figa_categories
 
-  \## Discussion \[Integration of quant and qual results\] \## Conclusion \## References \## Appendices
+temp2021_same_f10<-temp2021_same%>%mutate(
+  across(
+    c(7:12),
+    ~ mean(.x, na.rm = TRUE)
+))%>%
+  select(c(7:12))%>%
+  distinct()%>%
+  pivot_longer(names_to="Categories",
+               values_to="Mean",
+               cols=everything())%>%
+  mutate(year="2021")
+
+#-----2022 - Part A
+
+temp2022_same<-data2022[data2022$School %in% c(14, 16, 27, 33, 41, 38), ]
+
+
+temp2022_same<-temp2022_same%>% select(
+  School,
+  Sector,
+  Type,
+  SES,
+  ADII,
+  Metro,
+total_pc,
+parta1_total_pc,
+parta2_total_pc,
+parta3_total_pc,
+parta4_total_pc,
+parta5_total_pc,
+parta_total)
+
+names(temp2022_same) <- figa_categories
+
+temp2022_same_f10<-temp2022_same%>%mutate(
+  across(
+    c(7:12),
+    ~ mean(.x, na.rm = TRUE)
+))%>%
+  select(c(7:12))%>%
+  distinct()%>%
+  pivot_longer(names_to="Categories",
+               values_to="Mean",
+               cols=everything())%>%
+  mutate(year="2022")
+
+temp2021_same_f10<-rbind(temp2021_same_f10, temp2022_same_f10)
+
+temp2021_same_f10%>%
+  ggplot(aes(x=Categories, y= Mean*100, fill=year))+
+  geom_col(stat="identity", position=position_dodge(), width = 0.5)+
+labs(title="2021/2022:  Completed both years - Part A: average (mean) completion of eSmart action items - all schools by Domain)",
+        x =" ", y = " % assessed as completed")+
+    scale_fill_grey(start = 0.8, end = 0.2)+
+  theme(
+
+    legend.position="bottom",
+    legend.title=element_blank(),
+        
+panel.grid.major = element_blank(), 
+panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+
+#axis.title.y=element_blank(),
+#axis.text.y=element_blank(), 
+#axis.ticks.y=element_blank(),
+
+axis.ticks.x=element_blank(),
+axis.line.x = element_line(colour = "black"))+
+    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, 20))+
+geom_text(aes(label = paste0(round(Mean*100),"%")), 
+          position=position_dodge(width=0.5), 
+          size = 3,
+          vjust=-0.5)
+
+```
+
+
+The second chart is identical to Fig 13 - second version (overall Part B results) but just for those six schools - 2021 vs. 2022
+
+```{r}
+temp2021_same<-data2021[data2021$School %in% c(14, 16, 27, 33, 41, 38), ]
+
+#-----2021 - Part B
+
+temp2021_same_b<-temp2021_same%>% select(
+  School,
+  Sector,
+  Type,
+  SES,
+  ADII,
+  Metro,
+  ds_data,
+  ds_gateway,
+  ds_reporting,
+  ds_response,
+  ds_climate,
+  pre_1,
+  pre_2,	
+  post_8_1,
+  post_8_2,
+  ds_total,
+  quadrant_results,	
+  descriptor)
+
+names(temp2021_same_b) <- figb_categories
+
+temp2021_same_b<-temp2021_same_b[rowSums(is.na(temp2021_same_b[7:18])) != ncol(temp2021_same_b[7:18]), ] 
+
+
+temp2021_b[1:2, 7:16]
+
+temp2021_same_f13n<-temp2021_same_b%>%mutate(
+  across(
+    c(7:16),
+    ~ mean(.x, na.rm = TRUE)
+))%>%
+  select(c(7:11))%>%
+  distinct()%>%
+  pivot_longer(names_to="Categories",
+               values_to="Mean",
+               cols=everything())%>%
+  mutate(year="2021")
+
+#-----2022 - Part B
+
+temp2022_same<-data2022[data2022$School %in% c(14, 16, 27, 33, 41, 38), ]
+
+
+temp2022_same_b<-temp2022_same%>% select(
+  School,
+  Sector,
+  Type,
+  SES,
+  ADII,
+  Metro,
+  ds_data,
+  ds_gateway,
+  ds_reporting,
+  ds_response,
+  ds_climate,
+  pre_1,
+  pre_2,	
+  post_8_1,
+  post_8_2,
+  ds_total,
+  quadrant_results,	
+  descriptor)
+
+names(temp2022_same_b) <- figb_categories
+
+temp2022_same_b<-temp2022_same_b[rowSums(is.na(temp2022_same_b[7:18])) != ncol(temp2022_same_b[7:18]), ] 
+
+temp2022_same_f13n<-temp2022_same_b%>%mutate(
+  across(
+    c(7:16),
+    ~ mean(.x, na.rm = TRUE)
+))%>%
+  select(c(7:11))%>%
+  distinct()%>%
+  pivot_longer(names_to="Categories",
+               values_to="Mean",
+               cols=everything())%>%
+  mutate(year="2022")
+
+temp_same_f13n<-rbind(temp2021_same_f13n, temp2022_same_f13n)
+#
+
+```
+```{r}
+#----- plot - part B
+
+temp_same_f13n%>%
+  ggplot(aes(x=Categories, y= Mean))+
+  geom_col(width=0.5)+
+  facet_wrap(vars(year))+
+  facet_wrap(vars(year))+
+    labs(title="2Part B: results by Focus Area - SAME schools",
+        x =" ", y = " Score 0-80")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+axis.line = element_line(colour = "black"))+
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 7))+
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, 20))+
+geom_text(aes(label = round(Mean)), 
+          position=position_dodge(width=0.7), vjust=-0.5)
+
+
+
+temp_same_f13n%>%
+  ggplot(aes(x=Categories, y= Mean, fill=year))+
+  geom_col(stat="identity", position=position_dodge(), width=0.5)+
+    labs(title="2Part B: results by Focus Area - SAME schools",
+        x =" ", y = " Score 0-80")+
+    scale_fill_grey(start = 0.8,
+  end = 0.2)+
+  theme(
+
+    legend.position="bottom",
+    legend.title=element_blank(),
+        
+panel.grid.major = element_blank(), 
+panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+
+#axis.title.y=element_blank(),
+#axis.text.y=element_blank(), 
+#axis.ticks.y=element_blank(),
+
+axis.ticks.x=element_blank(),
+axis.line.x = element_line(colour = "black"))+
+    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
+  scale_y_continuous(limits = c(0, 90), breaks = seq(0, 80, 20))+
+geom_text(aes(label = round(Mean)), 
+          position=position_dodge(width=0.5), 
+                      size = 3,
+          vjust=-0.5)
+```
+
+
