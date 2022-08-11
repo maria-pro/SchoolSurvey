@@ -138,9 +138,9 @@ cols_ADII <- c("#cbcbcb", "#565656")
 colors_list_SES <- list(
   "Low" = "#e2a8a8",
   "Medium" = "#cf4648",
-  "High" = "#683333"
+  "High" = "#ab393a"
 )
-cols_SES <- c("#e2a8a8", "#cf4648", "#683333")
+cols_SES <- c("#e2a8a8", "#cf4648", "#ab393a")
 
 cols_metro <- c("#755693","#ac9ac0")
 
@@ -183,9 +183,14 @@ plot_ly(data=count(data2021, Sector),
         labels = ~Sector, values = ~n, 
         type = 'pie',
   marker = list(colors = cols_sector),
-    texttext = "label",
+  
+text = ~paste(
+    "N = ", vals$n, "<br>", 
+                format(
+                  round(n / sum(n)*100), nsmall = 1
+                  ), "%"),
+ textinfo = "text",
   textposition = 'outside',
-  text = vals$n,
         name="Sector data 2021")%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
@@ -201,13 +206,18 @@ plot_ly(data=count(data2021, Sector),
 
 vals= count(data2022, Sector)
 
-plot_ly(data=count(data2022, Sector), 
+plot_ly(data=vals, 
         labels = ~Sector, values = ~n, 
         type = 'pie',
   marker = list(colors = cols_sector),
-    texttext = "label",
+  
+text = ~paste(
+    "N = ", vals$n, "<br>", 
+                format(
+                  round(n / sum(n)*100), nsmall = 1
+                  ), "%"),
+ textinfo = "text",
   textposition = 'outside',
-  text = vals$n,
         name="Sector data 2022")%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
@@ -229,9 +239,13 @@ plot_ly(data=count(data2021, Type),
         labels = ~Type, values = ~n, 
         type = 'pie',
   marker = list(colors = cols_type),
-    texttext = "label",
+text = ~paste(
+    "N = ", vals$n, "<br>", 
+                format(
+                  round(n / sum(n)*100), nsmall = 1
+                  ), "%"),
+ textinfo = "text",
   textposition = 'outside',
-  text = vals$n,
         name="Type data 2021")%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
@@ -249,14 +263,21 @@ plot_ly(data=count(data2022, Type),
         labels = ~Type, values = ~n, 
         type = 'pie',
   marker = list(colors = cols_type),
-    texttext = "label",
+text = ~paste(
+    "N = ", vals$n, "<br>", 
+                format(
+                  round(n / sum(n)*100), nsmall = 1
+                  ), "%"),
+ textinfo = "text",
   textposition = 'outside',
-  text = vals$n,
         name="Type data 2021")%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ",
          uniformtext=list(minsize=12, mode='hide'))
+
+
+#stopped with rounding
 
 ```
 
@@ -271,9 +292,13 @@ plot_ly(data=count(data2021, SES),
         labels = ~SES, values = ~n, 
         type = 'pie',
   marker = list(colors = cols_SES),
-    texttext = "label",
+  text = ~paste(
+    "N = ", vals$n, "<br>", 
+                format(
+                  round(n / sum(n)*100), nsmall = 1
+                  ), "%"),
+ textinfo = "text",
   textposition = 'outside',
-  text = vals$n,
         name="SES data 2021")%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
@@ -293,9 +318,13 @@ plot_ly(data=count(data2022, SES),
         labels = ~SES, values = ~n, 
         type = 'pie',
   marker = list(colors = cols_SES),
-    texttext = "label",
+text = ~paste(
+    "N = ", vals$n, "<br>", 
+                format(
+                  round(n / sum(n)*100), nsmall = 1
+                  ), "%"),
+ textinfo = "text",
   textposition = 'outside',
-  text = vals$n,
         name="SES data 2022")%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
@@ -315,9 +344,13 @@ plot_ly(data=count(data2021, ADII),
         labels = ~ADII, values = ~n, 
         type = 'pie',
   marker = list(colors = cols_ADII),
-    texttext = "label",
+text = ~paste(
+    "N = ", vals$n, "<br>", 
+                format(
+                  round(n / sum(n)*100), nsmall = 1
+                  ), "%"),
+ textinfo = "text",
   textposition = 'outside',
-  text = vals$n,
         name="ADII data 2021")%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
@@ -331,6 +364,8 @@ plot_ly(data=count(data2021, ADII),
 ### 2022 Participants by ADII
 
 vals= count(data2022, ADII)
+
+vals<-vals%>% mutate(ADII = ifelse(is.na(ADII), "Unknown", ADII))
 
 plot_ly(data=count(data2022, ADII), 
         labels = ~ADII, values = ~n, 
@@ -1146,7 +1181,6 @@ temp2022_eng_low<-temp2022_eng%>%filter(total_engA_type=="Low")
 ### Engagement A (Low) - Type: 2022"
 
 ```{r}
-
 
 #pie chart
 
