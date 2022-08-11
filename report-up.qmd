@@ -486,7 +486,7 @@ axis.ticks.y=element_blank(),
 axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
   scale_fill_manual(values=c('#3d83c2', '#cf4648', '#93bc48', '8b8b8b'))+
-  scale_y_discrete(breaks=NULL)+
+  scale_y_discrete(limits=c(0, 25), breaks=NULL)+
 geom_text(aes(label = n), size = 3.5,
           vjust=-0.5)
 
@@ -894,7 +894,7 @@ axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
 
-  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.20), labels = scales::percent)+
+  scale_y_continuous(limits = c(0, 1.1), breaks = seq(0, 1, 0.20), labels = scales::percent)+
   
     geom_text(aes(label = round(Mean*100), group = fct_rev(Sector), fill=fct_rev(Sector)), 
               position = position_dodge(width = .9),
@@ -961,7 +961,7 @@ axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
 #    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
 
-  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.20), labels = scales::percent)+
+  scale_y_continuous(limits = c(0, 1.1), breaks = seq(0, 1, 0.20), labels = scales::percent)+
   
     geom_text(aes(label = round(Mean*100), group = fct_rev(SES), fill=fct_rev(SES)), 
             position = position_dodge(width = .9),
@@ -1022,7 +1022,7 @@ axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
 #    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
 
-  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.20), labels = scales::percent)+
+  scale_y_continuous(limits = c(0, 1.1), breaks = seq(0, 1, 0.20), labels = scales::percent)+
   
     geom_text(aes(label = round(Mean*100), group = fct_rev(Type), fill=fct_rev(Type)), 
             position = position_dodge(width = .9),
@@ -1084,7 +1084,7 @@ axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
 #    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
 
-  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.20), labels = scales::percent)+
+  scale_y_continuous(limits = c(0, 1.1), breaks = seq(0, 1, 0.20), labels = scales::percent)+
   
     geom_text(aes(label = round(Mean*100), group = fct_rev(ADII), fill=fct_rev(ADII)), 
             position = position_dodge(width = .9),
@@ -1145,7 +1145,7 @@ axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
 #    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
 
-  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.20), labels = scales::percent)+
+  scale_y_continuous(limits = c(0, 1.1), breaks = seq(0, 1, 0.20), labels = scales::percent)+
   
     geom_text(aes(label = round(Mean*100), group = fct_rev(Metro), fill=fct_rev(Metro)), 
             position = position_dodge(width = .9),
@@ -1276,7 +1276,7 @@ axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
 #    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
 
-  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.20), labels = scales::percent)+
+  scale_y_continuous(limits = c(0, 1.1), breaks = seq(0, 1, 0.20), labels = scales::percent)+
   
     geom_text(aes(label = round(Mean*100), group = fct_rev(Metro), fill=fct_rev(Metro)), 
             position = position_dodge(width = .9),
@@ -1331,7 +1331,7 @@ panel.background = element_blank(),
 axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
     scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
-  scale_y_continuous(limits = c(0, 80), breaks = seq(0, 80, 20))+
+  scale_y_continuous(limits = c(0, 90), breaks = seq(0, 80, 20))+
 geom_text(aes(label = round(Mean)), 
           position=position_dodge(width=0.5), 
                       size = 3,
@@ -1383,7 +1383,7 @@ axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
 #    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
 
-  scale_y_continuous(limits = c(0, 80), breaks = seq(0, 80, 10))+
+  scale_y_continuous(limits = c(0, 90), breaks = seq(0, 80, 10))+
   
     geom_text(aes(label = round(Mean), group = Sector, fill=fct_rev(Sector)), 
             hjust = -0.5,
@@ -1434,7 +1434,7 @@ axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
 #    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
 
-  scale_y_continuous(limits = c(0, 80), breaks = seq(0, 80, 10))+  
+  scale_y_continuous(limits = c(0, 90), breaks = seq(0, 80, 10))+  
     geom_text(aes(label = round(Mean), group = SES, fill=fct_rev(SES)), 
             hjust = -0.5,
              size = 3,
@@ -1483,7 +1483,7 @@ axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
 #    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
 
-  scale_y_continuous(limits = c(0, 80), breaks = seq(0, 80, 10))+  
+  scale_y_continuous(limits = c(0, 90), breaks = seq(0, 80, 10))+  
     geom_text(aes(label = round(Mean), group = Type, fill=fct_rev(Type)), 
             hjust = -0.5,
              size = 2.7,
@@ -1533,7 +1533,7 @@ axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
 #    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
 
-  scale_y_continuous(limits = c(0, 80), breaks = seq(0, 80, 10))+  
+  scale_y_continuous(limits = c(0, 90), breaks = seq(0, 80, 10))+  
     geom_text(aes(label = round(Mean), group = ADII, fill=fct_rev(ADII)), 
             hjust = -0.5,
              size = 3,
@@ -1584,7 +1584,7 @@ axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
 #    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
 
-  scale_y_continuous(limits = c(0, 80), breaks = seq(0, 80, 10))+  
+  scale_y_continuous(limits = c(0, 90), breaks = seq(0, 80, 10))+  
     geom_text(aes(label = round(Mean), group = Metro, fill=fct_rev(Metro)), 
             hjust = -0.5,
              size = 3,
