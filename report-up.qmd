@@ -487,7 +487,8 @@ axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
   scale_fill_manual(values=c('#3d83c2', '#cf4648', '#93bc48', '8b8b8b'))+
   scale_y_discrete(breaks=NULL)+
-geom_text(aes(label = n), vjust = -0)
+geom_text(aes(label = n), size = 3.5,
+          vjust=-0.5)
 
 ```
 #### Figure 8.  2022: average (median) number of eSmart action items completed by sector (out of 23)
@@ -523,7 +524,8 @@ axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
   scale_fill_manual(values=c('#3d83c2', '#cf4648', '#93bc48', '8b8b8b'))+
   scale_y_discrete(breaks=NULL)+
-geom_text(aes(label = n), vjust = -0)
+geom_text(aes(label = n), size = 3.5,
+          vjust=-0.5)
 
 ```
 
@@ -534,15 +536,18 @@ Figure 9. Part A: number of eSmart action items achieved (out of 23) by sector
 ### Figure 9. 2021 Part A: number of eSmart action items achieved (out of 23) by sector
 ```{r}
 
-data2021%>%
-  select(Sector, parta_total)%>%
-  ggplot(aes(parta_total, fill=Sector))+
-  geom_histogram(binwidth = 0.5)+
+fig9<-data2021%>%
+  count(Sector, parta_total)
+
+
+fig9%>%
+  ggplot(aes(parta_total, n, fill=fct_rev(Sector)))+
+  geom_col(width=0.5)+
     labs(title="2021: Part A: number of eSmart action items achieved (out of 23) by sector)",
-        x =" ", y = " Number of schools")+
+        x ="Number of eSmart action items achieved", y = " Number of schools")+
   theme(
 
-    legend.position="top",
+    legend.position="bottom",
     legend.title=element_blank(),
         
 panel.grid.major = element_blank(), 
@@ -556,22 +561,28 @@ panel.background = element_blank(),
 axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
   scale_fill_manual(values=colors_list_sector)+
-  scale_x_continuous(limits = c(0, 23), breaks = seq(0, 23, 1))+
-    stat_count(aes(y=..count..,label=..count..), geom="text",vjust=2)
+  scale_y_continuous(limits = c(0, 9), breaks = seq(0, 9, 1))+
+  scale_x_continuous(limits = c(0, 23.5), breaks = seq(0, 23, 1))+
+  geom_text(aes(label = n),
+              position = position_stack(vjust = .5))
+#   stat_count(aes(y=..count..,label=..count..), geom="text",vjust=2)
 
 ```
 ### Figure 9. 2022 Part A: number of eSmart action items achieved (out of 23) by sector
 ```{r}
 
-data2022%>%
-  select(Sector, parta_total)%>%
-  ggplot(aes(parta_total, fill=Sector))+
-  geom_histogram(binwidth = 0.5)+
+fig9<-data2022%>%
+  count(Sector, parta_total)
+
+
+fig9%>%
+  ggplot(aes(parta_total, n, fill=fct_rev(Sector)))+
+  geom_col(width=0.5)+
     labs(title="2022: Part A: number of eSmart action items achieved (out of 23) by sector)",
-        x =" ", y = " Number of schools")+
+        x ="Number of eSmart action items achieved", y = " Number of schools")+
   theme(
 
-    legend.position="top",
+    legend.position="bottom",
     legend.title=element_blank(),
         
 panel.grid.major = element_blank(), 
@@ -585,8 +596,10 @@ panel.background = element_blank(),
 axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
   scale_fill_manual(values=colors_list_sector)+
-  scale_x_continuous(limits = c(0, 23), breaks = seq(0, 23, 1))+
-    stat_count(aes(y=..count..,label=..count..), geom="text",vjust=2)
+  scale_y_continuous(limits = c(0, 2), breaks = seq(0, 2, 1))+
+  scale_x_continuous(limits = c(0, 23.5), breaks = seq(0, 23, 1))+
+  geom_text(aes(label = n),
+              position = position_stack(vjust = .5))
 
 ```
 
