@@ -182,6 +182,7 @@ vals= count(data2021, Sector)
 plot_ly(data=count(data2021, Sector), 
         labels = ~Sector, values = ~n, 
         type = 'pie',
+        sort = FALSE,
   marker = list(colors = cols_sector),
   
 text = ~paste(
@@ -209,6 +210,7 @@ vals= count(data2022, Sector)
 plot_ly(data=vals, 
         labels = ~Sector, values = ~n, 
         type = 'pie',
+        sort = FALSE,
   marker = list(colors = cols_sector),
   
 text = ~paste(
@@ -238,6 +240,7 @@ vals= count(data2021, Type)
 plot_ly(data=count(data2021, Type), 
         labels = ~Type, values = ~n, 
         type = 'pie',
+        sort = FALSE,
   marker = list(colors = cols_type),
 text = ~paste(
     "N = ", vals$n, "<br>", 
@@ -258,10 +261,12 @@ text = ~paste(
 ```{r}
 
 vals= count(data2022, Type)
+vals$Type<=factor(vals$Type, levels=c("Primary","Secondary", "Combined"))
 
-plot_ly(data=count(data2022, Type), 
+plot_ly(data=vals, 
         labels = ~Type, values = ~n, 
         type = 'pie',
+        sort = FALSE,
   marker = list(colors = cols_type),
 text = ~paste(
     "N = ", vals$n, "<br>", 
@@ -291,6 +296,7 @@ vals= count(data2021, SES)
 plot_ly(data=count(data2021, SES), 
         labels = ~SES, values = ~n, 
         type = 'pie',
+        sort = FALSE,
   marker = list(colors = cols_SES),
   text = ~paste(
     "N = ", vals$n, "<br>", 
@@ -317,6 +323,7 @@ vals= count(data2022, SES)
 plot_ly(data=count(data2022, SES), 
         labels = ~SES, values = ~n, 
         type = 'pie',
+        sort = FALSE,
   marker = list(colors = cols_SES),
 text = ~paste(
     "N = ", vals$n, "<br>", 
@@ -342,6 +349,7 @@ vals= count(data2021, ADII)
 
 plot_ly(data=count(data2021, ADII), 
         labels = ~ADII, values = ~n, 
+        sort = FALSE,
         type = 'pie',
   marker = list(colors = cols_ADII),
 text = ~paste(
@@ -365,11 +373,12 @@ text = ~paste(
 
 vals= count(data2022, ADII)
 
-vals<-vals%>% mutate(ADII = ifelse(is.na(ADII), "Unknown", ADII))
+vals<-vals%>% mutate(ADII = ifelse(is.na(ADII), "Unknown", paste(ADII)))
 
-plot_ly(data=count(data2022, ADII), 
+plot_ly(data=vals, 
         labels = ~ADII, values = ~n, 
         type = 'pie',
+        sort = FALSE,
   marker = list(colors = cols_ADII),
 text = ~paste(
     "N = ", vals$n, "<br>", 
@@ -394,9 +403,10 @@ text = ~paste(
 
 vals= count(data2021, Metro)
 
-plot_ly(data=count(data2021, Metro), 
+plot_ly(data=vals, 
         labels = ~Metro, values = ~n, 
         type = 'pie',
+        sort = FALSE,
   marker = list(colors = cols_metro),
 text = ~paste(
     "N = ", vals$n, "<br>", 
@@ -420,9 +430,10 @@ text = ~paste(
 
 vals= count(data2022, Metro)
 
-plot_ly(data=count(data2022, Metro), 
+plot_ly(data=vals, 
         labels = ~Metro, values = ~n, 
         type = 'pie',
+        sort = FALSE,
   marker = list(colors = cols_metro),
 text = ~paste(
     "N = ", vals$n, "<br>", 
@@ -665,8 +676,17 @@ temp2022_f10<-temp2022_a%>%mutate(
 
 temp_f10<-rbind(temp2021_f10, temp2022_f10)
 
+# reorder factor
 
-#
+temp_f10$Categories<-factor(temp_f10$Categories,
+                            levels=c(
+      "Effective school organisation",
+      "School plans, policies, and procedures",
+      "Respectful and caring school",
+      "Effective teacher practices",
+      "eSmart curriculum",
+      "Community partnerships"))
+
 ```
 
 ```{r}
@@ -778,7 +798,7 @@ temp_f10%>%
   geom_col(stat="identity", position=position_dodge(), width = 0.5)+
 labs(title="2021/2022: Part A: average (mean) completion of eSmart action items - all schools by Domain)",
         x =" ", y = " % assessed as completed")+
-    scale_fill_grey()+
+    scale_fill_grey(start = 0.8, end = 0.2)+
   theme(
 
     legend.position="bottom",
@@ -797,7 +817,9 @@ axis.line.x = element_line(colour = "black"))+
     scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
   scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, 20))+
 geom_text(aes(label = paste0(round(Mean*100),"%")), 
-          position=position_dodge(width=0.7), vjust=-0.5)
+          position=position_dodge(width=0.5), 
+          size = 3,
+          vjust=-0.5)
 
 
 ```
@@ -811,6 +833,8 @@ temp2022_a$year<-"2022"
 
 temp<-rbind(temp2021_a, temp2022_a)
 
+
+
 fig11<-temp%>%
   group_by(Sector, year)%>%
   summarise(
@@ -823,24 +847,21 @@ fig11<-temp%>%
                values_to="Mean",
                cols=!c(1:2))
 
+fig11$Categories<-factor(fig11$Categories,
+                            levels=c(
+      "Effective school organisation",
+      "School plans, policies, and procedures",
+      "Respectful and caring school",
+      "Effective teacher practices",
+      "eSmart curriculum",
+      "Community partnerships"))
+
+
 #----PLOT
-fig11%>%count(Categories)
 
 fig11%>%
-  ungroup%>%
-#  mutate(
-#    Categories=as_factor(Categories,levels=c(
-#      "Effective school organisation",
-#      "School plans, policies, and procedures",
-#      "Respectful and caring school",
-#      "Effective school organisation",
-#      "eSmart curriculum",
-#      "Community partnerships"))
-#         )%>%
-  ggplot(aes(x=Categories, y= Mean, fill=Sector))+
-  geom_col(stat="identity", position=position_dodge(), width = 0.7)+
-  coord_flip()+
-  facet_wrap(vars(year))+
+  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=fct_rev(Sector)))+
+  geom_col(stat="identity", position= "dodge2")+
 labs(title="2021/2022: Part A: average (mean) completion of eSmart action items by Domain by sector",
         x =" ", y = "")+
   theme(
@@ -858,14 +879,19 @@ panel.background = element_blank(),
 
 axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
-#    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
+   scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
 
   scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.20), labels = scales::percent)+
   
-    geom_text(aes(label = round(Mean*100), group = Sector), 
-            position = position_dodge(width = 1), 
-            hjust = -0.2, vjust = 0.5, size = 3)+
-  scale_fill_manual(values=colors_list_sector)
+    geom_text(aes(label = round(Mean*100), group = fct_rev(Sector), fill=fct_rev(Sector)), 
+              position = position_dodge(width = .9),
+        hjust = - 0.2,
+        size=2.75
+              )+
+  scale_fill_manual(values=colors_list_sector)+
+  coord_flip()+
+  facet_wrap(vars(year), scales="free_x")
+
 
 ```
 
@@ -886,13 +912,23 @@ fig12<-temp%>%
                values_to="Mean",
                cols=!c(1:2))
 
+fig12$Categories<-factor(fig12$Categories,
+                            levels=c(
+      "Effective school organisation",
+      "School plans, policies, and procedures",
+      "Respectful and caring school",
+      "Effective teacher practices",
+      "eSmart curriculum",
+      "Community partnerships"))
+
+
 #----PLOT
 
 fig12%>%
-  ggplot(aes(x=Categories, y= Mean, fill=SES))+
-  geom_col(stat="identity", position=position_dodge(), width=0.7)+
+  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=fct_rev(SES)))+
+  geom_col(stat="identity", position= "dodge2")+
   coord_flip()+
-  facet_wrap(vars(year))+
+  facet_wrap(vars(year), scales="free_x")+
 labs(title="2021/2022: Part A: Average (mean) completion by Domain by SES",
         x =" ", y = "")+
   theme(
@@ -914,10 +950,326 @@ axis.line.x = element_line(colour = "black"))+
 
   scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.20), labels = scales::percent)+
   
-    geom_text(aes(label = round(Mean*100), group = SES), 
-            position = position_dodge(width = 1), 
-            hjust = -0.2, vjust = 0.5, size = 3)+
+    geom_text(aes(label = round(Mean*100), group = fct_rev(SES), fill=fct_rev(SES)), 
+            position = position_dodge(width = .9),
+        hjust = - 0.2,
+        size=2.75)+
   scale_fill_manual(values=colors_list_SES)
+
+```
+
+### Figure 12. Part A: Average (mean) completion by Domain by Type
+
+```{r}
+fig12<-temp%>%
+  group_by(Type, year)%>%
+  summarise(
+    across(
+      c(6:11),
+      ~ mean(.x, na.rm = TRUE)
+      )
+    )%>%
+  pivot_longer(names_to="Categories",
+               values_to="Mean",
+               cols=!c(1:2))
+
+fig12$Categories<-factor(fig12$Categories,
+                            levels=c(
+      "Effective school organisation",
+      "School plans, policies, and procedures",
+      "Respectful and caring school",
+      "Effective teacher practices",
+      "eSmart curriculum",
+      "Community partnerships"))
+
+
+#----PLOT
+
+fig12%>%
+  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=fct_rev(Type)))+
+  geom_col(stat="identity", position= "dodge2")+
+  coord_flip()+
+  facet_wrap(vars(year), scales="free_x")+
+labs(title="2021/2022: Part A: Average (mean) completion by Domain by Type",
+        x =" ", y = "")+
+  theme(
+
+    legend.position="bottom",
+    legend.title=element_blank(),
+        
+panel.grid.major = element_blank(), 
+panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+
+#axis.title.y=element_blank(),
+#axis.text.y=element_blank(), 
+#axis.ticks.y=element_blank(),
+
+axis.ticks.x=element_blank(),
+axis.line.x = element_line(colour = "black"))+
+#    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
+
+  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.20), labels = scales::percent)+
+  
+    geom_text(aes(label = round(Mean*100), group = fct_rev(Type), fill=fct_rev(Type)), 
+            position = position_dodge(width = .9),
+        hjust = - 0.2,
+        size=2.75)+
+  scale_fill_manual(values=colors_list_type)
+
+```
+
+### Figure 12. Part A: Average (mean) completion by Domain by ADII 
+
+
+```{r}
+fig12<-temp%>%
+  group_by(ADII, year)%>%
+  summarise(
+    across(
+      c(6:11),
+      ~ mean(.x, na.rm = TRUE)
+      )
+    )%>%
+  pivot_longer(names_to="Categories",
+               values_to="Mean",
+               cols=!c(1:2))
+
+fig12$Categories<-factor(fig12$Categories,
+                            levels=c(
+      "Effective school organisation",
+      "School plans, policies, and procedures",
+      "Respectful and caring school",
+      "Effective teacher practices",
+      "eSmart curriculum",
+      "Community partnerships"))
+
+
+#----PLOT
+
+fig12%>%
+  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=fct_rev(ADII)))+
+  geom_col(stat="identity", position= "dodge2")+
+  coord_flip()+
+  facet_wrap(vars(year), scales="free_x")+
+labs(title="2021/2022: Part A: Average (mean) completion by Domain by ADII",
+        x =" ", y = "")+
+  theme(
+
+    legend.position="bottom",
+    legend.title=element_blank(),
+        
+panel.grid.major = element_blank(), 
+panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+
+#axis.title.y=element_blank(),
+#axis.text.y=element_blank(), 
+#axis.ticks.y=element_blank(),
+
+axis.ticks.x=element_blank(),
+axis.line.x = element_line(colour = "black"))+
+#    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
+
+  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.20), labels = scales::percent)+
+  
+    geom_text(aes(label = round(Mean*100), group = fct_rev(ADII), fill=fct_rev(ADII)), 
+            position = position_dodge(width = .9),
+        hjust = - 0.2,
+        size=2.75)+
+  scale_fill_manual(values=colors_list_ADII)
+
+```
+### Figure 12. Part A: Average (mean) completion by Domain by Metro 
+
+
+```{r}
+fig12<-temp%>%
+  group_by(Metro, year)%>%
+  summarise(
+    across(
+      c(6:11),
+      ~ mean(.x, na.rm = TRUE)
+      )
+    )%>%
+  pivot_longer(names_to="Categories",
+               values_to="Mean",
+               cols=!c(1:2))
+
+fig12$Categories<-factor(fig12$Categories,
+                            levels=c(
+      "Effective school organisation",
+      "School plans, policies, and procedures",
+      "Respectful and caring school",
+      "Effective teacher practices",
+      "eSmart curriculum",
+      "Community partnerships"))
+
+
+#----PLOT
+
+fig12%>%
+  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=fct_rev(Metro)))+
+  geom_col(stat="identity", position= "dodge2")+
+  coord_flip()+
+  facet_wrap(vars(year), scales="free_x")+
+labs(title="2021/2022: Part A: Average (mean) completion by Domain by ADII",
+        x =" ", y = "")+
+  theme(
+
+    legend.position="bottom",
+    legend.title=element_blank(),
+        
+panel.grid.major = element_blank(), 
+panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+
+#axis.title.y=element_blank(),
+#axis.text.y=element_blank(), 
+#axis.ticks.y=element_blank(),
+
+axis.ticks.x=element_blank(),
+axis.line.x = element_line(colour = "black"))+
+#    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
+
+  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.20), labels = scales::percent)+
+  
+    geom_text(aes(label = round(Mean*100), group = fct_rev(Metro), fill=fct_rev(Metro)), 
+            position = position_dodge(width = .9),
+        hjust = - 0.2,
+        size=2.75)+
+  scale_fill_manual(values=c("#755693","#ac9ac0"))
+
+```
+
+### engagement A and B
+
+
+```{r}
+
+#-----2022 - engagement
+
+temp2022_eng<-data2022%>% select(
+  School,
+  Sector,
+  Type,
+  SES,
+  ADII,
+  Metro,
+total_engA_type,
+total_engB_type)
+
+temp2022_eng$total_engA_type<-factor(temp2022_eng$total_engA_type, levels=c("Low", "High"))
+temp2022_eng$total_engB_type<-factor(temp2022_eng$total_engB_type, levels=c("Low", "Med", "High"))
+
+
+temp2022_eng %>% ggplot(aes(x=total_engA_type, fill=total_engA_type))+
+  geom_bar(width = 0.5)+
+labs(title="2022: Engagement A: ",
+        x =" ", y = " Number of schools")+
+  #  scale_fill_manual(colors=colors_list_ADII)+
+  theme(
+
+    legend.position="bottom",
+    legend.title=element_blank(),
+        
+panel.grid.major = element_blank(), 
+panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+
+#axis.title.y=element_blank(),
+#axis.text.y=element_blank(), 
+#axis.ticks.y=element_blank(),
+
+axis.ticks.x=element_blank(),
+axis.line.x = element_line(colour = "black"))
+#    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
+#  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, 20))+
+
+temp2022_eng %>% ggplot(aes(x=total_engB_type, fill=total_engB_type))+
+  geom_bar(width = 0.5)+
+labs(title="2022: Engagement B: ",
+        x =" ", y = " Number of schools")+
+  #  scale_fill_manual(colors=colors_list_ADII)+
+  theme(
+
+    legend.position="bottom",
+    legend.title=element_blank(),
+        
+panel.grid.major = element_blank(), 
+panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+
+#axis.title.y=element_blank(),
+#axis.text.y=element_blank(), 
+#axis.ticks.y=element_blank(),
+
+axis.ticks.x=element_blank(),
+axis.line.x = element_line(colour = "black"))
+#    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
+#  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, 20))+
+
+
+
+```
+
+
+```{r}
+fig12<-temp%>%
+  group_by(Metro, year)%>%
+  summarise(
+    across(
+      c(6:11),
+      ~ mean(.x, na.rm = TRUE)
+      )
+    )%>%
+  pivot_longer(names_to="Categories",
+               values_to="Mean",
+               cols=!c(1:2))
+
+fig12$Categories<-factor(fig12$Categories,
+                            levels=c(
+      "Effective school organisation",
+      "School plans, policies, and procedures",
+      "Respectful and caring school",
+      "Effective teacher practices",
+      "eSmart curriculum",
+      "Community partnerships"))
+
+
+#----PLOT
+
+fig12%>%
+  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=fct_rev(Metro)))+
+  geom_col(stat="identity", position= "dodge2")+
+  coord_flip()+
+  facet_wrap(vars(year), scales="free_x")+
+labs(title="2021/2022: Part A: Average (mean) completion by Domain by ADII",
+        x =" ", y = "")+
+  theme(
+
+    legend.position="bottom",
+    legend.title=element_blank(),
+        
+panel.grid.major = element_blank(), 
+panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+
+#axis.title.y=element_blank(),
+#axis.text.y=element_blank(), 
+#axis.ticks.y=element_blank(),
+
+axis.ticks.x=element_blank(),
+axis.line.x = element_line(colour = "black"))+
+#    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
+
+  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.20), labels = scales::percent)+
+  
+    geom_text(aes(label = round(Mean*100), group = fct_rev(Metro), fill=fct_rev(Metro)), 
+            position = position_dodge(width = .9),
+        hjust = - 0.2,
+        size=2.75)+
+  scale_fill_manual(values=c("#755693","#ac9ac0"))
 
 ```
 
