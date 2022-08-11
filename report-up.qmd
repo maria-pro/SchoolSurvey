@@ -948,7 +948,8 @@ temp_f13n%>%
   geom_col(stat="identity", position=position_dodge(), width=0.5)+
     labs(title="2Part B: results by Focus Area - all schools",
         x =" ", y = " Score 0-80")+
-    scale_fill_grey()+
+    scale_fill_grey(start = 0.8,
+  end = 0.2)+
   theme(
 
     legend.position="bottom",
@@ -965,10 +966,11 @@ panel.background = element_blank(),
 axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
     scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
-  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, 20))+
+  scale_y_continuous(limits = c(0, 80), breaks = seq(0, 80, 20))+
 geom_text(aes(label = round(Mean)), 
-          position=position_dodge(width=0.7), vjust=-0.5)
-
+          position=position_dodge(width=0.5), 
+                      size = 3,
+          vjust=-0.5)
 
 ```
 
@@ -994,10 +996,9 @@ fig14<-temp_b%>%
 #----PLOT
 
 fig14%>%
-  ggplot(aes(x=Categories, y= Mean, fill=Sector))+
-  geom_col(stat="identity", position=position_dodge(), width=0.5)+
-  coord_flip()+
-  facet_wrap(vars(year))+
+  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=fct_rev(Sector)))+
+  geom_col(stat="identity", position=position_dodge())+
+
       labs(title="Part B: results by Focus Area by sector",
         x =" ", y = "")+
   theme(
@@ -1019,10 +1020,13 @@ axis.line.x = element_line(colour = "black"))+
 
   scale_y_continuous(limits = c(0, 80), breaks = seq(0, 80, 10))+
   
-    geom_text(aes(label = round(Mean), group = Sector), 
-            position = position_dodge(width = 1), 
-            hjust = -0.2, vjust = 0.5, size = 3)+
-  scale_fill_manual(values=colors_list_sector)
+    geom_text(aes(label = round(Mean), group = Sector, fill=fct_rev(Sector)), 
+            hjust = -0.5,
+             size = 3,
+             position = position_dodge(width = -1))+
+  scale_fill_manual(values=colors_list_sector)+
+    coord_flip()+
+   facet_wrap(vars(year))
 
 
 ```
@@ -1042,7 +1046,7 @@ fig15<-temp_b%>%
 #----PLOT
 
 fig15%>%
-  ggplot(aes(x=Categories, y= Mean, fill=SES))+
+  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=fct_rev(SES)))+
   geom_col(stat="identity", position=position_dodge(), width=0.7)+
     coord_flip()+
   facet_wrap(vars(year))+
@@ -1066,9 +1070,10 @@ axis.line.x = element_line(colour = "black"))+
 #    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
 
   scale_y_continuous(limits = c(0, 80), breaks = seq(0, 80, 10))+  
-    geom_text(aes(label = round(Mean), group = SES), 
-            position = position_dodge(width = 1), 
-            hjust = -0.2, vjust = 0.5, size = 3)+
+    geom_text(aes(label = round(Mean), group = SES, fill=fct_rev(SES)), 
+            hjust = -0.5,
+             size = 3,
+             position = position_dodge(width = -1))+
   scale_fill_manual(values=colors_list_SES)
 
 ```
@@ -1090,7 +1095,7 @@ fig16<-temp_b%>%
 #----PLOT
 
 fig16%>%
-  ggplot(aes(x=Categories, y= Mean, fill=Type))+
+  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=fct_rev(Type)))+
   geom_col(stat="identity", position=position_dodge(), width=0.7)+
   coord_flip()+
   facet_wrap(vars(year))+
@@ -1114,10 +1119,112 @@ axis.line.x = element_line(colour = "black"))+
 #    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
 
   scale_y_continuous(limits = c(0, 80), breaks = seq(0, 80, 10))+  
-    geom_text(aes(label = round(Mean), group = Type), 
-            position = position_dodge(width = 1), 
-            hjust = -0.2, vjust = 0.5, size = 3)+
+    geom_text(aes(label = round(Mean), group = Type, fill=fct_rev(Type)), 
+            hjust = -0.5,
+             size = 2.7,
+             position = position_dodge(width = -1))+
   scale_fill_manual(values=colors_list_type)
+
+```
+
+### Figure 16. Part B: results by Focus Area by ADII
+
+```{r}
+fig16<-temp_b%>%
+  group_by(ADII, year)%>%
+  summarise(
+    across(
+      c(6:10),
+      ~ mean(.x, na.rm = TRUE))
+    )%>%
+  pivot_longer(names_to="Categories",
+               values_to="Mean",
+               cols=!c(1:2))%>%
+  drop_na()
+
+#----PLOT
+
+fig16%>%
+  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=fct_rev(ADII)))+
+  geom_col(stat="identity", position=position_dodge(), width=0.7)+
+  coord_flip()+
+  facet_wrap(vars(year))+
+      labs(title="Part B: results by Focus Area by ADII ",
+        x =" ", y = "")+
+  theme(
+
+    legend.position="bottom",
+    legend.title=element_blank(),
+        
+panel.grid.major = element_blank(), 
+panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+
+#axis.title.y=element_blank(),
+#axis.text.y=element_blank(), 
+#axis.ticks.y=element_blank(),
+
+axis.ticks.x=element_blank(),
+axis.line.x = element_line(colour = "black"))+
+#    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
+
+  scale_y_continuous(limits = c(0, 80), breaks = seq(0, 80, 10))+  
+    geom_text(aes(label = round(Mean), group = ADII, fill=fct_rev(ADII)), 
+            hjust = -0.5,
+             size = 3,
+             position = position_dodge(width = -1))+
+  scale_fill_manual(values=colors_list_ADII)
+
+```
+
+
+### Figure 16. Part B: results by Focus Area by metro
+
+```{r}
+fig16<-temp_b%>%
+  group_by(Metro, year)%>%
+  summarise(
+    across(
+      c(6:10),
+      ~ mean(.x, na.rm = TRUE))
+    )%>%
+  pivot_longer(names_to="Categories",
+               values_to="Mean",
+               cols=!c(1:2))%>%
+  drop_na()
+
+#----PLOT
+
+fig16%>%
+  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=fct_rev(Metro)))+
+  geom_col(stat="identity", position=position_dodge(), width=0.7)+
+  coord_flip()+
+  facet_wrap(vars(year))+
+      labs(title="Part B: results by Focus Area by Metro ",
+        x =" ", y = "")+
+  theme(
+
+    legend.position="bottom",
+    legend.title=element_blank(),
+        
+panel.grid.major = element_blank(), 
+panel.grid.minor = element_blank(),
+panel.background = element_blank(),
+
+#axis.title.y=element_blank(),
+#axis.text.y=element_blank(), 
+#axis.ticks.y=element_blank(),
+
+axis.ticks.x=element_blank(),
+axis.line.x = element_line(colour = "black"))+
+#    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
+
+  scale_y_continuous(limits = c(0, 80), breaks = seq(0, 80, 10))+  
+    geom_text(aes(label = round(Mean), group = Metro, fill=fct_rev(Metro)), 
+            hjust = -0.5,
+             size = 3,
+             position = position_dodge(width = -1))+
+  scale_fill_manual(values=c("#755693", "#ac9ac0"))
 
 ```
 
@@ -1129,9 +1236,9 @@ axis.line.x = element_line(colour = "black"))+
 temp_b%>%
   drop_na(Descriptor)%>%
   mutate(Descriptor=factor(Descriptor,levels=c("Emerging","Building", "Flourishing")))%>%
-  ggplot(aes(Descriptor))+
-  geom_bar(width=0.3, fill="darkorchid4")+
-  facet_wrap(vars(year))+
+  ggplot(aes(Descriptor, fill=year))+
+  geom_bar(position=position_dodge(), width = 0.5)+
+#  facet_wrap(vars(year))+
     labs(title=" ",
         x =" ", y = " Number of schools")+
   theme(
@@ -1151,7 +1258,16 @@ axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
 #    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
 
-  stat_count(aes(y=..count..,label=..count..), geom="text",vjust=-0.5)
+  stat_count(aes(y=..count..,label=..count..), 
+             geom="text", 
+             position=position_dodge(width=0.5), 
+             size = 3,
+             vjust=-0.5)+
+  scale_fill_manual(values=c("#c2b4ce","#943ae8"))
+  
+  
+  
+
 
 ```
 
@@ -1873,13 +1989,13 @@ pre2021<-data2021%>%
   drop_na(pre_1)%>%
   mutate(
     pre1_status=case_when(
-      pre_1<post_8_1 ~"Improved",
+      pre_1<post_8_1 ~"Post-score higher",
       pre_1==post_8_1 ~"No change",
-      TRUE ~ "Downgrade"),
+      TRUE ~ "Pre-score higher"),
     pre2_status=case_when(
-      pre_2<post_8_2 ~"Improved",
+      pre_2<post_8_2 ~"Post-score higher",
       pre_2==post_8_2 ~"No change",
-      TRUE ~ "Downgrade")
+      TRUE ~ "Pre-score higher")
   )
 
 
@@ -1939,13 +2055,13 @@ pre2022<-data2022%>%
   drop_na(pre_1)%>%
   mutate(
     pre1_status=case_when(
-      pre_1<post_8_1 ~"Improved",
+      pre_1<post_8_1 ~"Post-score higher",
       pre_1==post_8_1 ~"No change",
-      TRUE ~ "Downgrade"),
+      TRUE ~ "Pre-score higher"),
     pre2_status=case_when(
-      pre_2<post_8_2 ~"Improved",
+      pre_2<post_8_2 ~"Post-score higher",
       pre_2==post_8_2 ~"No change",
-      TRUE ~ "Downgrade")
+      TRUE ~ "Pre-score higher")
   )
 
 
