@@ -131,7 +131,6 @@ data_dic<-read_csv("data/data_dic.csv")
 
 ```
 
-
 ```{r}
 #factor levels
 
@@ -158,6 +157,7 @@ data2022<-data2022%>%
 ```
 
 
+
 ## Acknowledgements
 
 Friends, Romans, countrymen, lend me your ears; I come to bury Caesar, not to praise him. The evil that men do lives after them; The good is oft interred with their bones; So let it be with Caesar. The noble Brutus Hath told you Caesar was ambitious: If it were so, it was a grievous fault, And grievously hath Caesar answer'd it. Here, under leave of Brutus and the rest-- For Brutus is an honourable man; So are they all, all honourable men-- Come I to speak in Caesar's funeral. He was my friend, faithful and just to me: But Brutus says he was ambitious; And Brutus is an honourable man. He hath brought many captives home to Rome Whose ransoms did the general coffers fill: Did this in Caesar seem ambitious?
@@ -180,6 +180,7 @@ Pie charts side-by-side: 2021 and 2022. Sector, Type, SES, ADII, Metro/non-metro
 
 
 ### 2021: Participants by sector
+
 ```{r}
 
 
@@ -216,7 +217,9 @@ text = ~paste(
 
 ```
 
+
 ### by Sector 2022
+
 
 ```{r}
 
@@ -244,7 +247,9 @@ text = ~paste(
 
 
 ```
+
 ### 2021 Participants by school type.
+
 ```{r}
 
 #| label: fig2-type
@@ -272,7 +277,9 @@ text = ~paste(
          uniformtext=list(minsize=12, mode='hide'),
          font=t)
 ```
+
 ### 2022 Participants by school type.
+
 
 
 ```{r}
@@ -304,7 +311,9 @@ text = ~paste(
 
 ```
 
+
 ### Figure 3. 2021 Participants by SES
+
 
 ```{r}
 ### 2021 Participants by SES
@@ -332,7 +341,9 @@ plot_ly(data=count(data2021, SES),
 
 ```
 
+
 ### 2022 Participants by SES
+
 
 ```{r}
 ### 2022 Participants by SES
@@ -360,7 +371,9 @@ text = ~paste(
 
 ```
 
+
 ### Figure 4. 2021 Participants by ADII
+
 
 ```{r}
 ### 2021 Participants by ADII
@@ -387,7 +400,9 @@ text = ~paste(
          font=t)
 
 ```
+
 ## Figure 4. 2022 Participants by ADII
+
 
 ```{r}
 ### 2022 Participants by ADII
@@ -418,7 +433,9 @@ text = ~paste(
 ```
 
 
+
 ### Figure 5. 2021 Participants by location: metro / non-metro
+
 
 ```{r}
 ### 2021 Participants by metro / non-metro
@@ -446,7 +463,9 @@ text = ~paste(
 
 ```
 
+
 ### Figure 5. 2022 Participants by location: metro / non-metro
+
 
 ```{r}
 ### 2022 Participants by metro / non-metro
@@ -475,11 +494,13 @@ text = ~paste(
 ```
 
 
+
 Figure 6. Participants by DET region N/A Figure 7. Participants by eSmart status N/A
 
 Figure 8. Part A: average (median) number of eSmart action items completed by sector (out of 23)
 
 #### Figure 8. 2021: average (median) number of eSmart action items completed by sector (out of 23)
+
 
 ```{r}
 fig8<-data2021%>%
@@ -515,7 +536,9 @@ geom_text(aes(label = n), size = 3.5,
           vjust=-0.5)
 
 ```
+
 #### Figure 8.  2022: average (median) number of eSmart action items completed by sector (out of 23)
+
 
 ```{r}
 
@@ -553,11 +576,13 @@ geom_text(aes(label = n), size = 3.5,
 
 ```
 
+
 Figure 9. Part A: number of eSmart action items achieved (out of 23) by sector
 
 **NOTE** combining two years makes this chart really messy, especially with 6 different colour/patterns combinations and scales in the original report
 
 ### Figure 9. 2021 Part A: number of eSmart action items achieved (out of 23) by sector
+
 ```{r}
 
 fig9<-data2021%>%
@@ -592,7 +617,9 @@ axis.line.x = element_line(colour = "black"))+
 #   stat_count(aes(y=..count..,label=..count..), geom="text",vjust=2)
 
 ```
+
 ### Figure 9. 2022 Part A: number of eSmart action items achieved (out of 23) by sector
+
 ```{r}
 
 fig9<-data2022%>%
@@ -627,7 +654,9 @@ axis.line.x = element_line(colour = "black"))+
 
 ```
 
+
 Figure 10. Part A: average (mean) completion of eSmart action items - all schools by Domain
+
 
 
 
@@ -825,7 +854,9 @@ temp2022_f13n<-temp2022_b%>%mutate(
 temp_f13n<-rbind(temp2021_f13n, temp2022_f13n)
 #
 ```
+
 ### 2021/2022 - Figure 10. Part A: average (mean) completion of eSmart action items - all schools by Domain
+
 
 ```{r}
 #----- plot - part A
@@ -861,7 +892,9 @@ geom_text(aes(label = paste0(round(Mean*100),"%")),
 
 ```
 
+
 Figure 11. Part A: average (mean) completion of eSmart action items by Domain by sector
+
 
 ```{r}
 
@@ -932,9 +965,11 @@ axis.line.x = element_line(colour = "black"))+
 
 ```
 
+
 ### Figure 12. Part A: Average (mean) completion by Domain by SES.
 
 **NOTE** I have to turn it as otherwise the text is too small or the chart is too messy
+
 
 ```{r}
 fig12<-temp%>%
@@ -995,7 +1030,9 @@ axis.line.x = element_line(colour = "black"))+
 
 ```
 
+
 ### Figure 12. Part A: Average (mean) completion by Domain by Type
+
 
 ```{r}
 fig12<-temp%>%
@@ -1056,7 +1093,9 @@ axis.line.x = element_line(colour = "black"))+
 
 ```
 
+
 ### Figure 12. Part A: Average (mean) completion by Domain by ADII 
+
 
 
 ```{r}
@@ -1117,7 +1156,9 @@ axis.line.x = element_line(colour = "black"))+
   scale_fill_manual(values=colors_list_ADII)
 
 ```
+
 ### Figure 12. Part A: Average (mean) completion by Domain by Metro 
+
 
 
 ```{r}
@@ -1179,7 +1220,9 @@ axis.line.x = element_line(colour = "black"))+
 
 ```
 
+
 ### engagement A and B
+
 
 
 ```{r}
@@ -1250,7 +1293,6 @@ axis.line.x = element_line(colour = "black"))
 
 ```
 
-
 ```{r}
 fig12<-temp%>%
   group_by(Metro, year)%>%
@@ -1310,7 +1352,9 @@ axis.line.x = element_line(colour = "black"))+
 
 ```
 
+
 ### Figure 13. Part B: results by Focus Area - all schools
+
 
 ```{r}
 #----- plot - part B
@@ -1467,7 +1511,9 @@ axis.line.x = element_line(colour = "black"))+
 
 ```
 
+
 ### Figure 16. Part B: results by Focus Area by school type
+
 
 ```{r}
 fig16<-temp_b%>%
@@ -1516,7 +1562,9 @@ axis.line.x = element_line(colour = "black"))+
 
 ```
 
+
 ### Figure 16. Part B: results by Focus Area by ADII
+
 
 ```{r}
 fig16<-temp_b%>%
@@ -1567,7 +1615,9 @@ axis.line.x = element_line(colour = "black"))+
 ```
 
 
+
 ### Figure 16. Part B: results by Focus Area by metro
+
 
 ```{r}
 fig16<-temp_b%>%
@@ -1617,9 +1667,11 @@ axis.line.x = element_line(colour = "black"))+
 
 ```
 
+
 ### Figure 17. Part B: progress in eSmart journey - all schools
 
 2021 and 2022
+
 
 ```{r}
 temp_b%>%
@@ -1661,10 +1713,12 @@ axis.line.x = element_line(colour = "black"))+
 ```
 
 
+
 ## Engagement - 2022 data only
 
 
 ### by Sector 2022 - Engagement A data 2022
+
 
 ```{r}
 
@@ -1692,7 +1746,9 @@ text = ~paste(
 
 ```
 
+
 ### by Sector 2022 - Engagement B data 2022
+
 
 ```{r}
 
@@ -1719,7 +1775,9 @@ text = ~paste(
 
 
 ```
+
 ### old graphs
+
 
 ```{r}
 
@@ -1753,7 +1811,9 @@ temp2022_eng_low<-temp2022_eng%>%filter(total_engA_type=="Low")
 
 ```
 
+
 ### Engagement A (Low) - Type: 2022"
+
 
 ```{r}
 
@@ -1773,7 +1833,9 @@ plot_ly(data=count(temp2022_eng_low, Type),
          font=t)
 ```
 
+
 ### Engagement A (Low) - Sector: 2022"
+
 
 ```{r}
 
@@ -1795,7 +1857,9 @@ plot_ly(data=count(temp2022_eng_low, Sector),
 ```
 
 
+
 ### Engagement A (Low) - SES: 2022"
+
 
 ```{r}
 
@@ -1816,7 +1880,9 @@ plot_ly(data=count(temp2022_eng_low, SES),
          font=t)
 ```
 
+
 ### Engagement A (Low) - ADII: 2022"
+
 
 ```{r}
 
@@ -1837,7 +1903,9 @@ plot_ly(data=count(temp2022_eng_low, ADII),
          font=t)
 ```
 
+
 ### Engagement A (Low) - Metro: 2022"
+
 
 ```{r}
 
@@ -1858,7 +1926,9 @@ plot_ly(data=count(temp2022_eng_low, Metro),
          font=t)
 ```
 
+
 ## Engagement A (High) 
+
 
 ```{r}
 temp2022_eng_high<-temp2022_eng%>%filter(total_engA_type=="High")
@@ -1866,7 +1936,9 @@ temp2022_eng_high<-temp2022_eng%>%filter(total_engA_type=="High")
 ```
 
 
+
 ### Engagement A (High) - Type: 2022"
+
 
 ```{r}
 
@@ -1887,7 +1959,9 @@ plot_ly(data=count(temp2022_eng_high, Type),
          font=t)
 ```
 
+
 ### Engagement A (High) - Sector: 2022"
+
 
 ```{r}
 
@@ -1909,7 +1983,9 @@ plot_ly(data=count(temp2022_eng_high, Sector),
 ```
 
 
+
 ### Engagement A (High) - SES: 2022"
+
 
 ```{r}
 
@@ -1930,7 +2006,9 @@ plot_ly(data=count(temp2022_eng_high, SES),
          font=t)
 ```
 
+
 ### Engagement A (High) - ADII: 2022"
+
 
 ```{r}
 
@@ -1951,7 +2029,9 @@ plot_ly(data=count(temp2022_eng_high, ADII),
          font=t)
 ```
 
+
 ### Engagement A (High) - Metro: 2022"
+
 
 ```{r}
 
@@ -1973,13 +2053,17 @@ plot_ly(data=count(temp2022_eng_high, Metro),
 ```
 
 
+
 ## Engagement B
+
 ```{r}
 temp2022_eng_low<-temp2022_eng%>%filter(total_engB_type=="Low")
 
 ```
 
+
 ### Engagement B (Low) - Type: 2022"
+
 
 ```{r}
 
@@ -2000,7 +2084,9 @@ plot_ly(data=count(temp2022_eng_low, Type),
          font=t)
 ```
 
+
 ### Engagement B (Low) - Sector: 2022"
+
 
 ```{r}
 
@@ -2022,7 +2108,9 @@ plot_ly(data=count(temp2022_eng_low, Sector),
 ```
 
 
+
 ### Engagement B (Low) - SES: 2022"
+
 
 ```{r}
 
@@ -2043,7 +2131,9 @@ plot_ly(data=count(temp2022_eng_low, SES),
          font=t)
 ```
 
+
 ### Engagement B (Low) - ADII: 2022"
+
 
 ```{r}
 
@@ -2064,7 +2154,9 @@ plot_ly(data=count(temp2022_eng_low, ADII),
          font=t)
 ```
 
+
 ## Engagement B (Low) - Metro: 2022"
+
 
 ```{r}
 
@@ -2084,7 +2176,9 @@ plot_ly(data=count(temp2022_eng_low, Metro),
          font=t)
 ```
 
+
 ## Engagement B (High) 
+
 
 ```{r}
 temp2022_eng_high<-temp2022_eng%>%filter(total_engB_type=="High")
@@ -2093,7 +2187,9 @@ temp2022_eng_high<-temp2022_eng%>%filter(total_engB_type=="High")
 
 
 
+
 ### Engagement B (High) - Type: 2022"
+
 
 ```{r}
 
@@ -2114,7 +2210,9 @@ plot_ly(data=count(temp2022_eng_high, Type),
          font=t)
 ```
 
+
 ### Engagement B (High) - Sector: 2022"
+
 
 ```{r}
 
@@ -2136,7 +2234,9 @@ plot_ly(data=count(temp2022_eng_high, Sector),
 ```
 
 
+
 ### Engagement B (High) - SES: 2022"
+
 
 ```{r}
 
@@ -2157,7 +2257,9 @@ plot_ly(data=count(temp2022_eng_high, SES),
          font=t)
 ```
 
+
 ### Engagement B (High) - ADII: 2022"
+
 
 ```{r}
 
@@ -2178,7 +2280,9 @@ plot_ly(data=count(temp2022_eng_high, ADII),
          font=t)
 ```
 
+
 ### Engagement B (High) - Metro: 2022"
+
 
 ```{r}
 
@@ -2200,7 +2304,9 @@ plot_ly(data=count(temp2022_eng_high, Metro),
 ```
 
 
+
 ## Engagement B (Med) 
+
 
 ```{r}
 temp2022_eng_med<-temp2022_eng%>%filter(total_engB_type=="Med")
@@ -2209,7 +2315,9 @@ temp2022_eng_med<-temp2022_eng%>%filter(total_engB_type=="Med")
 
 
 
+
 ### Engagement B (Medium) - Type: 2022"
+
 
 ```{r}
 
@@ -2230,7 +2338,9 @@ plot_ly(data=count(temp2022_eng_med, Type),
          font=t)
 ```
 
+
 ### Engagement B (Medium) - Sector: 2022"
+
 
 ```{r}
 
@@ -2253,7 +2363,9 @@ plot_ly(data=count(temp2022_eng_med, Sector),
 ```
 
 
+
 ### Engagement B (Medium) - SES: 2022"
+
 
 ```{r}
 
@@ -2274,7 +2386,9 @@ plot_ly(data=count(temp2022_eng_med, SES),
          font=t)
 ```
 
+
 ### Engagement B (Medium) - ADII: 2022"
+
 
 ```{r}
 
@@ -2296,7 +2410,9 @@ plot_ly(data=count(temp2022_eng_med, ADII),
          font=t)
 ```
 
+
 ### Engagement B (Medium) - Metro: 2022"
+
 
 ```{r}
 
@@ -2319,7 +2435,9 @@ plot_ly(data=count(temp2022_eng_med, Metro),
 ```
 
 
+
 end of pie charts for Engagement
+
 
 
 ```{r}
@@ -2452,7 +2570,9 @@ axis.line = element_line(colour = "black"))+
   
 ```
 
+
 ### Figure 18. 2021: How well-placed schools believe they are to prevent a situation: pre- vs. post-Part B: self-assessment
+
 
 ```{r}
 
@@ -2493,7 +2613,9 @@ layout(legend = list(orientation = 'h', xanchor = "center",  # use center of leg
          font=t)
 ```
 
+
 ### Figure 19. 2021: How well-placed schools believe they are to respond to a situation: pre- vs. post-Part B: self-assessment
+
 ```{r}
 
 vals= count(pre2021, pre2_status)
@@ -2518,9 +2640,11 @@ layout(legend = list(orientation = 'h', xanchor = "center",  # use center of leg
          font=t)
 ```
 
+
 ---------
 
 ### Figure 18. 2022: How well-placed schools believe they are to prevent a situation: pre- vs. post-Part B: self-assessment
+
 
 ```{r}
 
@@ -2561,7 +2685,9 @@ layout(legend = list(orientation = 'h', xanchor = "center",  # use center of leg
          font=t)
 ```
 
+
 ### Figure 19. 2022: How well-placed schools believe they are to respond to a situation: pre- vs. post-Part B: self-assessment
+
 ```{r}
 
 vals= count(pre2022, pre2_status)
@@ -2586,11 +2712,13 @@ layout(legend = list(orientation = 'h', xanchor = "center",  # use center of leg
          font=t)
 ```
 
+
 --------
 
 
 
 ### 2021: How well-placed schools believe they are to prevent a situation: pre- vs. post-Part B: self-assessment
+
 
 ```{r}
 
@@ -2632,7 +2760,9 @@ layout(legend = list(orientation = 'h', xanchor = "center",  # use center of leg
 
 ```
 
+
 ### 2022: How well-placed schools believe they are to respond to a situation: pre- vs. post-Part B: self-assessment
+
 ```{r}
 
 vals= count(pre2022, pre2_status)
@@ -2659,19 +2789,23 @@ layout(legend = list(orientation = 'h', xanchor = "center",  # use center of leg
 ```
 
 
+
 Figure 20. Comparison of Part A and Part B scores - all schools
 
 Figure 21. two bar charts that include the 2021 vs. 2022 results for the six schools that completed the instrument both years -- by Domain and total for Part A, and by Focus Area and total for Part B. \## Results
 
 \[Repeat charts from 2021 report, but with comparison to 2022 data. So, for example, bar charts would show both 2021 data (striped) next to 2022 data (solid). If charts get too crowded/too hard to read, can present side-by-side or vertically. Test for any statistically significant differences and indicate in chart.\]
 
+
 ```{r f2}
 
 ```
 
+
 The first chart is identical to Fig 10 (Overall Part A results) but just for those six schools -- so compares outcomes in 2021 and 2022
 The second chart is identical to Fig 13 - second version (overall Part B results) but just for those six schools - 2021 vs. 2022
 The third I was hoping you could produce is identical to Fig 17 (but with 2021 and 2022 results combined into a single chart, as specified in my previous email) - but just for those six schools - 2021 vs. 2022
+
 
 ```{r}
 temp2021_same<-data2021[data2021$School %in% c(14, 16, 27, 33, 41, 38), ]
@@ -2773,7 +2907,9 @@ geom_text(aes(label = paste0(round(Mean*100),"%")),
 ```
 
 
+
 The second chart is identical to Fig 13 - second version (overall Part B results) but just for those six schools - 2021 vs. 2022
+
 
 ```{r}
 temp2021_same<-data2021[data2021$School %in% c(14, 16, 27, 33, 41, 38), ]
@@ -2864,6 +3000,7 @@ temp_same_f13n<-rbind(temp2021_same_f13n, temp2022_same_f13n)
 #
 
 ```
+
 ```{r}
 #----- plot - part B
 
@@ -2914,7 +3051,9 @@ geom_text(aes(label = round(Mean)),
           vjust=-0.5)
 ```
 
+
 The third I was hoping you could produce is identical to Fig 17 (but with 2021 and 2022 results combined into a single chart, as specified in my previous email) - but just for those six schools - 2021 vs. 2022
+
 
 ```{r}
 
@@ -2962,5 +3101,4 @@ axis.line.x = element_line(colour = "black"))+
 
 
 ```
-
 
