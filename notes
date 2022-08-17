@@ -41,6 +41,21 @@ fig 17 - remove
  same for part A only for schools who completed in both years
 
 
+ format:
+    docx:
+        toc: true
+        toc-depth: 2
+        toc-title: Table of contents
+        number-sections: true
+        highlight-style: github
+
+
+
+  stat_count(aes(y=..count..,label=..count..),
+             geom="text",
+             position=position_dodge(width=0.5),
+             size = 3,
+             vjust=-0.5)+
 
 
 
