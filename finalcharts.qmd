@@ -163,29 +163,31 @@ data2022<-data2022%>%
 
 **Notes:**
 
-*This is automated, so next time you do this report you just need to swap (=rename) the data file. If a different set of questions is used next time, this can be easily updated in the data dictionary file (data_dic.csv).*
+**This is automated, so next time you do this report you just need to swap (=rename) the data file. If a different set of questions is used next time, this can be easily updated in the data dictionary file (data_dic.csv).*
 
-*Also the text generation can be automated, so if you usually includes the same statistics in the description, these numbers can be drawn directly from data and inserted automatically, so you will just need to review the text*
+*Also the text generation can be automated, so if you usually includes the same statistics in the description, these numbers can be drawn directly from data and inserted automatically, so you will just need to review the text**
 
 
 In the 2022 evaluation, as in the 2021 evaluation, a majority of the participant were government schools. In 2022, 7 of the 12 participating schools were government schools, 4 were Catholic schools, and just 1 was an Independent school.
 
-\*\* Chart notes\*\*:
+*Chart notes*:
 
-`• The font on all of the pie charts is very small -- probably too small for readers to make out. Is it possible to enlarge -- similar to the 2021 report? NOTE that if this takes much time, just leave as is.`
+*• The font on all of the pie charts is very small -- probably too small for readers to make out. Is it possible to enlarge -- similar to the 2021 report? NOTE that if this takes much time, just leave as is.*
 
-I changed the font on Charts to Times New Romans, 14 - this can be adjusted easily, please confirm
+**I changed the font on Charts to Times New Romans, 14 - this can be adjusted easily, please confirm**
 
-`•   I had originally asked for percentages to one decimal point, but given that there are now 0s for each data point, just leave them as whole numbers.  So – 33% (rather than 33.0%)`
+*•   I had originally asked for percentages to one decimal point, but given that there are now 0s for each data point, just leave them as whole numbers.  So – 33% (rather than 33.0%)*
 
-I changed this to integer with proper rounding
+**I changed this to integer with proper rounding**
 
-` • It would also be nice if the legend and the pie pieces matched up, as they do in the 2021 report. So if Government is the first category listed in the legend, reading left to right, the Government pie piece is also on the left. NOTE: if this takes too much time, just leave as is.`
+* It would also be nice if the legend and the pie pieces matched up, as they do in the 2021 report. So if Government is the first category listed in the legend, reading left to right, the Government pie piece is also on the left. NOTE: if this takes too much time, just leave as is.*
 
-done - all pie charts are completely the same orientation as in the 2021 report, including the order of colours on the pie sections.
+**done - all pie charts are completely the same orientation as in the 2021 report, including the order of colours on the pie sections.**
 
 
-### 2021: Participants by sector
+### Participants profile
+
+2021
 
 ```{r}
   
@@ -217,7 +219,7 @@ rotation=180
 
 
 ```
-
+2022
 ```{r}
 
 #2022
@@ -257,6 +259,7 @@ rotation=180
 
 Similar to 2021, in 2022 a large majority of participating schools were primary schools. In the 2022 evaluation, 9 of the 12 participating schools were Primary schools, with 2 combined schools and 1 secondary school. In the 2021 evaluation, more secondary schools than combined schools participated.
 
+2021
 ```{r}
 
 #| label: fig2-type
@@ -288,7 +291,7 @@ rotation=90)%>%
          uniformtext=list(minsize=12, mode='hide'),
          font=t)
 ```
-### 2022 Participants by school type.
+2022
 
 
 ```{r}
@@ -319,12 +322,12 @@ rotation=120)%>%
          font=t)
 
 
-#stopped with rounding
-
 ```
 *Figure 2. Participants by school type*
 
 In both 2021 and 2022, approximately 2/3rds of participating schools were high-SES schools, with the rest approximately evenly divided between medium and low-SES schools.  In 2022, 8 of the 12 participating schools were high SES schools, 2 were medium SES schools, and 2 were low SES schools.
+
+2021
 
 ```{r}
 ### 2021 Participants by SES
@@ -355,7 +358,7 @@ rotation=215)%>%
 
 ```
 
-### 2022 Participants by SES
+2022
 
 ```{r}
 ### 2022 Participants by SES
@@ -390,6 +393,8 @@ rotation=240)%>%
 
 As in 2021, in 2022 a large majority of participating schools were above average on the Australian Digital Inclusion Index.  In 2022, 9 of the 12 participating schools were above average on the ADII, with 2 below average and 1 with an unknown ADII score.
 
+2021
+
 ```{r}
 ### 2021 Participants by ADII
 
@@ -419,6 +424,7 @@ rotation=180)%>%
 
 ```
 
+2022
 
 ```{r}
 ### 2022 Participants by ADII
@@ -454,6 +460,8 @@ rotation=210)%>%
 
 The percentage of metropolitan schools participating in the evaluation increased in 2022, with 9 of the 12 participating schools located in metropolitan areas, and 3 located in non-metropolitan areas.
 
+2021
+
 ```{r}
 ### 2021 Participants by metro / non-metro
 
@@ -480,6 +488,7 @@ text = ~paste(
 
 ```
 
+2022
 ```{r}
 ### 2022 Participants by metro / non-metro
 
@@ -513,7 +522,8 @@ In 2022, schools were asked to respond to two sets of questions about their leve
 Six of the 12 participating schools were characterised as having high engagement on the Engagement A scale and six were characterised as having low engagement.  On the Engagement B scale, three schools were characterised as having high engagement, four as having a medium level of engagement, and five as having low engagement.
 
 
-`Could you change these to a different colour, as these are the colours used for schools sector.  How about light and dark green for Engagement A and light and dark orange for Engagement B?`
+*Could you change these to a different colour, as these are the colours used for schools sector.  How about light and dark green for Engagement A and light and dark orange for Engagement B?* 
+**done**
 
 
 ```{r}
@@ -525,6 +535,7 @@ vals$total_engA_type<-factor(vals$total_engA_type,levels=c("Low","High"))
 plot_ly(data=vals, 
         labels = ~total_engA_type, values = ~n, 
         type = 'pie',
+
   marker = list(colors = cols_engA),
   
 text = ~paste(
@@ -536,14 +547,13 @@ text = ~paste(
   textposition = 'outside',
         name="Engagement A data 2022",
   direction='clockwise',
-  sort =TRUE,
-rotation=0)%>%
+   sort =TRUE,
+rotation=180)%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ",
          uniformtext=list(minsize=12, mode='hide'),
          font=t)
-
 
 ```
 
@@ -2163,13 +2173,14 @@ As can be seen from the figures below, schools were more likely to underestimate
 
 `We’ll need to differentiate between the two questions and between the two years.  Could you please make the first chart (upper left) lighter shades of blue and the third chart (bottom left) darker shades of blue; and then the second chart (upper right) lighter shades of green and the fourth chart (bottom right) darker shades of green?`
 
-*can you please confirm colours referring to item numbers?*
+**can you please confirm colours referring to item numbers?**
 
-`Note that in the link, there are a total of 6 of these charts – 3 for 2021 and 3 for 2022 – with different data.  Which are correct?`
+*Note that in the link, there are a total of 6 of these charts – 
+3 for 2021 and 3 for 2022 – with different data.  Which are correct?`*
 
-`Please exclude from analysis any schools that did not answer both the pre- and post questions.`
+*Please exclude from analysis any schools that did not answer both the pre- and post questions.*
 
-`Same issue with other pie charts – if “No change” comes first in the legend, the “No Change” pie piece should be on the left, for each of comprehension.`
+*Same issue with other pie charts – if “No change” comes first in the legend, the “No Change” pie piece should be on the left, for each of comprehension.*
 
 
 2021: Items 13.1 and 19.1
