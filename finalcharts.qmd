@@ -587,7 +587,7 @@ rotation=90)%>%
 
 
 ```
-*done. Colours are set up at the global level and are linked to specific questions, so any new dataset will also have the same colour way for its charts. In case colours need to be adjusted - it is easily done at the global level *
+**done. Colours are set up at the global level and are linked to specific questions, so any new dataset will also have the same colour way for its charts. In case colours need to be adjusted - it is easily done at the global level **
 
 
 Appendix X includes a copy of the 2022 SAT. 
@@ -606,11 +606,11 @@ This next section of the report provides results for all schools that completed 
 ### Part A Results
 For all participant schools, the median number of action items achieved across the six domains was slightly lower in 2022 than in 2021 – 17 vs. 19 out of a total score of 23.  As in 2021, Catholic schools reported the highest average score (20), followed by Independent schools (17) and government schools (15).
 
-`*Note: *`
+*Note: *
 
-`Need a chart here that combines 2021 and 2022 into a single chart – so bars for 2021 and 2022 are next to each other for Total and by sector (similar to the grey chart 3 charts below this one) – with lighter blue for 2021 govt and this blue for 2022 govt; lighter red for 2021 Catholic and this red for 2022 Catholic; lighter green for 2021 Independent and this green for 2022 Independent; lighter grey for 2021 All schools and this grey for 2022 All schools.  Below is from 2021 only, for reference.`
+*Need a chart here that combines 2021 and 2022 into a single chart – so bars for 2021 and 2022 are next to each other for Total and by sector (similar to the grey chart 3 charts below this one) – with lighter blue for 2021 govt and this blue for 2022 govt; lighter red for 2021 Catholic and this red for 2022 Catholic; lighter green for 2021 Independent and this green for 2022 Independent; lighter grey for 2021 All schools and this grey for 2022 All schools.  Below is from 2021 only, for reference.*
 
-*Done*
+**Done**
 
 ```{r}
 fig8_21<-data2021%>%
@@ -714,12 +714,12 @@ axis.line.x = element_line(colour = "black"))+
 
 The spread of resonses by schools was similar in 2022 and 2021, ranging from a low of 10 (2022) or 11 (2021) to a high of 23 (both years).  Although patterns are more difficult to discern in 2022 with the small sample size, it appears that, similar to the results in 2021, government schools tended to report that they had achieved fewer action items than did Catholic schools.
 
-`*Note*:` 
+*Note*:
 
-`remove last parenthesis at end of titles
-Note: Is it possible to be able to paste in the charts without the titles?  If that’s a pain, just leave as is.`
+*remove last parenthesis at end of titles
+Note: Is it possible to be able to paste in the charts without the titles?  If that’s a pain, just leave as is.*
 
-*titles were removed from this section onwards. Each chart includes a text title to avoid confusion*
+**titles were removed from this section onwards. Each chart includes a text title to avoid confusion**
 
 2021 Part A: number of eSmart action items achieved (out of 23) by sector
 
@@ -796,11 +796,11 @@ axis.line.x = element_line(colour = "black"))+
 The percentage achievement within each Domain for all schools that completed the SAT in 2021 or 2022 is presented below.  In general, levels of achievement were slightly lower in 2022 than in 2021.  As in 2021, highest scores in 2022 were for School plans, policies, and procedures, and A respectful and caring school community.  The largest drop between 2021 and 2022 was in Effective school organisation.  It is possible that COVID had a particularly negative impact on this Domain.
 
 
-`*Note*:`
+*Note*:
 
-`title is cut off`
+*title is cut off*
 
-*Fixed*
+**Fixed**
 
 Part A: average (mean) completion of eSmart action items - all schools by Domain
 
@@ -1035,13 +1035,13 @@ geom_text(aes(label = paste0(round(Mean*100),"%")),
 Examining these results by school sector, we see similar patterns in 2022 and 2021, with the Government schools tending to report lower achievement than the Catholic schools.  In 2022, only one Independent school participated.  
 
 
-`*Note*:` 
+*Note*:
 
-`Title is cut off`
+*Title is cut off*
 
-`Consistency with how categories are displayed.  In this chart, each category is two or  three lines; in the next chart, each is a single line.  I think single line is easier to read.`
+*Consistency with how categories are displayed.  In this chart, each category is two or  three lines; in the next chart, each is a single line.  I think single line is easier to read.*
 
-*Done*
+**Done**
 
 Part A: average (mean) completion of eSmart action items by Domain by sector
 
@@ -1115,8 +1115,8 @@ axis.line.x = element_line(colour = "black"))+
 ```
 Although it appears that in 2022, similar to 2021, secondary schools tended to report higher achievement than the other types of schools, it must be remembered that only one secondary school participated in 2022. 
 
-`Title is cut off`
-*Fixed*
+*Title is cut off*
+**Fixed**
 
 ```{r}
 fig12<-temp%>%
@@ -1208,7 +1208,7 @@ An examination of results by SES shows no consistent patterns in 2022, similar t
 
 In 2022, high SES schools scored relatively highly on the Effective school organisation Domain, medium SES schools on the eSmart Curriculum Domain, and low SES schools on the Respectful and caring school Domain (along with medium SES schools).  Low SES schools reported low scores on the Effective school organisation Domain (along with medium SES schools) and on the eSmart curriculum Domain.
 
-`Title is cut off`
+*Title is cut off*
 *Done*
 
 ```{r}
@@ -1272,8 +1272,8 @@ axis.line.x = element_line(colour = "black"))+
 
 Text here xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-`Title cut off`
-`There are 3 bars in 2022(?).  Please exclude missing data from analysis`
+*Title cut off
+*There are 3 bars in 2022(?).  Please exclude missing data from analysis*
 
 *done*
 
@@ -1343,7 +1343,7 @@ axis.line.x = element_line(colour = "black"))+
 
 In 2022, as in 2021, no consistent pattern emerged by location, with metropolitan schools reporting higher achievement than non-metropolitan schools on some Domains and lower achievement on others.  Non-metropolitan schools reported particularly low achievement on the Domains, Effective school organisation (27%) and Community partnerships (56%), and metropolitan schools reported low achievement on the Domain, eSmart curriculum (51%).  
 
-`Title cut off` *done*
+*Title cut off* *done*
 
 Part A: Average (mean) completion by Domain by Metro 
 
@@ -1468,7 +1468,8 @@ fig_e_A<-temp2022_e%>%
     )%>%
   pivot_longer(names_to="Categories",
                values_to="Mean",
-               cols=!c(1:2))
+               cols=!c(1:1))%>%
+  ungroup()
 
 fig_e_A$Categories<-factor(fig_e_A$Categories,
                             levels=c(
@@ -1482,14 +1483,16 @@ fig_e_A$Categories<-factor(fig_e_A$Categories,
 
 fig_e_A$engA<-factor(fig_e_A$engA,levels=c("Low","High"))
 
-
+fig_e_A%>%
+  ggplot(aes(x=Categories, y= Mean, fill=engA))+
+  geom_col(stat="identity", position= "dodge2")
 
 #----PLOT
 
 fig_e_A%>%
-  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=fct_rev(engA)))+
+  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=engA))+
   geom_col(stat="identity", position= "dodge2")+
-  coord_flip()+
+
 #  facet_wrap(vars(year), scales="free_x")+
 labs(title="",
         x =" ", y = "")+
@@ -1516,6 +1519,7 @@ axis.line.x = element_line(colour = "black"))+
             position = position_dodge(width = .9),
         hjust = - 0.2,
         size=2.75)+
+    coord_flip()+
   scale_fill_manual(values=cols_engA)
 
 ```
@@ -1530,7 +1534,7 @@ fig_e_B<-temp2022_e%>%
     )%>%
   pivot_longer(names_to="Categories",
                values_to="Mean",
-               cols=!c(1:2))
+               cols=!c(1:1))
 
 fig_e_B$Categories<-factor(fig_e_B$Categories,
                             levels=c(
