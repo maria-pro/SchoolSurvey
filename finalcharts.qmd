@@ -49,8 +49,7 @@ addvar<-function(data){
 
 #font settings
 t <- list(
-  family = "Times New Roman",
-  size = 14,
+  size = 18,
   color = 'black')
 
 #----colours setup
@@ -312,7 +311,7 @@ text = ~paste(
         name="Type data 2021",
   direction='clockwise',
   sort =TRUE,
-rotation=90)%>%
+rotation=120)%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ",
@@ -477,7 +476,7 @@ text = ~paste(
                      x = 0.5),
          title=" ",
          uniformtext=list(minsize=12, mode='hide'),
-         font=t)
+         font=t) 
 
 ```
 
@@ -652,7 +651,7 @@ axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
 scale_fill_manual(values=c('#4e81bc','#e32f2a', '#7da52b', '#848484'))+
     scale_alpha_manual(values=c(0.5, 1)) + 
-  scale_y_discrete(limits=c(0, 25), breaks=NULL, expand = expansion(mult = 0.5))+
+  scale_y_discrete(limits=c(0, 25), breaks=NULL, expand = expansion(mult = 0.05))+
 geom_text(aes(label = n), 
           position=position_dodge(width=0.5), 
           
@@ -2212,7 +2211,7 @@ text = ~paste(
   textposition = 'outside',
   direction='clockwise',
   sort =FALSE,
-rotation=180
+rotation=200
 
         )%>%
 layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
@@ -2449,7 +2448,7 @@ axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
     scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
   
-  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, 20), expand = expansion(mult = 0.5))+
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, 20), expand = expansion(mult = 0.1))+
 geom_text(aes(label = paste0(round(Mean*100),"%")), 
           position=position_dodge(width=0.7), 
           size = 2.7,
