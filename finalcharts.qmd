@@ -578,7 +578,7 @@ text = ~paste(
         name="Engagement B data 2022",
   direction='clockwise',
   sort =TRUE,
-rotation=0)%>%
+rotation=90)%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ",
