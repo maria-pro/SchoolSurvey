@@ -94,9 +94,9 @@ cols_SES <- c("#e2a8a8", "#cf4648", "#ab393a")
 
 cols_metro <- c("#755693","#ac9ac0")
 
-cols_engA <- c("#065f24","#6ee696")
+cols_engA <- c("#bdd49b", "#71a600")
 
-cols_engB <- c("#fa492c","#bf4c3a", "#fd8773")
+cols_engB <- c("#ff6800","#fc8b00", "#f8bb83")
 
 ```
 
@@ -528,27 +528,32 @@ Six of the 12 participating schools were characterised as having high engagement
 
 ```{r}
 
-vals= count(data2022, total_engA_type)
+#vals= count(data2022, total_engA_type)
 
-vals$total_engA_type<-factor(vals$total_engA_type,levels=c("Low","High"))
+vals<-data.frame(total_engA_type=c("Low", "High"),
+                 n=c(6, 6)
+                 )
+
+vals$total_engA_type<-factor(vals$total_engA_type,levels=c("Low", "High"))
 
 plot_ly(data=vals, 
-        labels = ~total_engA_type, values = ~n, 
+        labels = ~vals$total_engA_type, values = ~vals$n, 
         type = 'pie',
 
-  marker = list(colors = cols_engA),
+  marker = list(colors = c("#bdd49b", "#71a600")),
   
 text = ~paste(
     "N = ", vals$n, "<br>", 
                  
                   round(n/sum(n)*100, digits = 0)
                    , "%"),
- textinfo = "text",
+textinfo = "text",
   textposition = 'outside',
         name="Engagement A data 2022",
-  direction='clockwise',
-   sort =TRUE,
-rotation=180)%>%
+  direction='counterclockwise',
+   sort =FALSE,
+rotation=180
+)%>%
   layout(legend = list(orientation = 'h', xanchor = "center",  # use center of legend as anchor
                      x = 0.5),
          title=" ",
@@ -590,6 +595,14 @@ rotation=90)%>%
 **done. Colours are set up at the global level and are linked to specific questions, so any new dataset will also have the same colour way for its charts. In case colours need to be adjusted - it is easily done at the global level **
 
 
+**Further changes requested 2:** Done
+
+*Can you please make Low the first category for both charts (with the pie piece corresponding to Low moved to the left side)*
+
+*Eng A – The lighter shade is a bit glaring.  Instead of these shades, could you use the green colours you used in the first chart under Part A –Independent schools?*
+
+*Eng B – Could you make these shades more orange (this is too close to the red used for SES).  How about something like this:*
+
 Appendix X includes a copy of the 2022 SAT. 
 
 ## Results
@@ -611,6 +624,13 @@ For all participant schools, the median number of action items achieved across t
 *Need a chart here that combines 2021 and 2022 into a single chart – so bars for 2021 and 2022 are next to each other for Total and by sector (similar to the grey chart 3 charts below this one) – with lighter blue for 2021 govt and this blue for 2022 govt; lighter red for 2021 Catholic and this red for 2022 Catholic; lighter green for 2021 Independent and this green for 2022 Independent; lighter grey for 2021 All schools and this grey for 2022 All schools.  Below is from 2021 only, for reference.*
 
 **Done**
+
+
+**Changes requested 2**: Please note that the previous version was done EXACTLY following your format. These changes are different from your report to be used as a "model"
+
+*Needs a legend indicating 2021 and 2022*
+*Needs a Y-axis with ticks plus a label – “Number of action items achieved (out of 23)”*
+
 
 ```{r}
 fig8_21<-data2021%>%
@@ -644,24 +664,33 @@ fig8%>%
   ggplot(aes(x=Sector, y=n, fill=Sector, alpha=year))+
   geom_bar(stat='identity', position='dodge', width = 0.5)+
   labs(title=" ",
-        x =" ", y = " ")+
+        x =" ", y = "Number of action items achieved (out of 23) ")+
   theme(
 
-    legend.position="none",
+    legend.position="bottom",
         
 panel.grid.major = element_blank(), 
 panel.grid.minor = element_blank(),
 panel.background = element_blank(),
 
-axis.title.y=element_blank(),
-axis.text.y=element_blank(), 
-axis.ticks.y=element_blank(),
+
+#axis.text.y=element_blank(), 
+#axis.ticks.y=element_blank(),
 
 axis.ticks.x=element_blank(),
-axis.line.x = element_line(colour = "black"))+
+axis.line.x = element_line(colour = "black"),
+axis.line.y = element_line(colour = "black")
+#,
+#axis.ticks.y=element_blank()
+)+
+
 scale_fill_manual(values=c('#4e81bc','#e32f2a', '#7da52b', '#848484'))+
     scale_alpha_manual(values=c(0.5, 1)) + 
-  scale_y_discrete(limits=c(0, 25), breaks=NULL, expand = expansion(mult = 0.05))+
+#  scale_y_discrete(
+#    "Number of action items achieved (out of 23)",
+ #   limits=c(0, 25), 
+#    breaks=c("0.5","1","2"), 
+# expand = expansion(mult = 0.05))+
 geom_text(aes(label = n), 
           position=position_dodge(width=0.5), 
           
@@ -1555,7 +1584,7 @@ fig_e_B$engB<-factor(fig_e_B$engB,
 #----PLOT
 
 fig_e_B%>%
-  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=fct_rev(engB)))+
+  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=engB))+
   geom_col(stat="identity", position= "dodge2")+
   coord_flip()+
 #  facet_wrap(vars(year), scales="free_x")+
@@ -2012,7 +2041,7 @@ fig_e_A_n$engA<-factor(fig_e_A_n$engA,levels=c("Low","High"))
 #----PLOT
 
 fig_e_A_n%>%
-  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=fct_rev(engA)))+
+  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=engA))+
   geom_col(stat="identity", position= "dodge2")+
   coord_flip()+
 #  facet_wrap(vars(year), scales="free_x")+
@@ -2583,7 +2612,7 @@ geom_text(aes(label = round(Mean)),
 temp_same_f13n%>%
   ggplot(aes(x=Categories, y= Mean, fill=year))+
   geom_col(stat="identity", position=position_dodge(), width=0.5)+
-    labs(title="2Part B: results by Focus Area - SAME schools",
+    labs(title="",
         x =" ", y = " Score 0-80")+
     scale_fill_grey(start = 0.8,
   end = 0.2)+
