@@ -1519,7 +1519,7 @@ fig_e_A%>%
 #----PLOT
 
 fig_e_A%>%
-  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=engA))+
+  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=fct_rev(engA)   ))+
   geom_col(stat="identity", position= "dodge2")+
 
 #  facet_wrap(vars(year), scales="free_x")+
@@ -1549,7 +1549,7 @@ axis.line.x = element_line(colour = "black"))+
         hjust = - 0.2,
         size=2.75)+
     coord_flip()+
-  scale_fill_manual(values=cols_engA)
+  scale_fill_manual(breaks = c("Low", "High"), values=cols_engA)
 
 ```
 ```{r}
@@ -1584,7 +1584,7 @@ fig_e_B$engB<-factor(fig_e_B$engB,
 #----PLOT
 
 fig_e_B%>%
-  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=engB))+
+  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=fct_rev(engB) ))+
   geom_col(stat="identity", position= "dodge2")+
   coord_flip()+
 #  facet_wrap(vars(year), scales="free_x")+
@@ -1613,7 +1613,7 @@ axis.line.x = element_line(colour = "black"))+
             position = position_dodge(width = .9),
         hjust = - 0.2,
         size=2.75)+
-  scale_fill_manual(values=cols_engB)
+  scale_fill_manual(breaks = c("Low", "Med", "High"), values=cols_engB)
 
 ```
 
@@ -1670,12 +1670,19 @@ panel.background = element_blank(),
 
 axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
-    scale_x_discrete(labels = function(x) str_wrap(x, width = 10))+
+    scale_x_discrete(
+      labels = 
+                       function(x) str_wrap(c("DATA", "GATEWAY BEHAVIOURS", "REPORTING", "RESPONSE", "SCHOOL CLIMATE*"), width = 10)
+                     
+                     
+                     
+                     )+
   scale_y_continuous(limits = c(0, 90), breaks = seq(0, 80, 20))+
 geom_text(aes(label = round(Mean)), 
           position=position_dodge(width=0.5), 
                       size = 3,
           vjust=-0.5)
+
 
 ```
 
@@ -2134,7 +2141,7 @@ axis.line.x = element_line(colour = "black"))+
             hjust = -0.5,
              size = 2.7,
              position = position_dodge(width = -1))+
-  scale_fill_manual(values=cols_engB)
+  scale_fill_manual(breaks = c("Low", "Med", "High"), values=cols_engB)
 
 ```
 
