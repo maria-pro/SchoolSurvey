@@ -1672,7 +1672,7 @@ axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
     scale_x_discrete(
       labels = 
-                       function(x) str_wrap(c("DATA", "GATEWAY BEHAVIOURS", "REPORTING", "RESPONSE", "SCHOOL CLIMATE*"), width = 10)
+                       function(x) str_wrap(x, width = 10)
                      
                      
                      
@@ -2638,7 +2638,7 @@ panel.background = element_blank(),
 
 axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"))+
-    scale_x_discrete(labels = function(x) str_wrap(x, width = 5))+
+    scale_x_discrete(labels = function(x) str_wrap(c("DATA", "GATEWAY BEHAVIOURS", "REPORTING", "RESPONSE", "SCHOOL CLIMATE*"), width = 5))+
   scale_y_continuous(limits = c(0, 90), breaks = seq(0, 80, 20))+
 geom_text(aes(label = round(Mean)), 
           position=position_dodge(width=0.5), 
