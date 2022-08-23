@@ -96,7 +96,7 @@ cols_metro <- c("#755693","#ac9ac0")
 
 cols_engA <- c("#bdd49b", "#71a600")
 
-cols_engB <- c("#ff6800","#fc8b00", "#f8bb83")
+cols_engB <- c("#ff6800", "#f8bb83", "#fc8b00")
 
 ```
 
@@ -684,8 +684,11 @@ axis.line.y = element_line(colour = "black")
 #axis.ticks.y=element_blank()
 )+
 
-scale_fill_manual(values=c('#4e81bc','#e32f2a', '#7da52b', '#848484'))+
-    scale_alpha_manual(values=c(0.5, 1)) + 
+scale_fill_manual(values=c('#4e81bc','#e32f2a', '#7da52b', '#848484'), guide='none')+
+#    geom_text(fontface="bold",size=3) +
+
+
+scale_alpha_manual(values=c(0.5, 1)) + 
 #  scale_y_discrete(
 #    "Number of action items achieved (out of 23)",
  #   limits=c(0, 25), 
@@ -695,7 +698,9 @@ geom_text(aes(label = n),
           position=position_dodge(width=0.5), 
           
           size = 3,
-          vjust=-0.5)
+          vjust=-0.5)+
+  scale_y_continuous(limits = c(0, 23), breaks = c(0, 5, 10, 15, 20, 23))
+
 ```
 
 
@@ -1613,7 +1618,7 @@ axis.line.x = element_line(colour = "black"))+
             position = position_dodge(width = .9),
         hjust = - 0.2,
         size=2.75)+
-  scale_fill_manual(breaks = c("Low", "Med", "High"), values=cols_engB)
+  scale_fill_manual(breaks = c("Low", "Med", "High"), values=c("#f8bb83", "#fc8b00","#ff6800"))
 
 ```
 
@@ -2048,7 +2053,7 @@ fig_e_A_n$engA<-factor(fig_e_A_n$engA,levels=c("Low","High"))
 #----PLOT
 
 fig_e_A_n%>%
-  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=engA))+
+  ggplot(aes(x=fct_rev(Categories), y= Mean, fill=fct_rev(engA)))+
   geom_col(stat="identity", position= "dodge2")+
   coord_flip()+
 #  facet_wrap(vars(year), scales="free_x")+
@@ -2077,7 +2082,7 @@ axis.line.x = element_line(colour = "black"))+
             position = position_dodge(width = .9),
         hjust = - 0.2,
         size=2.75)+
-  scale_fill_manual(values=cols_engA)
+  scale_fill_manual(breaks=c("Low", "High"), values=cols_engA)
 
 ```
 ```{r}
@@ -2141,7 +2146,7 @@ axis.line.x = element_line(colour = "black"))+
             hjust = -0.5,
              size = 2.7,
              position = position_dodge(width = -1))+
-  scale_fill_manual(breaks = c("Low", "Med", "High"), values=cols_engB)
+  scale_fill_manual(breaks = c("Low", "Med", "High"), values=c("#f8bb83", "#fc8b00","#ff6800"))
 
 ```
 
