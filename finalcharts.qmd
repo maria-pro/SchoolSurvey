@@ -661,13 +661,29 @@ fig8<-rbind(fig8_21, fig8_22)
 fig8$n<-round(fig8$n)
 
 fig8%>%
-  ggplot(aes(x=Sector, y=n, fill=Sector, alpha=year))+
+  ggplot(aes(x=Sector, y=n, fill=interaction (Sector, year)))+
   geom_bar(stat='identity', position='dodge', width = 0.5)+
-  labs(title=" ",
-        x =" ", y = "Number of action items achieved (out of 23) ")+
-  theme(
+  
+  
+ 
+#fig8%>%
+#  ggplot(aes(x=Sector, y=n, fill=Sector, alpha=year))+
+#  geom_bar(stat='identity', position='dodge', width = 0.5)+
+#  labs(title=" ",
+#        x =" ", y = "Number of action items achieved (out of 23) ")+
+
+#  guides(
+ #   fill = guide_none(),
+ #   alpha = guide_legend(
+#      override.aes = list(fill = c(0.7, 1)
+ #     )
+#    )
+#  ) +
+    theme(
 
     legend.position="bottom",
+        legend.title=element_blank(),
+
         
 panel.grid.major = element_blank(), 
 panel.grid.minor = element_blank(),
@@ -684,12 +700,21 @@ axis.line.y = element_line(colour = "black")
 #axis.ticks.y=element_blank()
 )+
 
-scale_fill_manual(values=c('#4e81bc','#e32f2a', '#7da52b', '#848484'), guide='none')+
-#    geom_text(fontface="bold",size=3) +
+scale_fill_manual(values=c('#adc3de','#f19fa0', '#c2d3a1', '#c5c5c5', '#4e81bc','#e32f2a', '#7da52b', '#848484'), 
+                    aesthetics = c("colour", "fill"))+
+
+#, 
+#guide='none')+
+#  scale_alpha_manual(values = c("2021" = .5,
+#                                "2022"=1))
 
 
-scale_alpha_manual(values=c(0.5, 1)) + 
-#  scale_y_discrete(
+
+#scale_alpha_manual(values=c(0.5, 1)) + 
+
+  
+  
+  #  scale_y_discrete(
 #    "Number of action items achieved (out of 23)",
  #   limits=c(0, 25), 
 #    breaks=c("0.5","1","2"), 
