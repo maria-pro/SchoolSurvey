@@ -724,7 +724,7 @@ geom_text(aes(label = n),
           
           size = 3,
           vjust=-0.5)+
-  scale_y_continuous(limits = c(0, 23), breaks = c(0, 5, 10, 15, 20, 23))
+  scale_y_continuous("Number of action items achieved (out of 23)", limits = c(0, 23), breaks = c(0, 5, 10, 15, 20, 23))
 
 ```
 
