@@ -695,13 +695,18 @@ panel.background = element_blank(),
 
 axis.ticks.x=element_blank(),
 axis.line.x = element_line(colour = "black"),
-axis.line.y = element_line(colour = "black")
+axis.line.y = element_line(colour = "white")
 #,
 #axis.ticks.y=element_blank()
 )+
 
-scale_fill_manual(values=c('#adc3de','#f19fa0', '#c2d3a1', '#c5c5c5', '#4e81bc','#e32f2a', '#7da52b', '#848484'), 
-                    aesthetics = c("colour", "fill"))+
+scale_fill_manual(
+labels= c("Government 2021", 
+           "Catholic 2021",
+           "Independent 2021",
+           "All schools 2021",
+           "Government 2022", "Catholic 2022","Independent 2022", "All schools 2022"), 
+  values=c('#adc3de','#f19fa0', '#c2d3a1', '#c5c5c5', '#4e81bc','#e32f2a', '#7da52b', '#848484'))+
 
 #, 
 #guide='none')+
@@ -724,7 +729,8 @@ geom_text(aes(label = n),
           
           size = 3,
           vjust=-0.5)+
-  scale_y_continuous("Number of action items achieved (out of 23)", limits = c(0, 23), breaks = c(0, 5, 10, 15, 20, 23))
+  scale_y_continuous("Number of action items achieved (out of 23)", limits = c(0, 23), breaks = c(0, 5, 10, 15, 20, 23))+
+  guides(fill=guide_legend(nrow=2,byrow=TRUE))
 
 ```
 
